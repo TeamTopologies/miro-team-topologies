@@ -3,15 +3,13 @@ import * as ReactDOM from 'react-dom'
 import {createTeam} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 
-import {TEAM_TYPES, AllTeamTypes, getTeamDnDPreview, getTeamName, getTeamShapeSize} from './const/team-types'
+import {TEAM_TYPES, getTeamDnDPreview, getTeamName, getTeamShapeSize} from './const/team-types'
 
 require('./styles.css')
 const StreamAlignedIcon = require('images/stream-aligned.svg')
 const PlatformIcon = require('images/platform.svg')
 const EnablingIcon = require('images/enabling.svg')
 const ComplicatedSubsystemIcon = require('images/complicated-subsystem.svg')
-
-const HOTSPOT_PREVIEW = `data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E`
 
 type IState = {
   viewMode: string
@@ -46,29 +44,27 @@ class Root extends React.Component {
 
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
-    const dndOptions = []
+    const dndOption = {
+      dragDirection: 'vertical',
+      draggableItemSelector: '.btn-drag-team',
+      getDraggableItemPreview: (targetElement: HTMLElement) => {
+        let teamType = TEAM_TYPES.ComplicatedSubsystem
+        if (targetElement.classList.contains('stream-aligned-btn')) teamType = TEAM_TYPES.StreamAligned
+        else if (targetElement.classList.contains('platform-btn')) teamType = TEAM_TYPES.Platform
+        else if (targetElement.classList.contains('enabling-btn')) teamType = TEAM_TYPES.Enabling
 
-    for (const teamType of AllTeamTypes) {
-      const teamSize = getTeamShapeSize(teamType)
-      dndOptions.push({
-        dragDirection: 'vertical',
-        draggableItemSelector: '.stream-aligned-button',
-        getDraggableItemPreview: () => {
-          return {
-            width: teamSize.width,
-            height: teamSize.height,
-            url: getTeamDnDPreview(teamType),
-            // url: HOTSPOT_PREVIEW,
-          }
-        },
-        onDrop: (canvasX: number, canvasY: number) => {
-          createTeam(TEAM_TYPES.StreamAligned, {x: canvasX, y: canvasY})
-        },
-      })
+        const teamSize = getTeamShapeSize(teamType)
+        return {
+          width: teamSize.width,
+          height: teamSize.height,
+          url: getTeamDnDPreview(teamType),
+        }
+      },
+      onDrop: (canvasX: number, canvasY: number) => {
+        createTeam(TEAM_TYPES.StreamAligned, {x: canvasX, y: canvasY})
+      },
     }
-    dndOptions.map((option) => {
-      miro.board.ui.initDraggableItemsContainer(this.containerRef.current, option)
-    })
+    miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
   }
 
   private createTeam = (teamType: TEAM_TYPES) => {
@@ -79,28 +75,28 @@ class Root extends React.Component {
     const editMode = (
       <div className="edit-mode">
         <div
-          className="btn stream-aligned-button"
+          className="btn btn-drag-team stream-aligned-btn"
           title={getTeamName(TEAM_TYPES.StreamAligned)}
           onClick={() => this.createTeam(TEAM_TYPES.StreamAligned)}
         >
           <SVG className="icon" src={StreamAlignedIcon} />
         </div>
         <div
-          className="btn platform-button"
+          className="btn btn-drag-team platform-btn"
           title={getTeamName(TEAM_TYPES.Platform)}
           onClick={() => this.createTeam(TEAM_TYPES.Platform)}
         >
           <SVG className="icon" src={PlatformIcon} />
         </div>
         <div
-          className="btn enabling-button"
+          className="btn btn-drag-team enabling-btn"
           title={getTeamName(TEAM_TYPES.Enabling)}
           onClick={() => this.createTeam(TEAM_TYPES.Enabling)}
         >
           <SVG className="icon" src={EnablingIcon} />
         </div>
         <div
-          className="btn complicated-subsystem-button"
+          className="btn btn-drag-team complicated-subsystem-btn"
           title={getTeamName(TEAM_TYPES.ComplicatedSubsystem)}
           onClick={() => this.createTeam(TEAM_TYPES.ComplicatedSubsystem)}
         >
