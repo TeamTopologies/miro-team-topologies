@@ -3,7 +3,13 @@ import * as ReactDOM from 'react-dom'
 import {createTeam} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 
-import {TEAM_TYPES, getTeamDnDPreview, getTeamName, getTeamShapeSize} from './const/team-types'
+import {
+  TEAM_TYPES,
+  getTeamDnDPreview,
+  getTeamName,
+  getTeamTypeFromClassList,
+  getTeamShapeSize,
+} from './const/team-types'
 
 require('./styles.css')
 const StreamAlignedIcon = require('images/stream-aligned.svg')
@@ -48,11 +54,7 @@ class Root extends React.Component {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        let teamType = TEAM_TYPES.ComplicatedSubsystem
-        if (targetElement.classList.contains('stream-aligned-btn')) teamType = TEAM_TYPES.StreamAligned
-        else if (targetElement.classList.contains('platform-btn')) teamType = TEAM_TYPES.Platform
-        else if (targetElement.classList.contains('enabling-btn')) teamType = TEAM_TYPES.Enabling
-
+        const teamType = getTeamTypeFromClassList(targetElement.classList)
         const teamSize = getTeamShapeSize(teamType)
         return {
           width: teamSize.width,
@@ -60,8 +62,8 @@ class Root extends React.Component {
           url: getTeamDnDPreview(teamType),
         }
       },
-      onDrop: (canvasX: number, canvasY: number) => {
-        createTeam(TEAM_TYPES.StreamAligned, {x: canvasX, y: canvasY})
+      onDrop: (canvasX: number, canvasY: number, targetElement: HTMLElement) => {
+        createTeam(getTeamTypeFromClassList(targetElement.classList), {x: canvasX, y: canvasY})
       },
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
