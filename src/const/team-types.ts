@@ -128,21 +128,21 @@ export function getTeamName(teamType: TEAM_TYPES): string {
 }
 
 export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: number} {
-  let height = 300
-  let width = 300
+  let height = 150
+  let width = 150
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
     case TEAM_TYPES.Platform:
-      height = 133
-      width = 906
+      height = 65
+      width = 450
       break
     case TEAM_TYPES.Enabling:
-      height = 244
-      width = 190
+      height = 120
+      width = 95
       break
     case TEAM_TYPES.ComplicatedSubsystem:
-      height = 194
-      width = 323
+      height = 100
+      width = 160
       break
   }
   return {width, height}
