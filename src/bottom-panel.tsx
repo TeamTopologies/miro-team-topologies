@@ -12,10 +12,10 @@ import {
 } from './const/team-types'
 
 require('./styles.css')
-const StreamAlignedIcon = require('images/stream-aligned.svg')
-const PlatformIcon = require('images/platform.svg')
-const EnablingIcon = require('images/enabling.svg')
-const ComplicatedSubsystemIcon = require('images/complicated-subsystem.svg')
+const StreamAlignedIcon = require('images/tt/icon-stream-aligned.svg')
+const PlatformIcon = require('images/tt/icon-platform.svg')
+const EnablingIcon = require('images/tt/icon-enabling.svg')
+const ComplicatedSubsystemIcon = require('images/tt/icon-complicated-subsystem.svg')
 
 type IState = {
   viewMode: string

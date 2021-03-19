@@ -1,4 +1,7 @@
-const PlatformIcon = require('images/platform.svg')
+const PlatformPreview = require('images/tt/platform.svg')
+const EnablingPreview = require('images/tt/enabling.svg')
+const StreamAlignedPreview = require('images/tt/stream-aligned.svg')
+const ComplicatedSubsystemPreview = require('images/tt/complicated-subsystem.svg')
 
 export enum TEAM_TYPES {
   StreamAligned = 0,
@@ -157,17 +160,16 @@ export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: 
 }
 
 export function getTeamDnDPreview(teamType: TEAM_TYPES): string {
+  const imgPrefix = 'data:image/svg+xml,'
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
-      return `data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E`
+      return imgPrefix + StreamAlignedPreview
     case TEAM_TYPES.Enabling:
-      return PlatformIcon
+      return imgPrefix + EnablingPreview
     case TEAM_TYPES.Platform:
-      return `data:image/svg+xml,` + PlatformIcon
+      return imgPrefix + PlatformPreview
     case TEAM_TYPES.ComplicatedSubsystem:
-      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'  fill-opacity='0.5' %3E
-        %3Cpath fill='%23FFC08B' stroke='%23E88814' stroke-width='2' d='M3,6 L3,18 L6,21 L18,21 L21,18 L21,6 L18,3 L6,3 Z' /%3E
-        %3C/svg%3E`
+      return imgPrefix + ComplicatedSubsystemPreview
   }
 }
 
