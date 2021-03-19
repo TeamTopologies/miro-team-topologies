@@ -13,7 +13,7 @@ import {
   isHotspotWidget,
   onCommentCreated,
 } from 'bottom-panel-controller'
-import {createHotspot} from 'bottom-panel-controller'
+import {createTeam} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 import {PLAY_WIDTH} from 'config'
 
