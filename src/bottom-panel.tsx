@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import {createTeam} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 
-import {TEAM_TYPES, getTeamName} from './const/team-types'
+import {TEAM_TYPES, AllTeamTypes, getTeamDnDPreview, getTeamName, getTeamShapeSize} from './const/team-types'
 
 require('./styles.css')
 const StreamAlignedIcon = require('images/stream-aligned.svg')
@@ -46,21 +46,29 @@ class Root extends React.Component {
 
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
-    const options = {
-      dragDirection: 'vertical',
-      draggableItemSelector: '.stream-aligned-button',
-      getDraggableItemPreview: () => {
-        return {
-          width: 152,
-          height: 66,
-          url: HOTSPOT_PREVIEW,
-        }
-      },
-      onDrop: (canvasX: number, canvasY: number) => {
-        createTeam(TEAM_TYPES.StreamAligned, {x: canvasX, y: canvasY})
-      },
+    const dndOptions = []
+
+    for (const teamType of AllTeamTypes) {
+      const teamSize = getTeamShapeSize(teamType)
+      dndOptions.push({
+        dragDirection: 'vertical',
+        draggableItemSelector: '.stream-aligned-button',
+        getDraggableItemPreview: () => {
+          return {
+            width: teamSize.width,
+            height: teamSize.height,
+            url: getTeamDnDPreview(teamType),
+            // url: HOTSPOT_PREVIEW,
+          }
+        },
+        onDrop: (canvasX: number, canvasY: number) => {
+          createTeam(TEAM_TYPES.StreamAligned, {x: canvasX, y: canvasY})
+        },
+      })
     }
-    miro.board.ui.initDraggableItemsContainer(this.containerRef.current, options)
+    dndOptions.map((option) => {
+      miro.board.ui.initDraggableItemsContainer(this.containerRef.current, option)
+    })
   }
 
   private createTeam = (teamType: TEAM_TYPES) => {
