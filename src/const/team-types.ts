@@ -153,7 +153,7 @@ export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: 
       break
     case TEAM_TYPES.ComplicatedSubsystem:
       height = 120
-      width = 180
+      width = 200
       break
   }
   return {width, height}
