@@ -9,7 +9,7 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
   <path fill="#59FBE3" d="M40,22.8v5.7h-9.2c-6.7,0-12.1,5.4-12.1,12.1V10.7h9.2C34.6,10.7,40,16.1,40,22.8z" />
   <path fill="#F2195C" d="M66.4,28.5v9.2c0,6.7-6,12.1-13.4,12.1h-7.9v-9.2c0-6.7,6.1-12.1,13.5-12.1H66.4z" />
 </g>
-</svg>`;
+</svg>`
 
 miro.onReady(async () => {
   miro.initialize({
@@ -23,7 +23,7 @@ miro.onReady(async () => {
             title: 'Team Topologies',
             svgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openBottomPanel('bottom-panel.html', {width: EDIT_WIDTH})
+              miro.board.ui.openBottomPanel('miro-team-topologies/bottom-panel.html', {width: EDIT_WIDTH})
             },
           }
         }
@@ -31,7 +31,7 @@ miro.onReady(async () => {
     },
   })
 
-  // // Opens bottom-panel if URL contain runPrototyping param + set runtimeState 
+  // // Opens bottom-panel if URL contain runPrototyping param + set runtimeState
   // const params = await miro.board.__getParamsFromURL()
   // if (params.runPrototyping) {
   //   miro.showNotification('Enter prototyping mode...')
