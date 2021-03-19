@@ -1,5 +1,5 @@
 import {CLIENT_ID} from 'config'
-import {TEAM_TYPES} from './const/team-types'
+import {TEAM_TYPES, getTeamStyle, getTeamName, getTeamShapeSize} from './const/team-types'
 
 export function findStartHotspot(shapes: SDK.IWidget[]): SDK.IWidget | undefined {
   return shapes.find((shape) => shape.metadata[CLIENT_ID] && shape.metadata[CLIENT_ID].startHotspot)
@@ -233,29 +233,13 @@ export async function createStartHotspot() {
 }
 
 export async function createTeam(teamType: TEAM_TYPES, pos?: {x: number; y: number}) {
-  const width = 304
-  const height = 132
+  const teamShapeSize = getTeamShapeSize(teamType)
   if (!pos) {
     const viewport = await miro.board.viewport.getViewport()
     pos = {
-      x: viewport.x + viewport.width / 2 - width / 2,
-      y: viewport.y + viewport.height / 2 - height / 2,
+      x: viewport.x + viewport.width / 2 - teamShapeSize.width / 2,
+      y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2,
     }
-  }
-  let bgColor = '#2d9bf0'
-  switch (teamType) {
-    case TEAM_TYPES.StreamAligned:
-      bgColor = '#F00'
-      break
-    case TEAM_TYPES.Platform:
-      bgColor = '#0F0'
-      break
-    case TEAM_TYPES.Enabling:
-      bgColor = '#00F'
-      break
-    case TEAM_TYPES.ComplicatedSubsystem:
-      bgColor = '#0FF'
-      break
   }
 
   await miro.board.widgets.create({
@@ -267,31 +251,13 @@ export async function createTeam(teamType: TEAM_TYPES, pos?: {x: number; y: numb
     type: 'SHAPE',
     x: pos.x,
     y: pos.y,
-    style: {
-      shapeType: 3,
-      backgroundColor: bgColor,
-      backgroundOpacity: 0.8,
-      borderColor: 'black',
-      borderWidth: 2,
-      borderOpacity: 1,
-      borderStyle: 2,
-      fontFamily: 10,
-      textColor: '#1a1a1a',
-      textAlign: 'c',
-      textAlignVertical: 'm',
-      fontSize: 17,
-      bold: 0,
-      italic: 0,
-      underline: 0,
-      strike: 0,
-      highlighting: '',
-    },
+    style: getTeamStyle(teamType),
     createdUserId: '',
     lastModifiedUserId: '',
-    width: width,
-    height: height,
+    width: teamShapeSize.width,
+    height: teamShapeSize.height,
     rotation: 0,
-    text: '',
+    text: getTeamName(teamType),
   } as any)
 }
 

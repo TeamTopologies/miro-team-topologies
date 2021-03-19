@@ -17,7 +17,7 @@ import {createTeam} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 import {PLAY_WIDTH} from 'config'
 
-import {TEAM_TYPES} from './const/team-types'
+import {TEAM_TYPES, getTeamName} from './const/team-types'
 
 require('./styles.css')
 const SquareIcon = require('images/square.svg')
@@ -166,24 +166,33 @@ class Root extends React.Component {
   render() {
     const editMode = (
       <div className="edit-mode">
-        <div className="btn stream-aligned-button" onClick={() => this.createTeam(TEAM_TYPES.StreamAligned)}>
+        <div
+          className="btn stream-aligned-button"
+          title={getTeamName(TEAM_TYPES.StreamAligned)}
+          onClick={() => this.createTeam(TEAM_TYPES.StreamAligned)}
+        >
           <SVG className="icon" src={SquareIcon} />
-          <span>Stream Aligned</span>
         </div>
-        <div className="btn platform-button" onClick={() => this.createTeam(TEAM_TYPES.Platform)}>
+        <div
+          className="btn platform-button"
+          title={getTeamName(TEAM_TYPES.Platform)}
+          onClick={() => this.createTeam(TEAM_TYPES.Platform)}
+        >
           <SVG className="icon" src={SquareIcon} />
-          <span>Platform</span>
         </div>
-        <div className="btn enabling-button" onClick={() => this.createTeam(TEAM_TYPES.Enabling)}>
+        <div
+          className="btn enabling-button"
+          title={getTeamName(TEAM_TYPES.Enabling)}
+          onClick={() => this.createTeam(TEAM_TYPES.Enabling)}
+        >
           <SVG className="icon" src={SquareIcon} />
-          <span>Enabling</span>
         </div>
         <div
           className="btn complicated-subsystem-button"
+          title={getTeamName(TEAM_TYPES.ComplicatedSubsystem)}
           onClick={() => this.createTeam(TEAM_TYPES.ComplicatedSubsystem)}
         >
           <SVG className="icon" src={SquareIcon} />
-          <span>Complicated Subsystem</span>
         </div>
       </div>
     )
