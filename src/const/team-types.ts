@@ -5,7 +5,27 @@ export enum TEAM_TYPES {
   ComplicatedSubsystem,
 }
 
-export function getTeamStyle(teamType: TEAM_TYPES) {
+export function getTeamStyle(
+  teamType: TEAM_TYPES,
+): {
+  shapeType: number
+  backgroundColor: string
+  backgroundOpacity: number
+  borderColor: string
+  borderWidth: number
+  borderOpacity: number
+  borderStyle: number
+  fontFamily: number
+  textColor: string
+  textAlign: string
+  textAlignVertical: string
+  fontSize: number
+  bold: number
+  italic: number
+  underline: number
+  strike: number
+  highlighting: string
+} {
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
       return {
@@ -17,7 +37,7 @@ export function getTeamStyle(teamType: TEAM_TYPES) {
         borderOpacity: 1,
         borderStyle: 2,
         fontFamily: 10,
-        textColor: 'black',
+        textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
         fontSize: 17,
@@ -37,7 +57,7 @@ export function getTeamStyle(teamType: TEAM_TYPES) {
         borderOpacity: 1,
         borderStyle: 2,
         fontFamily: 10,
-        textColor: 'black',
+        textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
         fontSize: 17,
@@ -58,7 +78,7 @@ export function getTeamStyle(teamType: TEAM_TYPES) {
         borderOpacity: 1,
         borderStyle: 2,
         fontFamily: 10,
-        textColor: 'black',
+        textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
         fontSize: 17,
@@ -79,7 +99,7 @@ export function getTeamStyle(teamType: TEAM_TYPES) {
         borderOpacity: 1,
         borderStyle: 2,
         fontFamily: 10,
-        textColor: 'black',
+        textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
         fontSize: 17,
@@ -89,12 +109,10 @@ export function getTeamStyle(teamType: TEAM_TYPES) {
         strike: 0,
         highlighting: '',
       }
-    default:
-      return {}
   }
 }
 
-export function getTeamName(teamType: TEAM_TYPES) {
+export function getTeamName(teamType: TEAM_TYPES): string {
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
       return 'Stream-aligned team'
@@ -109,7 +127,7 @@ export function getTeamName(teamType: TEAM_TYPES) {
   }
 }
 
-export function getTeamShapeSize(teamType: TEAM_TYPES) {
+export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: number} {
   let height = 300
   let width = 300
   switch (teamType) {
@@ -120,7 +138,7 @@ export function getTeamShapeSize(teamType: TEAM_TYPES) {
       break
     case TEAM_TYPES.Enabling:
       height = 244
-      width = 19
+      width = 190
       break
     case TEAM_TYPES.ComplicatedSubsystem:
       height = 194
