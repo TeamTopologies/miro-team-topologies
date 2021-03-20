@@ -26,6 +26,7 @@ type IState = {
 
 class Root extends React.Component {
   private containerRef: any = React.createRef()
+  private viewportScale = 1
 
   state: IState = {
     viewMode: 'loading', //edit, play, select-start-screen
@@ -47,24 +48,27 @@ class Root extends React.Component {
       this.setState({viewMode: 'edit'})
     }
   }
-
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
     const dndOption = {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
-      getDraggableItemPreview: async (targetElement: HTMLElement) => {
-        let viewportScale = 0
-        console.log('ASYNC On going.........')
+      onclick: () => {
+        miro.board.viewport.getScale().then((scale) => {
+          this.viewportScale = scale
+        })
+      },
+      getDraggableItemPreview: (targetElement: HTMLElement) => {
+        
+        console.log('ONCLOCK TEST')
 
-        viewportScale = 4 // miro.board.viewport.getScale().then((scale) => {
-        console.log('RESULT: ' + viewportScale)
+        console.log('RESULT: ' + this.viewportScale)
         const teamType = getTeamTypeFromClassList(targetElement.classList)
         const teamSize = getTeamShapeSize(teamType)
 
         return {
-          width: viewportScale * teamSize.width,
-          height: viewportScale * teamSize.height,
+          width: this.viewportScale * teamSize.width,
+          height: this.viewportScale * teamSize.height,
           url: getTeamDnDPreview(teamType),
         }
       },
