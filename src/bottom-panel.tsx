@@ -54,15 +54,20 @@ class Root extends React.Component {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        const viewportScale = 3 //await miro.board.viewport.getScale()
-        console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+        let viewportScale = 0
+        miro.board.viewport.getScale().then((scale) => {
+          viewportScale = scale
+        })
+        while (viewportScale == 0) {
+          console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+        }
 
         const teamType = getTeamTypeFromClassList(targetElement.classList)
         const teamSize = getTeamShapeSize(teamType)
 
         return {
-          width: viewportScale * teamSize.width, // Number.parseInt((viewportScale * teamSize.width).toString()),
-          height: Number.parseInt((viewportScale * teamSize.height).toString()),
+          width: viewportScale * teamSize.width,
+          height: viewportScale * teamSize.height,
           url: getTeamDnDPreview(teamType),
         }
       },
