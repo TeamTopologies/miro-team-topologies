@@ -59,7 +59,7 @@ class Root extends React.Component {
 
         return await miro.board.viewport.getScale().then((scale) => {
           viewportScale = scale
-          console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+          console.log('RESULT: ' + viewportScale)
           const teamType = getTeamTypeFromClassList(targetElement.classList)
           const teamSize = getTeamShapeSize(teamType)
           return {
