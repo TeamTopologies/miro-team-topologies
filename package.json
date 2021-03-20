@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "del dist",
     "build": "SET NODE_ENV=production; webpack",
+    "dev": "SET NODE_ENV=development; webpack",
     "watch": "SET NODE_ENV=development; webpack -w"
   },
   "license": "MIT",
