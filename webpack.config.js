@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     index: './src/index.ts',
     'bottom-panel': './src/bottom-panel.tsx',
+    'content-panel': './src/content-panel.tsx',
   },
   module: {
     rules: [
