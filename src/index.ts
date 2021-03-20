@@ -14,6 +14,15 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
 miro.onReady(async () => {
   miro.initialize({
     extensionPoints: {
+      getWidgetMenuItems: () => {
+        return Promise.resolve({
+          tooltip: 'Team Topologies',
+          svgIcon: icon24,
+          onClick: (widgets: HTMLElement) => {
+            console.log('onClick', widgets)
+          },
+        })
+      },
       bottomBar: async () => {
         const permissions = await miro.currentUser.getCurrentBoardPermissions()
         const canEdit = permissions.findIndex((p) => p === 'EDIT_CONTENT') !== -1
@@ -27,15 +36,6 @@ miro.onReady(async () => {
             },
           }
         }
-      },
-      getWidgetMenuItems: () => {
-        return Promise.resolve({
-          tooltip: 'Team Topologies',
-          svgIcon: icon24,
-          onClick: (widgets: HTMLElement) => {
-            console.log('onClick', widgets)
-          },
-        })
       },
     },
   })
