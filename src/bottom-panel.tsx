@@ -59,7 +59,9 @@ class Root extends React.Component {
           viewportScale = scale
         })
         while (viewportScale == 0) {
-          console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+          setTimeout(() => {
+            console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+          }, 50)
         }
 
         const teamType = getTeamTypeFromClassList(targetElement.classList)
