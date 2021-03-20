@@ -56,10 +56,10 @@ class Root extends React.Component {
       onclick: () => {
         miro.board.viewport.getScale().then((scale) => {
           this.viewportScale = scale
+          console.log('Scale:' + scale)
         })
       },
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        
         console.log('ONCLOCK TEST')
 
         console.log('RESULT: ' + this.viewportScale)
