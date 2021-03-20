@@ -120,5 +120,5 @@ class Root extends React.Component {
 }
 
 miro.onReady(() => {
-  ReactDOM.render(<Root />, document.getElementById('react-app'))
+  ReactDOM.render(<Root />, document.getElementById('bottom-react-app'))
 })
