@@ -54,7 +54,7 @@ class Root extends React.Component {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
       getDraggableItemPreview: async (targetElement: HTMLElement) => {
-        const viewportScale = await miro.board.viewport.getScale()
+        const viewportScale = 1.2 // await miro.board.viewport.getScale()
         console.log('THIS SHOULD BE AFTER: ' + viewportScale)
 
         const teamType = getTeamTypeFromClassList(targetElement.classList)
