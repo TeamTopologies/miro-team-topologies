@@ -53,7 +53,7 @@ class Root extends React.Component {
     const dndOption = {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
-      getDraggableItemPreview: async (targetElement: HTMLElement) => {
+      getDraggableItemPreview: (targetElement: HTMLElement) => {
         const viewportScale = 1.2 // await miro.board.viewport.getScale()
         console.log('THIS SHOULD BE AFTER: ' + viewportScale)
 
