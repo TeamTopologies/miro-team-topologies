@@ -57,21 +57,15 @@ class Root extends React.Component {
         let viewportScale = 0
         miro.board.viewport.getScale().then((scale) => {
           viewportScale = scale
+          console.log('THIS SHOULD BE AFTER: ' + viewportScale)
+          const teamType = getTeamTypeFromClassList(targetElement.classList)
+          const teamSize = getTeamShapeSize(teamType)
+          return {
+            width: viewportScale * teamSize.width,
+            height: viewportScale * teamSize.height,
+            url: getTeamDnDPreview(teamType),
+          }
         })
-        while (viewportScale == 0) {
-          setTimeout(() => {
-            console.log('THIS SHOULD BE AFTER: ' + viewportScale)
-          }, 50)
-        }
-
-        const teamType = getTeamTypeFromClassList(targetElement.classList)
-        const teamSize = getTeamShapeSize(teamType)
-
-        return {
-          width: viewportScale * teamSize.width,
-          height: viewportScale * teamSize.height,
-          url: getTeamDnDPreview(teamType),
-        }
       },
       onDrop: (canvasX: number, canvasY: number, targetElement: HTMLElement) => {
         createTeam(getTeamTypeFromClassList(targetElement.classList), {x: canvasX, y: canvasY})
