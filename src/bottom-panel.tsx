@@ -55,7 +55,7 @@ class Root extends React.Component {
       draggableItemSelector: '.btn-drag-team',
       getDraggableItemPreview: async (targetElement: HTMLElement) => {
         let viewportScale = 0
-        console.log('On going...!!')
+        console.log('On going.........')
 
         return Promise.resolve(
           miro.board.viewport.getScale().then((scale) => {
