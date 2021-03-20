@@ -28,6 +28,15 @@ miro.onReady(async () => {
           }
         }
       },
+      getWidgetMenuItems: () => {
+        return Promise.resolve({
+          tooltip: 'Team Topologies',
+          svgIcon: icon24,
+          onClick: (widgets: HTMLElement) => {
+            console.log('onClick', widgets)
+          },
+        })
+      },
     },
   })
 
