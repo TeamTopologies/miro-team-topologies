@@ -64,6 +64,10 @@ class Root extends React.Component {
       getDraggableItemPreview: (targetElement: HTMLElement) => {
         console.log('ONCLOCK TEST')
 
+        miro.board.viewport.getScale().then((scale) => {
+          this.viewportScale = scale
+          console.log('Scale:' + scale)
+        })
         console.log('RESULT: ' + this.viewportScale)
         const teamType = getTeamTypeFromClassList(targetElement.classList)
         const teamSize = getTeamShapeSize(teamType)
