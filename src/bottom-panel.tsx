@@ -35,6 +35,13 @@ class Root extends React.Component {
     screenIndex: 0,
   }
 
+  updateCurrentScale = () => {
+    miro.board.viewport.getScale().then((scale) => {
+      this.viewportScale = scale
+      console.log('Scale:' + scale)
+    })
+  }
+
   // TODO: TO BE UPDATED Set state based on miro-state before comp. mount.
   // eslint-disable-next-line
   async componentWillMount() {
@@ -53,28 +60,14 @@ class Root extends React.Component {
     const dndOption = {
       dragDirection: 'vertical',
       draggableItemSelector: '.btn-drag-team',
-      onClick: () => {
-        console.log('Onclick fired!')
-
-        miro.board.viewport.getScale().then((scale) => {
-          this.viewportScale = scale
-          console.log('Scale:' + scale)
-        })
-      },
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        console.log('ONCLOCK TEST')
-
-        miro.board.viewport.getScale().then((scale) => {
-          this.viewportScale = scale
-          console.log('Scale:' + scale)
-        })
-        console.log('RESULT: ' + this.viewportScale)
+        console.log('Used scale: ' + this.viewportScale)
         const teamType = getTeamTypeFromClassList(targetElement.classList)
         const teamSize = getTeamShapeSize(teamType)
 
         return {
-          width: this.viewportScale * teamSize.width,
-          height: this.viewportScale * teamSize.height,
+          width: 1.3 * this.viewportScale * teamSize.width,
+          height: 1.3 * this.viewportScale * teamSize.height,
           url: getTeamDnDPreview(teamType),
         }
       },
@@ -91,7 +84,7 @@ class Root extends React.Component {
 
   render() {
     const editMode = (
-      <div className="edit-mode">
+      <div className="edit-mode" onMouseEnter={this.updateCurrentScale}>
         <div
           className="btn btn-drag-team stream-aligned-btn"
           title={getTeamName(TEAM_TYPES.StreamAligned)}

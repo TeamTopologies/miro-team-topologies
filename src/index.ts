@@ -19,11 +19,11 @@ miro.onReady(async () => {
           tooltip: 'Team Topologies',
           svgIcon: icon24,
           onClick: (widgets: HTMLElement) => {
-            console.log('onClick', widgets)
+            alert('Todo: Show details about this team/interaction.')
           },
         })
       },
-      bottomBar: async () => {
+      toolbar: async () => {
         const permissions = await miro.currentUser.getCurrentBoardPermissions()
         const canEdit = permissions.findIndex((p) => p === 'EDIT_CONTENT') !== -1
         const authorized = await miro.isAuthorized()
@@ -31,8 +31,10 @@ miro.onReady(async () => {
           return {
             title: 'Team Topologies',
             svgIcon: icon24,
+            librarySvgIcon: icon24,
+            toolbarSvgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openBottomPanel('miro-team-topologies/bottom-panel.html', {width: EDIT_WIDTH})
+              miro.board.ui.openBottomPanel('bottom-panel.html', {width: EDIT_WIDTH})
             },
           }
         }
