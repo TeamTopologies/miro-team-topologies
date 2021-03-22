@@ -19,7 +19,7 @@ miro.onReady(async () => {
           tooltip: 'Team Topologies',
           svgIcon: icon24,
           onClick: (widgets: HTMLElement) => {
-            alert('Todo: Show details about this team/interaction.')
+            miro.board.ui.openLeftSidebar('details-panel.html')
           },
         })
       },
@@ -34,7 +34,7 @@ miro.onReady(async () => {
             librarySvgIcon: icon24,
             toolbarSvgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openBottomPanel('bottom-panel.html', {width: EDIT_WIDTH})
+              miro.board.ui.openLibrary('content-panel.html', {title: 'Team Topologies'}) // {width: EDIT_WIDTH}
             },
           }
         }

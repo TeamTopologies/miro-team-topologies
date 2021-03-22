@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import {createTeam} from 'bottom-panel-controller'
+import {createTeam} from 'content-panel-controller'
 import SVG from 'react-inlinesvg'
 
 import {
@@ -35,6 +35,7 @@ class Root extends React.Component {
     screenIndex: 0,
   }
 
+  // Needed to get scale before previewing drag&drop. As D&D callback is not async.
   updateCurrentScale = () => {
     miro.board.viewport.getScale().then((scale) => {
       this.viewportScale = scale
@@ -59,7 +60,7 @@ class Root extends React.Component {
     // Add drag-and-drop for hotspot
     const dndOption = {
       dragDirection: 'vertical',
-      draggableItemSelector: '.btn-drag-team',
+      draggableItemSelector: '.draggable-team',
       getDraggableItemPreview: (targetElement: HTMLElement) => {
         console.log('Used scale: ' + this.viewportScale)
         const teamType = getTeamTypeFromClassList(targetElement.classList)
@@ -84,30 +85,30 @@ class Root extends React.Component {
 
   render() {
     const editMode = (
-      <div className="edit-mode" onMouseEnter={this.updateCurrentScale}>
+      <div className="team-types" onMouseEnter={this.updateCurrentScale}>
         <div
-          className="btn btn-drag-team stream-aligned-btn"
+          className="draggable-team stream-aligned-btn"
           title={getTeamName(TEAM_TYPES.StreamAligned)}
           onClick={() => this.createTeam(TEAM_TYPES.StreamAligned)}
         >
           <SVG className="icon" src={StreamAlignedIcon} />
         </div>
         <div
-          className="btn btn-drag-team platform-btn"
+          className="draggable-team platform-btn"
           title={getTeamName(TEAM_TYPES.Platform)}
           onClick={() => this.createTeam(TEAM_TYPES.Platform)}
         >
           <SVG className="icon" src={PlatformIcon} />
         </div>
         <div
-          className="btn btn-drag-team enabling-btn"
+          className="draggable-team enabling-btn"
           title={getTeamName(TEAM_TYPES.Enabling)}
           onClick={() => this.createTeam(TEAM_TYPES.Enabling)}
         >
           <SVG className="icon" src={EnablingIcon} />
         </div>
         <div
-          className="btn btn-drag-team complicated-subsystem-btn"
+          className="draggable-team complicated-subsystem-btn"
           title={getTeamName(TEAM_TYPES.ComplicatedSubsystem)}
           onClick={() => this.createTeam(TEAM_TYPES.ComplicatedSubsystem)}
         >
@@ -129,5 +130,5 @@ class Root extends React.Component {
 }
 
 miro.onReady(() => {
-  ReactDOM.render(<Root />, document.getElementById('bottom-react-app'))
+  ReactDOM.render(<Root />, document.getElementById('content-panel-react-app'))
 })

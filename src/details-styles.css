@@ -1,0 +1,14 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  color: #09043c;
+  font: 14px OpenSans, Arial, Helvetica, sans-serif;
+}
+
+* {
+  user-select: none;
+}

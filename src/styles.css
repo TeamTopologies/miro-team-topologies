@@ -13,82 +13,35 @@ body {
   user-select: none;
 }
 
-#react-app {
-  height: 100%;
-}
-
-.edit-mode {
-  display: flex;
-}
-
-.select-start-screen {
-  display: flex;
-  height: 48px;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-}
-
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
 }
 
-.btn {
-  height: 48px;
+#content-panel-react-app {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: normal;
+  box-sizing: border-box;
+}
+
+.team-types,
+.team-interactions {
+  display: flex;
+  justify-content: space-around;
+  align-items: normal;
+}
+
+.draggable-team {
   cursor: pointer;
+  font-size: 18px;
+  font-family: sans-serif;
 }
-
-.btn:hover {
-  color: #4262ff;
-}
-
-.play-button {
-  width: 48px;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.hotspot-button {
-  margin-right: 16px;
-}
-
-.hotspot-button span {
-  margin-left: 4px;
-}
-
-.link-button span {
-  margin-left: 2px;
-}
-
-.exit-button {
-  width: 48px;
-  margin: 0 8px;
-  font-weight: bold;
-}
-
-.screen-number {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-}
-
-.prev-button,
-.next-button {
-  width: 40px;
-}
-
-.next-button {
-  margin-right: 8px;
-  transform: rotate(180deg);
-}
-
-.btn--disabled {
-  pointer-events: none;
-  cursor: default;
-  color: #999;
+.draggable-team icon:hover {
+  width: 55px;
+  height: 55px;
 }

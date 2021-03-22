@@ -5,8 +5,8 @@ module.exports = {
 
   entry: {
     index: './src/index.ts',
-    'bottom-panel': './src/bottom-panel.tsx',
-    'content-panel': './src/content-panel.ts',
+    'content-panel': './src/content-panel.tsx',
+    'details-panel': './src/details-panel.tsx',
   },
   module: {
     rules: [
