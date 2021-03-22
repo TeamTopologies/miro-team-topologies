@@ -1,3 +1,4 @@
+import {PLUGIN_TITLE} from 'config'
 const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 103 103" style="enable-background:new 0 0 339 103;" xml:space="preserve">
 <g>
   <path fill="#59FBE3" d="M66.4,49.7v33.6h-9.2c-6.7,0-12.1-5.4-12.1-12.1V49.7h7.1H66.4z" />
@@ -14,7 +15,7 @@ miro.onReady(async () => {
     extensionPoints: {
       getWidgetMenuItems: () => {
         return Promise.resolve({
-          tooltip: 'Team Topologies',
+          tooltip: PLUGIN_TITLE,
           svgIcon: icon24,
           onClick: (widgets: HTMLElement) => {
             miro.board.ui.openLeftSidebar('details-panel.html')
@@ -27,12 +28,12 @@ miro.onReady(async () => {
         const authorized = await miro.isAuthorized()
         if (authorized && canEdit) {
           return {
-            title: 'Team Topologies',
+            title: PLUGIN_TITLE,
             svgIcon: icon24,
             librarySvgIcon: icon24,
             toolbarSvgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openLibrary('content-panel.html', {title: 'Team Topologies'})
+              miro.board.ui.openLibrary('content-panel.html', {title: PLUGIN_TITLE})
             },
           }
         }
