@@ -1,8 +1,8 @@
 # Team Topologies web plugin for Miro
 
-With this plugin users can build Team Topologies.
+With this plugin users can build Team Topologies ([teamtopologies.com](https://teamtopologies.com)).
 
-_This plugin was created for training purpose, it is not ready for production [yet]._
+_This plugin was created by curiosity, it is not ready for production [yet]._
 
 # How it works
 
