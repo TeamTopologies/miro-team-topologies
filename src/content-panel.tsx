@@ -105,6 +105,8 @@ class Root extends React.Component {
       },
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
+
+    
   }
 
   private createTeamTypeWidget = async (teamType: TEAM_TYPES, pos?: {x: number; y: number}) => {

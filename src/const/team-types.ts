@@ -1,5 +1,3 @@
-import {ShapeType, FontFamily, BorderStyle} from 'const/styling'
-
 const PlatformPreview = require('images/tt/platform.svg')
 const EnablingPreview = require('images/tt/enabling.svg')
 const StreamAlignedPreview = require('images/tt/stream-aligned.svg')
@@ -61,14 +59,14 @@ export function getTeamTypeStyle(
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
       return {
-        shapeType: ShapeType.ROUNDER,
+        shapeType: miro.enums.shapeType.ROUNDER,
         backgroundColor: '#FFEDB8',
         backgroundOpacity: 1,
         borderColor: '#FFD966',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.NORMAL,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.NORMAL,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -81,14 +79,14 @@ export function getTeamTypeStyle(
       }
     case TEAM_TYPES.Enabling:
       return {
-        shapeType: ShapeType.ROUNDER,
+        shapeType: miro.enums.shapeType.ROUNDER,
         backgroundColor: '#DFBDCF',
         backgroundOpacity: 1,
         borderColor: '#D09CB7',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.NORMAL,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.NORMAL,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -102,14 +100,14 @@ export function getTeamTypeStyle(
 
     case TEAM_TYPES.Platform:
       return {
-        shapeType: ShapeType.RECTANGLE,
+        shapeType: miro.enums.shapeType.RECTANGLE,
         backgroundColor: '#B7CDF1',
         backgroundOpacity: 1,
         borderColor: '#6D9EEB',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.NORMAL,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.NORMAL,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -124,14 +122,14 @@ export function getTeamTypeStyle(
     case TEAM_TYPES.ComplicatedSubsystem:
     default:
       return {
-        shapeType: ShapeType.OCTAGON,
+        shapeType: miro.enums.shapeType.OCTAGON,
         backgroundColor: '#FFC08B',
         backgroundOpacity: 1,
         borderColor: '#E88814',
         borderWidth: 3,
         borderOpacity: 1,
         borderStyle: 2,
-        fontFamily: FontFamily.OPEN_SANS,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',

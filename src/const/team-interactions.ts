@@ -1,5 +1,3 @@
-import {ShapeType, FontFamily, BorderStyle} from 'const/styling'
-
 const CollaborationIcon = require('images/ti/collaboration.svg')
 const FacilitatingIcon = require('images/ti/facilitating.svg')
 const XaasIcon = require('images/ti/xaas.svg')
@@ -45,14 +43,14 @@ export function getTeamInteractionStyle(
   switch (teamInteraction) {
     case TEAM_INTERACTIONS.Collaboration:
       return {
-        shapeType: ShapeType.PARALL,
+        shapeType: miro.enums.shapeType.PARALL,
         backgroundColor: '#E0DBED',
         backgroundOpacity: 0.5,
         borderColor: '#967ee2',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.DASHED,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.DASHED,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -65,14 +63,14 @@ export function getTeamInteractionStyle(
       }
     case TEAM_INTERACTIONS.Facilitating:
       return {
-        shapeType: ShapeType.CIRCLE,
+        shapeType: miro.enums.shapeType.CIRCLE,
         backgroundColor: '#E3EFDE',
         backgroundOpacity: 0.5,
         borderColor: '#78996b',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.DASHED,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.DASHED,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -86,14 +84,14 @@ export function getTeamInteractionStyle(
     case TEAM_INTERACTIONS.Xaas:
     default:
       return {
-        shapeType: ShapeType.TRIANGLE,
+        shapeType: miro.enums.shapeType.TRIANGLE,
         backgroundColor: '#DBDBDB',
         backgroundOpacity: 0.5,
         borderColor: '#999696',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: BorderStyle.DASHED,
-        fontFamily: FontFamily.OPEN_SANS,
+        borderStyle: miro.enums.borderStyle.DASHED,
+        fontFamily: miro.enums.fontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
