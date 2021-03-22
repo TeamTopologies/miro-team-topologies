@@ -1,3 +1,1 @@
-export const CLIENT_ID = '3074457355995945552' // Add your CLIENT_ID
-export const EDIT_WIDTH = 280
-export const PLAY_WIDTH = 320
+export const CLIENT_ID = process.env.NODE_ENV == 'production' ? '3074457356139930746' : '3074457355995945552'
