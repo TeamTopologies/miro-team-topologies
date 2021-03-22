@@ -1,7 +1,28 @@
+import {ShapeType, FontFamily, BorderStyle} from 'const/styling'
+
 const PlatformPreview = require('images/tt/platform.svg')
 const EnablingPreview = require('images/tt/enabling.svg')
 const StreamAlignedPreview = require('images/tt/stream-aligned.svg')
 const ComplicatedSubsystemPreview = require('images/tt/complicated-subsystem.svg')
+
+const StreamAlignedIcon = require('images/tt/icon-stream-aligned.svg')
+const PlatformIcon = require('images/tt/icon-platform.svg')
+const EnablingIcon = require('images/tt/icon-enabling.svg')
+const ComplicatedSubsystemIcon = require('images/tt/icon-complicated-subsystem.svg')
+
+export const TeamTypePreviews = {
+  PlatformPreview,
+  EnablingPreview,
+  StreamAlignedPreview,
+  ComplicatedSubsystemPreview,
+}
+
+export const TeamTypeIcons = {
+  StreamAlignedIcon,
+  PlatformIcon,
+  EnablingIcon,
+  ComplicatedSubsystemIcon,
+}
 
 export enum TEAM_TYPES {
   StreamAligned = 0,
@@ -16,8 +37,8 @@ export const AllTeamTypes = [
   TEAM_TYPES.ComplicatedSubsystem,
 ]
 
-export function getTeamStyle(
-  teamType: TEAM_TYPES,
+export function getTeamTypeStyle(
+  teamType?: TEAM_TYPES,
 ): {
   shapeType: number
   backgroundColor: string
@@ -40,14 +61,14 @@ export function getTeamStyle(
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
       return {
-        shapeType: 7, // ROUNDER
+        shapeType: ShapeType.ROUNDER,
         backgroundColor: '#FFEDB8',
         backgroundOpacity: 1,
         borderColor: '#FFD966',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: 2,
-        fontFamily: 10,
+        borderStyle: BorderStyle.NORMAL,
+        fontFamily: FontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -60,14 +81,14 @@ export function getTeamStyle(
       }
     case TEAM_TYPES.Enabling:
       return {
-        shapeType: 7, // ROUNDER
+        shapeType: ShapeType.ROUNDER,
         backgroundColor: '#DFBDCF',
         backgroundOpacity: 1,
         borderColor: '#D09CB7',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: 2,
-        fontFamily: 10,
+        borderStyle: BorderStyle.NORMAL,
+        fontFamily: FontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -81,14 +102,14 @@ export function getTeamStyle(
 
     case TEAM_TYPES.Platform:
       return {
-        shapeType: 3, // RECTANGLE
+        shapeType: ShapeType.RECTANGLE,
         backgroundColor: '#B7CDF1',
         backgroundOpacity: 1,
         borderColor: '#6D9EEB',
         borderWidth: 3,
         borderOpacity: 1,
-        borderStyle: 2,
-        fontFamily: 10,
+        borderStyle: BorderStyle.NORMAL,
+        fontFamily: FontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -101,15 +122,16 @@ export function getTeamStyle(
       }
 
     case TEAM_TYPES.ComplicatedSubsystem:
+    default:
       return {
-        shapeType: 18, // OCTAGONE
+        shapeType: ShapeType.OCTAGON,
         backgroundColor: '#FFC08B',
         backgroundOpacity: 1,
         borderColor: '#E88814',
         borderWidth: 3,
         borderOpacity: 1,
         borderStyle: 2,
-        fontFamily: 10,
+        fontFamily: FontFamily.OPEN_SANS,
         textColor: '#000',
         textAlign: 'c',
         textAlignVertical: 'm',
@@ -123,7 +145,7 @@ export function getTeamStyle(
   }
 }
 
-export function getTeamName(teamType: TEAM_TYPES): string {
+export function getTeamTypeName(teamType?: TEAM_TYPES): string {
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
       return 'Stream-aligned team'
@@ -138,7 +160,7 @@ export function getTeamName(teamType: TEAM_TYPES): string {
   }
 }
 
-export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: number} {
+export function getTeamTypeShapeSize(teamType?: TEAM_TYPES): {height: number; width: number} {
   let width = 150
   let height = 150
   switch (teamType) {
@@ -159,7 +181,7 @@ export function getTeamShapeSize(teamType: TEAM_TYPES): {height: number; width: 
   return {width, height}
 }
 
-export function getTeamDnDPreview(teamType: TEAM_TYPES): string {
+export function getTeamTypeDnDPreview(teamType?: TEAM_TYPES): string {
   const imgPrefix = 'data:image/svg+xml,'
   switch (teamType) {
     case TEAM_TYPES.StreamAligned:
@@ -169,6 +191,7 @@ export function getTeamDnDPreview(teamType: TEAM_TYPES): string {
     case TEAM_TYPES.Platform:
       return imgPrefix + PlatformPreview
     case TEAM_TYPES.ComplicatedSubsystem:
+    default:
       return imgPrefix + ComplicatedSubsystemPreview
   }
 }

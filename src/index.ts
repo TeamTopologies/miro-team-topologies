@@ -1,5 +1,3 @@
-import {EDIT_WIDTH} from 'config'
-
 const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 103 103" style="enable-background:new 0 0 339 103;" xml:space="preserve">
 <g>
   <path fill="#59FBE3" d="M66.4,49.7v33.6h-9.2c-6.7,0-12.1-5.4-12.1-12.1V49.7h7.1H66.4z" />
@@ -34,7 +32,7 @@ miro.onReady(async () => {
             librarySvgIcon: icon24,
             toolbarSvgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openLibrary('content-panel.html', {title: 'Team Topologies'}) // {width: EDIT_WIDTH}
+              miro.board.ui.openLibrary('content-panel.html', {title: 'Team Topologies'})
             },
           }
         }

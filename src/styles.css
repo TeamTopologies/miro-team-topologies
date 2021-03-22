@@ -9,11 +9,19 @@ body {
   font: 14px OpenSans, Arial, Helvetica, sans-serif;
 }
 
+.sub-title {
+  margin-left: 20px;
+}
+
 * {
   user-select: none;
 }
 
-.icon {
+.team-interactions .icon {
+  width: 60px;
+  height: 60px;
+}
+.team-types .icon {
   width: 48px;
   height: 48px;
 }
