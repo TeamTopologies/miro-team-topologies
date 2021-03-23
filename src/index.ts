@@ -11,14 +11,30 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
 </svg>`
 
 const onWidgetTransformed = (e: SDK.Event) => {
-  const widget = e.data[0]
+  const eventData = e.data[0]
 
   // Only handle Team Topologies signed shapes
-  if (widget.type == 'SHAPE' && widget.metadata[CLIENT_ID].teamtopology) {
-    const metadata = widget.metadata[CLIENT_ID]
-    console.log(metadata)
-    console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
-  }
+  if (eventData == undefined || eventData.metadata[CLIENT_ID] == undefined) return
+
+  const metadata = eventData.metadata[CLIENT_ID]
+  console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
+  miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
+    if (!widgets || widgets.length == 0) return
+    const widget = widgets[0]
+    // Todo: Open bottom panel with controls based on widget
+
+    // Identify connected widgets & raised info/questions matching context
+    // Todo: Can be done after user click on "info" button from bottom panel
+    miro.board.widgets.__getIntersectedObjects(widget.bounds).then((intersectWidgets: SDK.IWidget[]) => {
+      console.log('Intersections:')
+      console.log(intersectWidgets)
+      // Give a blink to confirm all related widgets
+      widgets.map((wiwi) => {
+        miro.board.widgets.__blinkWidget({id: wiwi.id})
+      })
+    })
+    return
+  })
 }
 
 miro.onReady(async () => {
