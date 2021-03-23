@@ -1,4 +1,4 @@
-import {PLUGIN_TITLE} from 'config'
+import {PLUGIN_TITLE, CLIENT_ID} from 'config'
 const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 103 103" style="enable-background:new 0 0 339 103;" xml:space="preserve">
 <g>
   <path fill="#59FBE3" d="M66.4,49.7v33.6h-9.2c-6.7,0-12.1-5.4-12.1-12.1V49.7h7.1H66.4z" />
@@ -11,35 +11,14 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
 </svg>`
 
 const onWidgetTransformed = (e: SDK.Event) => {
-  console.log(e)
-
   const widget = e.data[0]
 
-  console.log(widget)
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
-  // TO CONTINUE HERE!!!
+  // Only handle Team Topologies signed shapes
+  if (widget.type == 'SHAPE' && widget.metadata[CLIENT_ID].teamtopology) {
+    const metadata = widget.metadata[CLIENT_ID]
+    console.log(metadata)
+    console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
+  }
 }
 
 miro.onReady(async () => {

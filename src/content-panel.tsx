@@ -65,10 +65,10 @@ class Root extends React.Component {
     }
   }
 
+  // return true (TeamType) or false (TeamInteraction)
   private isTargetElementType = (targetElement: HTMLElement): boolean => {
-    return targetElement.parentElement?.classList.contains('team-types') ?? false // False means it's a Team interaction.
+    return targetElement.parentElement?.classList.contains('team-types') ?? false
   }
-
 
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
@@ -105,7 +105,6 @@ class Root extends React.Component {
       },
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
-
   }
 
   private createTeamTypeWidget = async (teamType: TEAM_TYPES, pos?: {x: number; y: number}) => {
@@ -135,11 +134,18 @@ class Root extends React.Component {
         y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2,
       }
     }
-
+    console.log('INTERACTION: ' + teamInteraction)
     await miro.board.widgets.create({
       metadata: {
         [CLIENT_ID]: {
-          team: teamType ?? teamInteraction,
+          teamtopology: true,
+          teamCategory: teamType ? 'type' : 'interaction',
+          teamName:
+            teamType != undefined
+              ? TEAM_TYPES[teamType]
+              : teamInteraction != undefined
+              ? TEAM_INTERACTIONS[teamInteraction]
+              : 'none',
         },
       },
       type: 'SHAPE',
