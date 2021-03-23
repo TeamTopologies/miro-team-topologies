@@ -30,7 +30,10 @@ const onWidgetTransformed = (e: SDK.Event) => {
       console.log(intersectWidgets)
       // Give a blink to confirm all related widgets
       widgets.map((wiwi) => {
-        miro.board.widgets.__blinkWidget({id: wiwi.id})
+        if (wiwi.metadata[CLIENT_ID] != undefined) {
+          // Todo: need to find a better interaction :P
+          miro.board.widgets.__blinkWidget({id: wiwi.id})
+        }
       })
     })
     return
