@@ -10,6 +10,38 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
 </g>
 </svg>`
 
+const onWidgetTransformed = (e: SDK.Event) => {
+  console.log(e)
+
+  const widget = e.data[0]
+
+  console.log(widget)
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+  // TO CONTINUE HERE!!!
+}
+
 miro.onReady(async () => {
   miro.initialize({
     extensionPoints: {
@@ -40,6 +72,8 @@ miro.onReady(async () => {
       },
     },
   })
+
+  miro.addListener('WIDGETS_TRANSFORMATION_UPDATED', onWidgetTransformed)
 
   // // Opens bottom-panel if URL contain runPrototyping param + set runtimeState
   // const params = await miro.board.__getParamsFromURL()

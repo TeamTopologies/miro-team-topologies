@@ -48,7 +48,6 @@ class Root extends React.Component {
   updateCurrentScale = () => {
     miro.board.viewport.getScale().then((scale) => {
       this.viewportScale = scale
-      console.log('Scale:' + scale)
     })
   }
 
@@ -69,6 +68,7 @@ class Root extends React.Component {
   private isTargetElementType = (targetElement: HTMLElement): boolean => {
     return targetElement.parentElement?.classList.contains('team-types') ?? false // False means it's a Team interaction.
   }
+
 
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
@@ -106,7 +106,6 @@ class Root extends React.Component {
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
 
-    
   }
 
   private createTeamTypeWidget = async (teamType: TEAM_TYPES, pos?: {x: number; y: number}) => {
