@@ -10,48 +10,9 @@ const icon24 = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://w
 </g>
 </svg>`
 
-const onWidgetTransformed = (e: SDK.Event) => {
-  const eventData = e.data[0]
-
-  // Only handle Team Topologies signed shapes
-  if (eventData == undefined || eventData.metadata[CLIENT_ID] == undefined) return
-
-  const metadata = eventData.metadata[CLIENT_ID]
-  console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
-  miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
-    if (!widgets || widgets.length == 0) return
-    const widget = widgets[0]
-    // Todo: Open bottom panel with controls based on widget
-
-    // Identify connected widgets & raised info/questions matching context
-    // Todo: Can be done after user click on "info" button from bottom panel
-    miro.board.widgets.__getIntersectedObjects(widget.bounds).then((intersectWidgets: SDK.IWidget[]) => {
-      console.log('Intersections:')
-      console.log(intersectWidgets)
-      // Give a blink to confirm all related widgets
-      widgets.map((wiwi) => {
-        if (wiwi.metadata[CLIENT_ID] != undefined) {
-          // Todo: need to find a better interaction :P
-          miro.board.widgets.__blinkWidget({id: wiwi.id})
-        }
-      })
-    })
-    return
-  })
-}
-
 miro.onReady(async () => {
   miro.initialize({
     extensionPoints: {
-      getWidgetMenuItems: () => {
-        return Promise.resolve({
-          tooltip: PLUGIN_TITLE,
-          svgIcon: icon24,
-          onClick: (widgets: HTMLElement) => {
-            miro.board.ui.openLeftSidebar('details-panel.html')
-          },
-        })
-      },
       toolbar: async () => {
         const permissions = await miro.currentUser.getCurrentBoardPermissions()
         const canEdit = permissions.findIndex((p) => p === 'EDIT_CONTENT') !== -1
@@ -63,15 +24,13 @@ miro.onReady(async () => {
             librarySvgIcon: icon24,
             toolbarSvgIcon: icon24,
             onClick: () => {
-              miro.board.ui.openLibrary('content-panel.html', {title: PLUGIN_TITLE})
+              miro.board.ui.openLeftSidebar('content-panel.html')
             },
           }
         }
       },
     },
   })
-
-  miro.addListener('WIDGETS_TRANSFORMATION_UPDATED', onWidgetTransformed)
 
   // // Opens bottom-panel if URL contain runPrototyping param + set runtimeState
   // const params = await miro.board.__getParamsFromURL()

@@ -23,6 +23,7 @@ import {
   getTeamInteractionShapeSize,
   TeamInteractionPreview,
 } from './const/team-interactions'
+import DetailsPanel from 'details-panel'
 
 require('./styles.css')
 
@@ -134,7 +135,6 @@ class Root extends React.Component {
         y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2,
       }
     }
-    console.log('INTERACTION: ' + teamInteraction)
     await miro.board.widgets.create({
       metadata: {
         [CLIENT_ID]: {
@@ -219,6 +219,10 @@ class Root extends React.Component {
             <SVG className="icon" src={TeamInteractionPreview.XaasIcon} />
           </div>
         </div>
+        <hr />
+        <h3 className="sub-title">Details:</h3>
+        <DetailsPanel />
+        <div className="team-details"></div>
       </div>
     )
 
