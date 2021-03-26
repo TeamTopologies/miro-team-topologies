@@ -3,6 +3,10 @@ import {CLIENT_ID} from 'config'
 
 import teamTypesText from './text/teamtypes'
 import genericText from './text/generic'
+import ReactMarkdown from 'react-markdown'
+
+import {TEAM_TYPES} from 'const/team-types'
+import {TEAM_INTERACTIONS} from 'const/team-interactions'
 
 require('./details-styles.css')
 type IState = {
@@ -10,7 +14,7 @@ type IState = {
 }
 export default class DetailsPanel extends React.Component {
   private containerRef: any = React.createRef()
-
+  private currentWidgetId = ''
   state: IState = {
     description: genericText.Loading,
   }
@@ -20,7 +24,8 @@ export default class DetailsPanel extends React.Component {
     const savedState = await miro.__getRuntimeState()
 
     if (savedState.teamWidgetId) {
-      this.setState({description: teamTypesText['StreamAligned']})
+      this.currentWidgetId = savedState.teamWidgetId
+      this.setState({description: teamTypesText[TEAM_TYPES.StreamAligned]})
     } else {
       this.setState({description: genericText.PleaseSelectWidget})
     }
@@ -33,6 +38,12 @@ export default class DetailsPanel extends React.Component {
 
   // }
 
+  private getTeamEnumFromName(name: string): TEAM_TYPES | TEAM_INTERACTIONS | undefined {
+    const team_type: TEAM_TYPES = TEAM_TYPES[name as keyof typeof TEAM_TYPES]
+    if (team_type !== undefined) return team_type
+    const team_int: TEAM_INTERACTIONS = TEAM_INTERACTIONS[name as keyof typeof TEAM_INTERACTIONS]
+    return team_int
+  }
   private onWidgetTransformed = (e: SDK.Event) => {
     const eventData = e.data[0]
 
@@ -40,37 +51,61 @@ export default class DetailsPanel extends React.Component {
     if (eventData == undefined || eventData.metadata[CLIENT_ID] == undefined) return
 
     const metadata = eventData.metadata[CLIENT_ID]
-    console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
-    miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
-      if (!widgets || widgets.length == 0) return
-      const widget = widgets[0]
-      // Todo: Open bottom panel with controls based on widget
-      miro.__setRuntimeState({currentTeamWidget: widget}) // WARNING, need check current state if changed or not.
-      this.setState({
-        description: teamTypesText[widget.metadata[CLIENT_ID].teamName],
-      })
 
-      // Identify connected widgets & raised info/questions matching context
-      // Todo: Can be done after user click on "info" button from bottom panel
-      miro.board.widgets.__getIntersectedObjects(widget.bounds).then((intersectWidgets: SDK.IWidget[]) => {
-        console.log('Intersections:')
-        console.log(intersectWidgets)
-        // Give a blink to confirm all related widgets
-        widgets.map((wiwi) => {
-          if (wiwi.metadata[CLIENT_ID] != undefined) {
-            // Todo: need to find a better interaction :P
-            miro.board.widgets.__blinkWidget({id: wiwi.id})
-          }
-        })
-      })
-      return
+    this.currentWidgetId = eventData.id
+    const teamEnum = this.getTeamEnumFromName(metadata.teamName)
+    console.log('Name: ' + metadata.teamName)
+    console.log('Team enum: ' + teamEnum)
+    if (teamEnum == undefined) return
+
+    this.setState({
+      description: teamTypesText[teamEnum],
     })
+    console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
+    // miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
+    //   if (!widgets || widgets.length == 0) return
+    //   const widget = widgets[0]
+    //   // Todo: Open bottom panel with controls based on widget
+
+    //   // Identify connected widgets & raised info/questions matching context
+    //   // Todo: Can be done after user click on "info" button from bottom panel
+    //   miro.board.widgets.__getIntersectedObjects(widget.bounds).then((intersectWidgets: SDK.IWidget[]) => {
+    //     console.log('Intersections:')
+    //     console.log(intersectWidgets)
+    //     // Give a blink to confirm all related widgets
+    //     widgets.map((wiwi) => {
+    //       if (wiwi.metadata[CLIENT_ID] != undefined) {
+    //         // Todo: need to find a better interaction :P
+    //         miro.board.widgets.__blinkWidget({id: wiwi.id})
+    //       }
+    //     })
+    //   })
+    //   return
+    // })
   }
 
   render() {
     return (
-      <div className="details-panel">
-        <p>{this.state.description}</p>
+      <div>
+        <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
+        <div className="team-details">
+          <ReactMarkdown>{this.state.description}</ReactMarkdown>
+        </div>
+        <div>
+          <h3>{genericText.PointOfAttentionTitle}</h3>
+        </div>
+        <div className="learn-more-link">
+          <i>
+            <a
+              href="https://teamtopologies.com/"
+              target="_blank"
+              rel="noreferrer"
+              title="Learn more from the official Website!"
+            >
+              Learn more at teamtopologies.com
+            </a>
+          </i>
+        </div>
       </div>
     )
   }

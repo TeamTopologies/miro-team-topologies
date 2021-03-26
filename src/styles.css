@@ -9,14 +9,12 @@ body {
   font: 14px OpenSans, Arial, Helvetica, sans-serif;
 }
 
-.sub-title {
-  margin-left: 20px;
-}
-
 * {
   user-select: none;
 }
-
+.tt_main_container {
+  padding: 20px;
+}
 .team-interactions .icon {
   width: 60px;
   height: 60px;
@@ -24,6 +22,11 @@ body {
 .team-types .icon {
   width: 48px;
   height: 48px;
+}
+
+.learn-more-link {
+  text-align: right;
+  margin-top: 20px;
 }
 
 #content-panel-react-app {

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 
 import SVG from 'react-inlinesvg'
 
-import {CLIENT_ID} from 'config'
+import {CLIENT_ID, PLUGIN_TITLE} from 'config'
 import {
   TEAM_TYPES,
   getTeamTypeDnDPreview,
@@ -158,12 +158,13 @@ class Root extends React.Component {
       height: teamShapeSize.height,
       rotation: 0,
       text: isType ? getTeamTypeName(teamType) : getTeamInteractionName(teamInteraction),
-    } as any)
+    })
   }
 
   render() {
     const editMode = (
-      <div>
+      <div className="tt_main_container">
+        <h1>{PLUGIN_TITLE}</h1>
         <h3 className="sub-title">Team types:</h3>
         <div className="team-types" onMouseEnter={this.updateCurrentScale}>
           <div
@@ -220,9 +221,7 @@ class Root extends React.Component {
           </div>
         </div>
         <hr />
-        <h3 className="sub-title">Details:</h3>
         <DetailsPanel />
-        <div className="team-details"></div>
       </div>
     )
 
