@@ -1,3 +1,4 @@
+import {TEAM_ELEMENTS} from './team-static'
 const CollaborationIcon = require('images/ti/collaboration.svg')
 const FacilitatingIcon = require('images/ti/facilitating.svg')
 const XaasIcon = require('images/ti/xaas.svg')
@@ -8,19 +9,10 @@ export const TeamInteractionPreview = {
   XaasIcon,
 }
 
-export enum TEAM_INTERACTIONS {
-  Collaboration = 0,
-  Facilitating,
-  Xaas,
-}
-export const AllTeamInteractions = [
-  TEAM_INTERACTIONS.Collaboration,
-  TEAM_INTERACTIONS.Facilitating,
-  TEAM_INTERACTIONS.Xaas,
-]
+export const AllTeamInteractions = [TEAM_ELEMENTS.Collaboration, TEAM_ELEMENTS.Facilitating, TEAM_ELEMENTS.Xaas]
 
 export function getTeamInteractionStyle(
-  teamInteraction?: TEAM_INTERACTIONS,
+  teamInteraction?: TEAM_ELEMENTS,
 ): {
   shapeType: number
   backgroundColor: string
@@ -41,7 +33,7 @@ export function getTeamInteractionStyle(
   highlighting: string
 } {
   switch (teamInteraction) {
-    case TEAM_INTERACTIONS.Collaboration:
+    case TEAM_ELEMENTS.Collaboration:
       return {
         shapeType: miro.enums.shapeType.PARALL,
         backgroundColor: '#E0DBED',
@@ -61,7 +53,7 @@ export function getTeamInteractionStyle(
         strike: 0,
         highlighting: '',
       }
-    case TEAM_INTERACTIONS.Facilitating:
+    case TEAM_ELEMENTS.Facilitating:
       return {
         shapeType: miro.enums.shapeType.CIRCLE,
         backgroundColor: '#E3EFDE',
@@ -81,7 +73,7 @@ export function getTeamInteractionStyle(
         strike: 0,
         highlighting: '',
       }
-    case TEAM_INTERACTIONS.Xaas:
+    case TEAM_ELEMENTS.Xaas:
     default:
       return {
         shapeType: miro.enums.shapeType.TRIANGLE,
@@ -105,32 +97,32 @@ export function getTeamInteractionStyle(
   }
 }
 
-export function getTeamInteractionName(teamInteraction?: TEAM_INTERACTIONS): string {
+export function getTeamInteractionName(teamInteraction?: TEAM_ELEMENTS): string {
   switch (teamInteraction) {
-    case TEAM_INTERACTIONS.Collaboration:
+    case TEAM_ELEMENTS.Collaboration:
       return 'Collaboration'
-    case TEAM_INTERACTIONS.Facilitating:
+    case TEAM_ELEMENTS.Facilitating:
       return 'Facilitating'
-    case TEAM_INTERACTIONS.Xaas:
+    case TEAM_ELEMENTS.Xaas:
       return 'Xaas'
     default:
       return 'none'
   }
 }
 
-export function getTeamInteractionShapeSize(teamInteraction?: TEAM_INTERACTIONS): {height: number; width: number} {
+export function getTeamInteractionShapeSize(teamInteraction?: TEAM_ELEMENTS): {height: number; width: number} {
   let width = 150
   let height = 150
   switch (teamInteraction) {
-    case TEAM_INTERACTIONS.Collaboration:
+    case TEAM_ELEMENTS.Collaboration:
       width = 300
       height = 100
       break
-    case TEAM_INTERACTIONS.Facilitating:
+    case TEAM_ELEMENTS.Facilitating:
       width = 130
       height = 130
       break
-    case TEAM_INTERACTIONS.Xaas:
+    case TEAM_ELEMENTS.Xaas:
       width = 100
       height = 100
       break
@@ -138,24 +130,15 @@ export function getTeamInteractionShapeSize(teamInteraction?: TEAM_INTERACTIONS)
   return {width, height}
 }
 
-export function getTeamInteractionDnDPreview(teamInteraction?: TEAM_INTERACTIONS): string {
+export function getTeamInteractionDnDPreview(teamInteraction?: TEAM_ELEMENTS): string {
   const imgPrefix = 'data:image/svg+xml,'
   switch (teamInteraction) {
-    case TEAM_INTERACTIONS.Collaboration:
+    case TEAM_ELEMENTS.Collaboration:
       return imgPrefix + CollaborationIcon
-    case TEAM_INTERACTIONS.Facilitating:
+    case TEAM_ELEMENTS.Facilitating:
       return imgPrefix + FacilitatingIcon
-    case TEAM_INTERACTIONS.Xaas:
+    case TEAM_ELEMENTS.Xaas:
     default:
       return imgPrefix + XaasIcon
   }
-}
-
-export function getTeamInteractionFromClassList(classList: DOMTokenList): TEAM_INTERACTIONS {
-  let teamInteraction = TEAM_INTERACTIONS.Collaboration
-  if (classList.contains('collaboration-btn')) teamInteraction = TEAM_INTERACTIONS.Collaboration
-  else if (classList.contains('facilitating-btn')) teamInteraction = TEAM_INTERACTIONS.Facilitating
-  else if (classList.contains('xaas-btn')) teamInteraction = TEAM_INTERACTIONS.Xaas
-
-  return teamInteraction
 }

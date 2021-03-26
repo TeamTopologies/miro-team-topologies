@@ -1,3 +1,5 @@
+import {TEAM_CAT, TEAM_ELEMENTS} from './team-static'
+
 const PlatformPreview = require('images/tt/platform.svg')
 const EnablingPreview = require('images/tt/enabling.svg')
 const StreamAlignedPreview = require('images/tt/stream-aligned.svg')
@@ -22,21 +24,15 @@ export const TeamTypeIcons = {
   ComplicatedSubsystemIcon,
 }
 
-export enum TEAM_TYPES {
-  StreamAligned = 0,
-  Platform,
-  Enabling,
-  ComplicatedSubsystem,
-}
 export const AllTeamTypes = [
-  TEAM_TYPES.StreamAligned,
-  TEAM_TYPES.Platform,
-  TEAM_TYPES.Enabling,
-  TEAM_TYPES.ComplicatedSubsystem,
+  TEAM_ELEMENTS.StreamAligned,
+  TEAM_ELEMENTS.Platform,
+  TEAM_ELEMENTS.Enabling,
+  TEAM_ELEMENTS.ComplicatedSubsystem,
 ]
 
 export function getTeamTypeStyle(
-  teamType?: TEAM_TYPES,
+  teamType?: TEAM_ELEMENTS,
 ): {
   shapeType: number
   backgroundColor: string
@@ -57,7 +53,7 @@ export function getTeamTypeStyle(
   highlighting: string
 } {
   switch (teamType) {
-    case TEAM_TYPES.StreamAligned:
+    case TEAM_ELEMENTS.StreamAligned:
       return {
         shapeType: miro.enums.shapeType.ROUNDER,
         backgroundColor: '#FFEDB8',
@@ -77,7 +73,7 @@ export function getTeamTypeStyle(
         strike: 0,
         highlighting: '',
       }
-    case TEAM_TYPES.Enabling:
+    case TEAM_ELEMENTS.Enabling:
       return {
         shapeType: miro.enums.shapeType.ROUNDER,
         backgroundColor: '#DFBDCF',
@@ -98,7 +94,7 @@ export function getTeamTypeStyle(
         highlighting: '',
       }
 
-    case TEAM_TYPES.Platform:
+    case TEAM_ELEMENTS.Platform:
       return {
         shapeType: miro.enums.shapeType.RECTANGLE,
         backgroundColor: '#B7CDF1',
@@ -119,7 +115,7 @@ export function getTeamTypeStyle(
         highlighting: '',
       }
 
-    case TEAM_TYPES.ComplicatedSubsystem:
+    case TEAM_ELEMENTS.ComplicatedSubsystem:
     default:
       return {
         shapeType: miro.enums.shapeType.OCTAGON,
@@ -143,35 +139,35 @@ export function getTeamTypeStyle(
   }
 }
 
-export function getTeamTypeName(teamType?: TEAM_TYPES): string {
+export function getTeamTypeName(teamType?: TEAM_ELEMENTS): string {
   switch (teamType) {
-    case TEAM_TYPES.StreamAligned:
+    case TEAM_ELEMENTS.StreamAligned:
       return 'Stream-aligned team'
-    case TEAM_TYPES.Platform:
+    case TEAM_ELEMENTS.Platform:
       return 'Platform team'
-    case TEAM_TYPES.Enabling:
+    case TEAM_ELEMENTS.Enabling:
       return 'Enabling team'
-    case TEAM_TYPES.ComplicatedSubsystem:
+    case TEAM_ELEMENTS.ComplicatedSubsystem:
       return 'Complicated Subsystem team'
     default:
       return 'none'
   }
 }
 
-export function getTeamTypeShapeSize(teamType?: TEAM_TYPES): {height: number; width: number} {
+export function getTeamTypeShapeSize(teamType?: TEAM_ELEMENTS): {height: number; width: number} {
   let width = 150
   let height = 150
   switch (teamType) {
-    case TEAM_TYPES.StreamAligned:
-    case TEAM_TYPES.Platform:
+    case TEAM_ELEMENTS.StreamAligned:
+    case TEAM_ELEMENTS.Platform:
       width = 450
       height = 65
       break
-    case TEAM_TYPES.Enabling:
+    case TEAM_ELEMENTS.Enabling:
       width = 95
       height = 120
       break
-    case TEAM_TYPES.ComplicatedSubsystem:
+    case TEAM_ELEMENTS.ComplicatedSubsystem:
       width = 200
       height = 120
       break
@@ -179,26 +175,17 @@ export function getTeamTypeShapeSize(teamType?: TEAM_TYPES): {height: number; wi
   return {width, height}
 }
 
-export function getTeamTypeDnDPreview(teamType?: TEAM_TYPES): string {
+export function getTeamTypeDnDPreview(teamType?: TEAM_ELEMENTS): string {
   const imgPrefix = 'data:image/svg+xml,'
   switch (teamType) {
-    case TEAM_TYPES.StreamAligned:
+    case TEAM_ELEMENTS.StreamAligned:
       return imgPrefix + StreamAlignedPreview
-    case TEAM_TYPES.Enabling:
+    case TEAM_ELEMENTS.Enabling:
       return imgPrefix + EnablingPreview
-    case TEAM_TYPES.Platform:
+    case TEAM_ELEMENTS.Platform:
       return imgPrefix + PlatformPreview
-    case TEAM_TYPES.ComplicatedSubsystem:
+    case TEAM_ELEMENTS.ComplicatedSubsystem:
     default:
       return imgPrefix + ComplicatedSubsystemPreview
   }
-}
-
-export function getTeamTypeFromClassList(classList: DOMTokenList): TEAM_TYPES {
-  let teamType = TEAM_TYPES.ComplicatedSubsystem
-  if (classList.contains('stream-aligned-btn')) teamType = TEAM_TYPES.StreamAligned
-  else if (classList.contains('platform-btn')) teamType = TEAM_TYPES.Platform
-  else if (classList.contains('enabling-btn')) teamType = TEAM_TYPES.Enabling
-
-  return teamType
 }

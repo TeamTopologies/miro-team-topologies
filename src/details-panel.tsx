@@ -2,33 +2,25 @@ import * as React from 'react'
 import {CLIENT_ID} from 'config'
 import ReactMarkdown from 'react-markdown'
 
-import teamInfo from './text/team-info'
-import genericText from './text/generic'
+import teamInfo from './team-text/team-info'
+import genericText from './team-text/generic'
 
-import {TEAM_TYPES} from 'const/team-types'
-import {TEAM_INTERACTIONS} from 'const/team-interactions'
+import {TEAM_ELEMENTS} from 'team-logic/team-static'
 
 require('./details-styles.css')
+
 type IState = {
-  description: string
-  attentionPoints: string[]
+  description: string | undefined
+  attentionPoints: string[] | undefined
 }
 export default class DetailsPanel extends React.Component {
   state: IState = {
-    description: '',
-    attentionPoints: [],
+    description: undefined,
+    attentionPoints: undefined,
   }
   // TODO: Get widget meta-data to init state.
   // eslint-disable-next-line
   async componentWillMount() {
-    const savedState = await miro.__getRuntimeState()
-
-    if (savedState.teamWidgetId) {
-      this.setState({description: teamInfo[TEAM_TYPES.StreamAligned]})
-    } else {
-      this.setState({description: genericText.PleaseSelectWidget})
-    }
-
     // Enable refresh panel data when selection change or current widget being moved
     miro.addListener('WIDGETS_TRANSFORMATION_UPDATED', this.onWidgetTransformed)
     miro.addListener('SELECTION_UPDATED', this.onWidgetTransformed)
@@ -37,11 +29,9 @@ export default class DetailsPanel extends React.Component {
 
   // }
 
-  private getTeamEnumFromName(name: string): TEAM_TYPES | TEAM_INTERACTIONS | undefined {
-    const team_type: TEAM_TYPES = TEAM_TYPES[name as keyof typeof TEAM_TYPES]
-    if (team_type !== undefined) return team_type
-    const team_int: TEAM_INTERACTIONS = TEAM_INTERACTIONS[name as keyof typeof TEAM_INTERACTIONS]
-    return team_int
+  private getTeamElementFromString(name: string): TEAM_ELEMENTS | undefined {
+    const team_elt: TEAM_ELEMENTS = TEAM_ELEMENTS[name as keyof typeof TEAM_ELEMENTS]
+    return team_elt
   }
   private onWidgetTransformed = (e: SDK.Event) => {
     const eventData = e.data[0]
@@ -51,7 +41,7 @@ export default class DetailsPanel extends React.Component {
 
     const metadata = eventData.metadata[CLIENT_ID]
 
-    const teamEnum = this.getTeamEnumFromName(metadata.teamName)
+    const teamEnum = this.getTeamElementFromString(metadata.teamName)
     console.log('Name: ' + metadata.teamName)
     console.log('Team enum: ' + teamEnum)
     if (teamEnum == undefined) return
@@ -84,17 +74,16 @@ export default class DetailsPanel extends React.Component {
 
   render(): JSX.Element {
     let detailArea, attentionArea
-    if (this.state.description.length > 0) {
+    if (this.state.description !== undefined) {
       detailArea = (
         <div className="team-details">
-          <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
           <ReactMarkdown>{this.state.description}</ReactMarkdown>
         </div>
       )
     } else {
-      detailArea = <i>{genericText.Loading}</i>
+      detailArea = <i className="small-tooltip">{genericText.PleaseSelectWidget}</i>
     }
-    if (this.state.attentionPoints.length > 0) {
+    if (this.state.attentionPoints !== undefined) {
       attentionArea = (
         <div>
           <h3>{genericText.PointOfAttentionTitle}</h3>
@@ -107,6 +96,7 @@ export default class DetailsPanel extends React.Component {
 
     return (
       <div>
+        <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
         {detailArea}
         {attentionArea}
         <div className="learn-more-link">

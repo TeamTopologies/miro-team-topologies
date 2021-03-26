@@ -4,25 +4,22 @@ import * as ReactDOM from 'react-dom'
 import SVG from 'react-inlinesvg'
 
 import {CLIENT_ID, PLUGIN_TITLE} from 'config'
+import {TEAM_ELEMENTS, TEAM_CAT, getTeamElementFromClassList, getTeamCat} from './team-logic/team-static'
 import {
-  TEAM_TYPES,
   getTeamTypeDnDPreview,
   getTeamTypeName,
-  getTeamTypeFromClassList,
   getTeamTypeStyle,
   getTeamTypeShapeSize,
   TeamTypeIcons,
-} from './const/team-types'
+} from './team-logic/team-types'
 
 import {
-  TEAM_INTERACTIONS,
   getTeamInteractionName,
-  getTeamInteractionFromClassList,
   getTeamInteractionStyle,
   getTeamInteractionDnDPreview,
   getTeamInteractionShapeSize,
   TeamInteractionPreview,
-} from './const/team-interactions'
+} from './team-logic/team-interactions'
 import DetailsPanel from 'details-panel'
 
 require('./styles.css')
@@ -35,6 +32,7 @@ type IState = {
 }
 
 class Root extends React.Component {
+  private containerRef: any = React.createRef()
   private viewportScale = 1
 
   state: IState = {
@@ -65,28 +63,22 @@ class Root extends React.Component {
     }
   }
 
-  // return true (TeamType) or false (TeamInteraction)
-  private isTargetElementType = (targetElement: HTMLElement): boolean => {
-    return targetElement.parentElement?.classList.contains('team-types') ?? false
-  }
-
   componentDidMount(): void {
     // Add drag-and-drop for hotspot
     const dndOption = {
       dragDirection: 'vertical',
       draggableItemSelector: '.draggable-team',
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        const isType = this.isTargetElementType(targetElement)
+        const teamElement = getTeamElementFromClassList(targetElement.classList)
+        const teamCat = getTeamCat(teamElement)
         let teamSize: {width: number; height: number}
         let url: string
-        if (isType) {
-          const teamType = getTeamTypeFromClassList(targetElement.classList)
-          teamSize = getTeamTypeShapeSize(teamType)
-          url = getTeamTypeDnDPreview(teamType)
+        if (teamCat == TEAM_CAT.Type) {
+          teamSize = getTeamTypeShapeSize(teamElement)
+          url = getTeamTypeDnDPreview(teamElement)
         } else {
-          const teamInteraction = getTeamInteractionFromClassList(targetElement.classList)
-          teamSize = getTeamInteractionShapeSize(teamInteraction)
-          url = getTeamInteractionDnDPreview(teamInteraction)
+          teamSize = getTeamInteractionShapeSize(teamElement)
+          url = getTeamInteractionDnDPreview(teamElement)
         }
 
         return {
@@ -95,41 +87,18 @@ class Root extends React.Component {
           url: url,
         }
       },
-      onDrop: (canvasX: number, canvasY: number, targetElement: HTMLElement) => {
-        this.isTargetElementType(targetElement)
-          ? this.createTeamTypeWidget(getTeamTypeFromClassList(targetElement.classList), {x: canvasX, y: canvasY})
-          : this.createTeamInteractionWidget(getTeamInteractionFromClassList(targetElement.classList), {
-              x: canvasX,
-              y: canvasY,
-            })
+      onDrop: (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
+        const teamElement = getTeamElementFromClassList(targetHtml.classList)
+        const teamCat = getTeamCat(teamElement)
+        this.createTeamWidget(teamElement, teamCat, {x: canvasX, y: canvasY})
       },
-    }
-    if (this.containerRef.current == null) {
-      throw new Error('ReactRef.current is null')
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
   }
 
-  private createTeamTypeWidget = async (teamType: TEAM_TYPES, pos?: {x: number; y: number}) => {
-    this.createTeamWidget(teamType, undefined, pos)
-  }
-
-  private createTeamInteractionWidget = async (teamInteraction: TEAM_INTERACTIONS, pos?: {x: number; y: number}) => {
-    this.createTeamWidget(undefined, teamInteraction, pos)
-  }
-
-  private createTeamWidget = async (
-    teamType?: TEAM_TYPES,
-    teamInteraction?: TEAM_INTERACTIONS,
-    pos?: {x: number; y: number},
-  ) => {
-    if (teamType == undefined && teamInteraction == undefined) {
-      throw new Error('Missing team Type or Interaction to create widget.')
-    }
-
-    const isType = teamType !== undefined
-
-    const teamShapeSize = isType ? getTeamTypeShapeSize(teamType) : getTeamInteractionShapeSize(teamInteraction)
+  private createTeamWidget = async (teamElement: TEAM_ELEMENTS, teamCat: TEAM_CAT, pos?: {x: number; y: number}) => {
+    const teamShapeSize =
+      teamCat == TEAM_CAT.Type ? getTeamTypeShapeSize(teamElement) : getTeamInteractionShapeSize(teamElement)
     if (!pos) {
       const viewport = await miro.board.viewport.getViewport()
       pos = {
@@ -141,59 +110,54 @@ class Root extends React.Component {
       metadata: {
         [CLIENT_ID]: {
           teamtopology: true,
-          teamCategory: teamType ? 'type' : 'interaction',
-          teamName:
-            teamType != undefined
-              ? TEAM_TYPES[teamType]
-              : teamInteraction != undefined
-              ? TEAM_INTERACTIONS[teamInteraction]
-              : 'none',
+          teamCategory: teamCat,
+          teamName: TEAM_ELEMENTS[teamElement],
         },
       },
       type: 'SHAPE',
       x: pos.x,
       y: pos.y,
-      style: isType ? getTeamTypeStyle(teamType) : getTeamInteractionStyle(teamInteraction),
+      style: teamCat == TEAM_CAT.Type ? getTeamTypeStyle(teamElement) : getTeamInteractionStyle(teamElement),
       createdUserId: '',
       lastModifiedUserId: '',
       width: teamShapeSize.width,
       height: teamShapeSize.height,
       rotation: 0,
-      text: isType ? getTeamTypeName(teamType) : getTeamInteractionName(teamInteraction),
+      text: teamCat == TEAM_CAT.Type ? getTeamTypeName(teamElement) : getTeamInteractionName(teamElement),
     })
   }
 
   render() {
-    return (
+    const teamContent = (
       <div className="tt_main_container">
-        <h1>{PLUGIN_TITLE}</h1>
+        <h2>{PLUGIN_TITLE}</h2>
         <h3 className="sub-title">Team types:</h3>
         <div className="team-types" onMouseEnter={this.updateCurrentScale}>
           <div
             className="draggable-team stream-aligned-btn"
-            title={getTeamTypeName(TEAM_TYPES.StreamAligned)}
-            onClick={() => this.createTeamTypeWidget(TEAM_TYPES.StreamAligned)}
+            title={getTeamTypeName(TEAM_ELEMENTS.StreamAligned)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.StreamAligned, TEAM_CAT.Type)}
           >
             <SVG className="icon" src={TeamTypeIcons.StreamAlignedIcon} />
           </div>
           <div
             className="draggable-team platform-btn"
-            title={getTeamTypeName(TEAM_TYPES.Platform)}
-            onClick={() => this.createTeamTypeWidget(TEAM_TYPES.Platform)}
+            title={getTeamTypeName(TEAM_ELEMENTS.Platform)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Platform, TEAM_CAT.Type)}
           >
             <SVG className="icon" src={TeamTypeIcons.PlatformIcon} />
           </div>
           <div
             className="draggable-team enabling-btn"
-            title={getTeamTypeName(TEAM_TYPES.Enabling)}
-            onClick={() => this.createTeamTypeWidget(TEAM_TYPES.Enabling)}
+            title={getTeamTypeName(TEAM_ELEMENTS.Enabling)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Enabling, TEAM_CAT.Type)}
           >
             <SVG className="icon" src={TeamTypeIcons.EnablingIcon} />
           </div>
           <div
             className="draggable-team complicated-subsystem-btn"
-            title={getTeamTypeName(TEAM_TYPES.ComplicatedSubsystem)}
-            onClick={() => this.createTeamTypeWidget(TEAM_TYPES.ComplicatedSubsystem)}
+            title={getTeamTypeName(TEAM_ELEMENTS.ComplicatedSubsystem)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.ComplicatedSubsystem, TEAM_CAT.Type)}
           >
             <SVG className="icon" src={TeamTypeIcons.ComplicatedSubsystemIcon} />
           </div>
@@ -202,22 +166,22 @@ class Root extends React.Component {
         <div className="team-interactions" onMouseEnter={this.updateCurrentScale}>
           <div
             className="draggable-team collaboration-btn"
-            title={getTeamInteractionName(TEAM_INTERACTIONS.Collaboration)}
-            onClick={() => this.createTeamInteractionWidget(TEAM_INTERACTIONS.Collaboration)}
+            title={getTeamInteractionName(TEAM_ELEMENTS.Collaboration)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Collaboration, TEAM_CAT.Interaction)}
           >
             <SVG className="icon" src={TeamInteractionPreview.CollaborationIcon} />
           </div>
           <div
             className="draggable-team facilitating-btn"
-            title={getTeamInteractionName(TEAM_INTERACTIONS.Facilitating)}
-            onClick={() => this.createTeamInteractionWidget(TEAM_INTERACTIONS.Facilitating)}
+            title={getTeamInteractionName(TEAM_ELEMENTS.Facilitating)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Facilitating, TEAM_CAT.Interaction)}
           >
             <SVG className="icon" src={TeamInteractionPreview.FacilitatingIcon} />
           </div>
           <div
             className="draggable-team xaas-btn"
-            title={getTeamInteractionName(TEAM_INTERACTIONS.Xaas)}
-            onClick={() => this.createTeamInteractionWidget(TEAM_INTERACTIONS.Xaas)}
+            title={getTeamInteractionName(TEAM_ELEMENTS.Xaas)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Xaas, TEAM_CAT.Interaction)}
           >
             <SVG className="icon" src={TeamInteractionPreview.XaasIcon} />
           </div>
@@ -226,6 +190,7 @@ class Root extends React.Component {
         <DetailsPanel />
       </div>
     )
+    return <div ref={this.containerRef}>{teamContent}</div>
   }
 }
 

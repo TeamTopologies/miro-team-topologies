@@ -23,7 +23,10 @@ body {
   width: 48px;
   height: 48px;
 }
-
+.small-tooltip {
+  color: #8e8e8e;
+  margin-top: 20px;
+}
 .learn-more-link {
   text-align: right;
   margin-top: 20px;
