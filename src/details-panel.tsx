@@ -2,7 +2,7 @@ import * as React from 'react'
 import {CLIENT_ID} from 'config'
 import ReactMarkdown from 'react-markdown'
 
-import teamTypesText from './text/teamtypes'
+import teamInfo from './text/team-info'
 import genericText from './text/generic'
 
 import {TEAM_TYPES} from 'const/team-types'
@@ -11,10 +11,12 @@ import {TEAM_INTERACTIONS} from 'const/team-interactions'
 require('./details-styles.css')
 type IState = {
   description: string
+  attentionPoints: string[]
 }
 export default class DetailsPanel extends React.Component {
   state: IState = {
-    description: genericText.Loading,
+    description: '',
+    attentionPoints: [],
   }
   // TODO: Get widget meta-data to init state.
   // eslint-disable-next-line
@@ -22,7 +24,7 @@ export default class DetailsPanel extends React.Component {
     const savedState = await miro.__getRuntimeState()
 
     if (savedState.teamWidgetId) {
-      this.setState({description: teamTypesText[TEAM_TYPES.StreamAligned]})
+      this.setState({description: teamInfo[TEAM_TYPES.StreamAligned]})
     } else {
       this.setState({description: genericText.PleaseSelectWidget})
     }
@@ -55,7 +57,7 @@ export default class DetailsPanel extends React.Component {
     if (teamEnum == undefined) return
 
     this.setState({
-      description: teamTypesText[teamEnum],
+      description: teamInfo[teamEnum],
     })
     console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
     // miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
@@ -81,15 +83,32 @@ export default class DetailsPanel extends React.Component {
   }
 
   render(): JSX.Element {
-    return (
-      <div>
-        <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
+    let detailArea, attentionArea
+    if (this.state.description.length > 0) {
+      detailArea = (
         <div className="team-details">
+          <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
           <ReactMarkdown>{this.state.description}</ReactMarkdown>
         </div>
+      )
+    } else {
+      detailArea = <i>{genericText.Loading}</i>
+    }
+    if (this.state.attentionPoints.length > 0) {
+      attentionArea = (
         <div>
           <h3>{genericText.PointOfAttentionTitle}</h3>
+          {this.state.attentionPoints.map((ap) => {
+            ;<p>ICON and {ap}</p>
+          })}
         </div>
+      )
+    }
+
+    return (
+      <div>
+        {detailArea}
+        {attentionArea}
         <div className="learn-more-link">
           <i>
             <a
