@@ -35,7 +35,6 @@ type IState = {
 }
 
 class Root extends React.Component {
-  private containerRef: any = React.createRef()
   private viewportScale = 1
 
   state: IState = {
@@ -105,6 +104,9 @@ class Root extends React.Component {
             })
       },
     }
+    if (this.containerRef.current == null) {
+      throw new Error('ReactRef.current is null')
+    }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
   }
 
@@ -162,7 +164,7 @@ class Root extends React.Component {
   }
 
   render() {
-    const editMode = (
+    return (
       <div className="tt_main_container">
         <h1>{PLUGIN_TITLE}</h1>
         <h3 className="sub-title">Team types:</h3>
@@ -224,16 +226,6 @@ class Root extends React.Component {
         <DetailsPanel />
       </div>
     )
-
-    const getView = () => {
-      if (this.state.viewMode === 'edit') {
-        return editMode
-      } else {
-        return null
-      }
-    }
-
-    return <div ref={this.containerRef}>{getView()}</div>
   }
 }
 

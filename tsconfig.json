@@ -4,6 +4,7 @@
     "outDir": "./dist/",
     "strict": true,
     "allowUnreachableCode": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "target": "es5",
     "module": "esnext",

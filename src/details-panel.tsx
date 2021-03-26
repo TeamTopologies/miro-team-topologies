@@ -1,9 +1,9 @@
 import * as React from 'react'
 import {CLIENT_ID} from 'config'
+import ReactMarkdown from 'react-markdown'
 
 import teamTypesText from './text/teamtypes'
 import genericText from './text/generic'
-import ReactMarkdown from 'react-markdown'
 
 import {TEAM_TYPES} from 'const/team-types'
 import {TEAM_INTERACTIONS} from 'const/team-interactions'
@@ -13,8 +13,6 @@ type IState = {
   description: string
 }
 export default class DetailsPanel extends React.Component {
-  private containerRef: any = React.createRef()
-  private currentWidgetId = ''
   state: IState = {
     description: genericText.Loading,
   }
@@ -24,7 +22,6 @@ export default class DetailsPanel extends React.Component {
     const savedState = await miro.__getRuntimeState()
 
     if (savedState.teamWidgetId) {
-      this.currentWidgetId = savedState.teamWidgetId
       this.setState({description: teamTypesText[TEAM_TYPES.StreamAligned]})
     } else {
       this.setState({description: genericText.PleaseSelectWidget})
@@ -52,7 +49,6 @@ export default class DetailsPanel extends React.Component {
 
     const metadata = eventData.metadata[CLIENT_ID]
 
-    this.currentWidgetId = eventData.id
     const teamEnum = this.getTeamEnumFromName(metadata.teamName)
     console.log('Name: ' + metadata.teamName)
     console.log('Team enum: ' + teamEnum)
@@ -84,7 +80,7 @@ export default class DetailsPanel extends React.Component {
     // })
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
