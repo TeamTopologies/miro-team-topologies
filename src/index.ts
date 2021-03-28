@@ -31,14 +31,4 @@ miro.onReady(async () => {
       },
     },
   })
-
-  // // Opens bottom-panel if URL contain runPrototyping param + set runtimeState
-  // const params = await miro.board.__getParamsFromURL()
-  // if (params.runPrototyping) {
-  //   miro.showNotification('Enter prototyping mode...')
-  //   miro.addListener('ALL_WIDGETS_LOADED', async () => {
-  //     miro.__setRuntimeState({enterPrototypingMode: true})
-  //     miro.board.ui.openBottomPanel('bottom-panel.html')
-  //   })
-  // }
 })

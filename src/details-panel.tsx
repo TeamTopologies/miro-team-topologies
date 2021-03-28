@@ -42,14 +42,11 @@ export default class DetailsPanel extends React.Component {
     const metadata = eventData.metadata[CLIENT_ID]
 
     const teamEnum = this.getTeamElementFromString(metadata.teamName)
-    console.log('Name: ' + metadata.teamName)
-    console.log('Team enum: ' + teamEnum)
     if (teamEnum == undefined) return
 
     this.setState({
       description: teamInfo[teamEnum],
     })
-    console.log(`Widget is the ${metadata.teamName} Team ${metadata.teamCategory}`)
     // miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
     //   if (!widgets || widgets.length == 0) return
     //   const widget = widgets[0]
