@@ -18,7 +18,7 @@ Once the needed shapes are in your whiteboard, you can edit them as much as you 
 ![Standard shapes are fully editable](https://malparty.github.io/miro-team-topologies/readme-img/003.Standard_Miro_shapes_fully_editable.gif)
 
 Get useful information by clicking on a Team Topologies widget from your board.
-![Useful info available on click](https://malparty.github.io/miro-team-topologies/readme-img/004-get-useful-info)
+![Useful info available on click](https://malparty.github.io/miro-team-topologies/readme-img/004-get-useful-info.gif)
 
 # How to build
 
