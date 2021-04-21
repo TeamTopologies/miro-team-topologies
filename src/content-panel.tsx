@@ -20,6 +20,14 @@ import {
   getTeamInteractionShapeSize,
   TeamInteractionPreview,
 } from './team-logic/team-interactions'
+
+import {
+  getTeamOtherName,
+  getTeamOtherStyle,
+  getTeamOtherDnDPreview,
+  getTeamOtherShapeSize,
+  FlowOfChangePreview,
+} from './team-logic/team-other'
 import DetailsPanel from 'details-panel'
 
 require('./styles.css')
@@ -76,9 +84,12 @@ class Root extends React.Component {
         if (teamCat == TEAM_CAT.Type) {
           teamSize = getTeamTypeShapeSize(teamElement)
           url = getTeamTypeDnDPreview(teamElement)
-        } else {
+        } else if (teamCat == TEAM_CAT.Interaction) {
           teamSize = getTeamInteractionShapeSize(teamElement)
           url = getTeamInteractionDnDPreview(teamElement)
+        } else {
+          teamSize = getTeamOtherShapeSize(teamElement)
+          url = getTeamOtherDnDPreview(teamElement)
         }
 
         return {
@@ -98,7 +109,11 @@ class Root extends React.Component {
 
   private createTeamWidget = async (teamElement: TEAM_ELEMENTS, teamCat: TEAM_CAT, pos?: {x: number; y: number}) => {
     const teamShapeSize =
-      teamCat == TEAM_CAT.Type ? getTeamTypeShapeSize(teamElement) : getTeamInteractionShapeSize(teamElement)
+      teamCat == TEAM_CAT.Type
+        ? getTeamTypeShapeSize(teamElement)
+        : teamCat == TEAM_CAT.Interaction
+        ? getTeamInteractionShapeSize(teamElement)
+        : getTeamOtherShapeSize(teamElement)
     if (!pos) {
       const viewport = await miro.board.viewport.getViewport()
       pos = {
@@ -117,13 +132,23 @@ class Root extends React.Component {
       type: 'SHAPE',
       x: pos.x,
       y: pos.y,
-      style: teamCat == TEAM_CAT.Type ? getTeamTypeStyle(teamElement) : getTeamInteractionStyle(teamElement),
+      style:
+        teamCat == TEAM_CAT.Type
+          ? getTeamTypeStyle(teamElement)
+          : teamCat == TEAM_CAT.Interaction
+          ? getTeamInteractionStyle(teamElement)
+          : getTeamOtherStyle(teamElement),
       createdUserId: '',
       lastModifiedUserId: '',
       width: teamShapeSize.width,
       height: teamShapeSize.height,
       rotation: 0,
-      text: teamCat == TEAM_CAT.Type ? getTeamTypeName(teamElement) : getTeamInteractionName(teamElement),
+      text:
+        teamCat == TEAM_CAT.Type
+          ? getTeamTypeName(teamElement)
+          : teamCat == TEAM_CAT.Interaction
+          ? getTeamInteractionName(teamElement)
+          : getTeamOtherName(teamElement),
     })
   }
 
@@ -186,7 +211,16 @@ class Root extends React.Component {
             <SVG className="icon" src={TeamInteractionPreview.XaasIcon} />
           </div>
         </div>
-        <hr />
+        <div className="team-other" onMouseEnter={this.updateCurrentScale}>
+          <h3 className="sub-title">Flow of change:</h3>
+          <div
+            className="draggable-team flowofchange-btn"
+            title={getTeamOtherName(TEAM_ELEMENTS.FlowOfChange)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.FlowOfChange, TEAM_CAT.Other)}
+          >
+            <SVG className="icon" src={FlowOfChangePreview} />
+          </div>
+        </div>
         <DetailsPanel />
       </div>
     )
