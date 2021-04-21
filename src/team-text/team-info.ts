@@ -14,5 +14,5 @@ teamText[TEAM_ELEMENTS.Collaboration] =
 teamText[TEAM_ELEMENTS.Xaas] = '**X-as-a-Service:** one team provides and one team consumes something “as a Service”'
 teamText[TEAM_ELEMENTS.Facilitating] = '**Facilitation:** one team helps and mentors another team'
 teamText[TEAM_ELEMENTS.FlowOfChange] =
-  '**Flow of change:** There is always an implied **flow of change from left to right** in the diagram (with apologies to people more familiar with a right-to-left flow!).'
+  '**Flow of change:** \n There is always an implied **flow of change from left to right** in the diagram (with apologies to people more familiar with a right-to-left flow!).'
 export default teamText

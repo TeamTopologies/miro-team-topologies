@@ -162,6 +162,9 @@ class Root extends React.Component {
             className="draggable-team stream-aligned-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.StreamAligned)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.StreamAligned, TEAM_CAT.Type)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.StreamAligned)
+            }}
           >
             <SVG className="icon" src={TeamTypeIcons.StreamAlignedIcon} />
           </div>
@@ -169,6 +172,9 @@ class Root extends React.Component {
             className="draggable-team platform-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.Platform)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Platform, TEAM_CAT.Type)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Platform)
+            }}
           >
             <SVG className="icon" src={TeamTypeIcons.PlatformIcon} />
           </div>
@@ -176,6 +182,9 @@ class Root extends React.Component {
             className="draggable-team enabling-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.Enabling)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Enabling, TEAM_CAT.Type)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Enabling)
+            }}
           >
             <SVG className="icon" src={TeamTypeIcons.EnablingIcon} />
           </div>
@@ -183,6 +192,9 @@ class Root extends React.Component {
             className="draggable-team complicated-subsystem-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.ComplicatedSubsystem)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.ComplicatedSubsystem, TEAM_CAT.Type)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.ComplicatedSubsystem)
+            }}
           >
             <SVG className="icon" src={TeamTypeIcons.ComplicatedSubsystemIcon} />
           </div>
@@ -193,6 +205,9 @@ class Root extends React.Component {
             className="draggable-team collaboration-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Collaboration)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Collaboration, TEAM_CAT.Interaction)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Collaboration)
+            }}
           >
             <SVG className="icon" src={TeamInteractionPreview.CollaborationIcon} />
           </div>
@@ -200,6 +215,9 @@ class Root extends React.Component {
             className="draggable-team facilitating-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Facilitating)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Facilitating, TEAM_CAT.Interaction)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Facilitating)
+            }}
           >
             <SVG className="icon" src={TeamInteractionPreview.FacilitatingIcon} />
           </div>
@@ -207,6 +225,9 @@ class Root extends React.Component {
             className="draggable-team xaas-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Xaas)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Xaas, TEAM_CAT.Interaction)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Xaas)
+            }}
           >
             <SVG className="icon" src={TeamInteractionPreview.XaasIcon} />
           </div>
@@ -217,15 +238,22 @@ class Root extends React.Component {
             className="draggable-team flowofchange-btn"
             title={getTeamOtherName(TEAM_ELEMENTS.FlowOfChange)}
             onClick={() => this.createTeamWidget(TEAM_ELEMENTS.FlowOfChange, TEAM_CAT.Other)}
+            onMouseEnter={() => {
+              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.FlowOfChange)
+            }}
           >
             <SVG className="icon" src={FlowOfChangePreview} />
           </div>
         </div>
-        <DetailsPanel />
+        <DetailsPanel setOnHover={this.setOnHover} />
       </div>
     )
     return <div ref={this.containerRef}>{teamContent}</div>
   }
+  private setOnHover = (callBack: (teamEnum: TEAM_ELEMENTS) => void) => {
+    this.setDetailText = callBack
+  }
+  private setDetailText: ((teamEnum: TEAM_ELEMENTS) => void) | undefined = undefined
 }
 
 miro.onReady(() => {
