@@ -101,13 +101,14 @@ class Root extends React.Component {
       onDrop: (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
         const teamElement = getTeamElementFromClassList(targetHtml.classList)
         const teamCat = getTeamCat(teamElement)
-        this.createTeamWidget(teamElement, teamCat, {x: canvasX, y: canvasY})
+        this.createTeamWidget(teamElement, {x: canvasX, y: canvasY})
       },
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
   }
 
-  private createTeamWidget = async (teamElement: TEAM_ELEMENTS, teamCat: TEAM_CAT, pos?: {x: number; y: number}) => {
+  private createTeamWidget = async (teamElement: TEAM_ELEMENTS, pos?: {x: number; y: number}) => {
+    const teamCat = getTeamCat(teamElement)
     const teamShapeSize =
       teamCat == TEAM_CAT.Type
         ? getTeamTypeShapeSize(teamElement)
@@ -161,7 +162,7 @@ class Root extends React.Component {
           <div
             className="draggable-team stream-aligned-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.StreamAligned)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.StreamAligned, TEAM_CAT.Type)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.StreamAligned)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.StreamAligned)
             }}
@@ -171,7 +172,7 @@ class Root extends React.Component {
           <div
             className="draggable-team platform-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.Platform)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Platform, TEAM_CAT.Type)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Platform)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Platform)
             }}
@@ -181,7 +182,7 @@ class Root extends React.Component {
           <div
             className="draggable-team enabling-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.Enabling)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Enabling, TEAM_CAT.Type)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Enabling)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Enabling)
             }}
@@ -191,7 +192,7 @@ class Root extends React.Component {
           <div
             className="draggable-team complicated-subsystem-btn"
             title={getTeamTypeName(TEAM_ELEMENTS.ComplicatedSubsystem)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.ComplicatedSubsystem, TEAM_CAT.Type)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.ComplicatedSubsystem)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.ComplicatedSubsystem)
             }}
@@ -204,7 +205,7 @@ class Root extends React.Component {
           <div
             className="draggable-team collaboration-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Collaboration)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Collaboration, TEAM_CAT.Interaction)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Collaboration)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Collaboration)
             }}
@@ -214,7 +215,7 @@ class Root extends React.Component {
           <div
             className="draggable-team facilitating-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Facilitating)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Facilitating, TEAM_CAT.Interaction)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Facilitating)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Facilitating)
             }}
@@ -224,7 +225,7 @@ class Root extends React.Component {
           <div
             className="draggable-team xaas-btn"
             title={getTeamInteractionName(TEAM_ELEMENTS.Xaas)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Xaas, TEAM_CAT.Interaction)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Xaas)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Xaas)
             }}
@@ -237,7 +238,7 @@ class Root extends React.Component {
           <div
             className="draggable-team flowofchange-btn"
             title={getTeamOtherName(TEAM_ELEMENTS.FlowOfChange)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.FlowOfChange, TEAM_CAT.Other)}
+            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.FlowOfChange)}
             onMouseEnter={() => {
               if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.FlowOfChange)
             }}
