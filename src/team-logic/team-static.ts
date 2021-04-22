@@ -6,11 +6,13 @@ export enum TEAM_ELEMENTS {
   Collaboration,
   Facilitating,
   Xaas,
+  FlowOfChange,
 }
 
 export enum TEAM_CAT {
   Type = 0,
   Interaction = 1,
+  Other = 2,
 }
 
 export function getTeamElementFromClassList(classList: DOMTokenList): TEAM_ELEMENTS {
@@ -21,6 +23,7 @@ export function getTeamElementFromClassList(classList: DOMTokenList): TEAM_ELEME
   else if (classList.contains('collaboration-btn')) teamElement = TEAM_ELEMENTS.Collaboration
   else if (classList.contains('facilitating-btn')) teamElement = TEAM_ELEMENTS.Facilitating
   else if (classList.contains('xaas-btn')) teamElement = TEAM_ELEMENTS.Xaas
+  else if (classList.contains('flowofchange-btn')) teamElement = TEAM_ELEMENTS.FlowOfChange
 
   return teamElement
 }
@@ -30,6 +33,8 @@ export function getTeamCat(teamElement: TEAM_ELEMENTS): TEAM_CAT {
     case TEAM_ELEMENTS.Facilitating:
     case TEAM_ELEMENTS.Xaas:
       return TEAM_CAT.Interaction
+    case TEAM_ELEMENTS.FlowOfChange:
+      return TEAM_CAT.Other
     default:
       return TEAM_CAT.Type
   }

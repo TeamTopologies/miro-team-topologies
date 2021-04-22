@@ -1,4 +1,4 @@
-import {TEAM_CAT, TEAM_ELEMENTS} from './team-static'
+import {TEAM_ELEMENTS} from './team-static'
 
 const PlatformPreview = require('images/tt/platform.svg')
 const EnablingPreview = require('images/tt/enabling.svg')
