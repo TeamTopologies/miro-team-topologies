@@ -1,4 +1,5 @@
 import * as React from 'react'
+import PropTypes from 'prop-types'
 import {CLIENT_ID} from 'config'
 import ReactMarkdown from 'react-markdown'
 
@@ -13,10 +14,22 @@ type IState = {
   description: string | undefined
   attentionPoints: string[] | undefined
 }
-export default class DetailsPanel extends React.Component {
+type IProps = {
+  setOnHover: (callBack: (teamEnum: TEAM_ELEMENTS) => void) => void
+}
+
+export default class DetailsPanel extends React.Component<IProps, IState> {
+  static propTypes = {
+    setOnHover: PropTypes.func,
+  }
   state: IState = {
     description: undefined,
     attentionPoints: undefined,
+  }
+
+  constructor(props: Readonly<IProps>) {
+    super(props)
+    this.setDetailText = this.setDetailText.bind(this)
   }
   // TODO: Get widget meta-data to init state.
   // eslint-disable-next-line
@@ -24,10 +37,18 @@ export default class DetailsPanel extends React.Component {
     // Enable refresh panel data when selection change or current widget being moved
     miro.addListener('WIDGETS_TRANSFORMATION_UPDATED', this.onWidgetTransformed)
     miro.addListener('SELECTION_UPDATED', this.onWidgetTransformed)
+    console.log(this.props)
+    console.log(this.props.setOnHover)
+    this.props.setOnHover(this.setDetailText)
   }
-  // componentDidMount(): void {
+  //  componentDidMount(): void {
 
-  // }
+  //  }
+  private setDetailText = (teamEnum: TEAM_ELEMENTS): void => {
+    this.setState({
+      description: teamInfo[teamEnum],
+    })
+  }
 
   private getTeamElementFromString(name: string): TEAM_ELEMENTS | undefined {
     const team_elt: TEAM_ELEMENTS = TEAM_ELEMENTS[name as keyof typeof TEAM_ELEMENTS]
@@ -44,9 +65,7 @@ export default class DetailsPanel extends React.Component {
     const teamEnum = this.getTeamElementFromString(metadata.teamName)
     if (teamEnum == undefined) return
 
-    this.setState({
-      description: teamInfo[teamEnum],
-    })
+    this.setDetailText(teamEnum)
     // miro.board.widgets.get({id: eventData.id}).then((widgets: SDK.IWidget[]) => {
     //   if (!widgets || widgets.length == 0) return
     //   const widget = widgets[0]
