@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import teamInfo from './team-text/team-info'
 import genericText from './team-text/generic'
 
-import {TEAM_ELEMENTS} from 'team-logic/team-static'
+import {TEAM_ENUM} from 'team-logic/team-static'
 
 require('./details-styles.css')
 
@@ -15,7 +15,7 @@ type IState = {
   attentionPoints: string[] | undefined
 }
 type IProps = {
-  setOnHover: (callBack: (teamEnum: TEAM_ELEMENTS) => void) => void
+  setOnHover: (callBack: (teamEnum: TEAM_ENUM) => void) => void
 }
 
 export default class DetailsPanel extends React.Component<IProps, IState> {
@@ -44,14 +44,14 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
   //  componentDidMount(): void {
 
   //  }
-  private setDetailText = (teamEnum: TEAM_ELEMENTS): void => {
+  private setDetailText = (teamEnum: TEAM_ENUM): void => {
     this.setState({
       description: teamInfo[teamEnum],
     })
   }
 
-  private getTeamElementFromString(name: string): TEAM_ELEMENTS | undefined {
-    const team_elt: TEAM_ELEMENTS = TEAM_ELEMENTS[name as keyof typeof TEAM_ELEMENTS]
+  private getTeamEnumFromString(name: string): TEAM_ENUM | undefined {
+    const team_elt: TEAM_ENUM = TEAM_ENUM[name as keyof typeof TEAM_ENUM]
     return team_elt
   }
   private onWidgetTransformed = (e: SDK.Event) => {
@@ -62,7 +62,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
 
     const metadata = eventData.metadata[CLIENT_ID]
 
-    const teamEnum = this.getTeamElementFromString(metadata.teamName)
+    const teamEnum = this.getTeamEnumFromString(metadata.teamName)
     if (teamEnum == undefined) return
 
     this.setDetailText(teamEnum)

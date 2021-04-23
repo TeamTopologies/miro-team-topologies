@@ -1,4 +1,4 @@
-export enum TEAM_ELEMENTS {
+export enum TEAM_ENUM {
   StreamAligned = 0,
   Platform = 1,
   Enabling = 2,
@@ -8,34 +8,31 @@ export enum TEAM_ELEMENTS {
   Xaas,
   FlowOfChange,
 }
-
-export enum TEAM_CAT {
-  Type = 0,
-  Interaction = 1,
-  Other = 2,
+export interface TeamElementStyle {
+  shapeType: number
+  backgroundColor: string
+  backgroundOpacity: number
+  borderColor: string
+  borderWidth: number
+  borderOpacity: number
+  borderStyle: number
+  fontFamily: number
+  textColor: string
+  textAlign: string
+  textAlignVertical: string
+  fontSize: number
+  bold: number
+  italic: number
+  underline: number
+  strike: number
+  highlighting: string
 }
-
-export function getTeamElementFromClassList(classList: DOMTokenList): TEAM_ELEMENTS {
-  let teamElement = TEAM_ELEMENTS.ComplicatedSubsystem
-  if (classList.contains('stream-aligned-btn')) teamElement = TEAM_ELEMENTS.StreamAligned
-  else if (classList.contains('platform-btn')) teamElement = TEAM_ELEMENTS.Platform
-  else if (classList.contains('enabling-btn')) teamElement = TEAM_ELEMENTS.Enabling
-  else if (classList.contains('collaboration-btn')) teamElement = TEAM_ELEMENTS.Collaboration
-  else if (classList.contains('facilitating-btn')) teamElement = TEAM_ELEMENTS.Facilitating
-  else if (classList.contains('xaas-btn')) teamElement = TEAM_ELEMENTS.Xaas
-  else if (classList.contains('flowofchange-btn')) teamElement = TEAM_ELEMENTS.FlowOfChange
-
-  return teamElement
-}
-export function getTeamCat(teamElement: TEAM_ELEMENTS): TEAM_CAT {
-  switch (teamElement) {
-    case TEAM_ELEMENTS.Collaboration:
-    case TEAM_ELEMENTS.Facilitating:
-    case TEAM_ELEMENTS.Xaas:
-      return TEAM_CAT.Interaction
-    case TEAM_ELEMENTS.FlowOfChange:
-      return TEAM_CAT.Other
-    default:
-      return TEAM_CAT.Type
-  }
+export interface TeamElement {
+  getTeamEnum(): TEAM_ENUM
+  getStyle(): TeamElementStyle
+  getName(): string
+  getShapeSize(): {height: number; width: number}
+  getPreview(): string
+  getIcon(): string
+  getClassName(): string
 }

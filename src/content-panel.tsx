@@ -4,30 +4,13 @@ import * as ReactDOM from 'react-dom'
 import SVG from 'react-inlinesvg'
 
 import {CLIENT_ID, PLUGIN_TITLE} from 'config'
-import {TEAM_ELEMENTS, TEAM_CAT, getTeamElementFromClassList, getTeamCat} from './team-logic/team-static'
-import {
-  getTeamTypeDnDPreview,
-  getTeamTypeName,
-  getTeamTypeStyle,
-  getTeamTypeShapeSize,
-  TeamTypeIcons,
-} from './team-logic/team-types'
+import {TEAM_ENUM, TeamElement} from './team-logic/team-static'
+import {TeamFactory} from './team-logic/team-factory'
 
-import {
-  getTeamInteractionName,
-  getTeamInteractionStyle,
-  getTeamInteractionDnDPreview,
-  getTeamInteractionShapeSize,
-  TeamInteractionPreview,
-} from './team-logic/team-interactions'
+import {TeamType} from './team-logic/team-type'
+import {TeamInteraction} from './team-logic/team-interaction'
+import {TeamOther} from './team-logic/team-other'
 
-import {
-  getTeamOtherName,
-  getTeamOtherStyle,
-  getTeamOtherDnDPreview,
-  getTeamOtherShapeSize,
-  FlowOfChangePreview,
-} from './team-logic/team-other'
 import DetailsPanel from 'details-panel'
 
 require('./styles.css')
@@ -42,12 +25,18 @@ type IState = {
 class Root extends React.Component {
   private containerRef: any = React.createRef()
   private viewportScale = 1
+  private teamFactory: TeamFactory
 
   state: IState = {
     viewMode: 'loading', //edit, play, select-start-screen
     selectStartScreenMode: false,
     screens: [],
     screenIndex: 0,
+  }
+
+  constructor(props: any) {
+    super(props)
+    this.teamFactory = new TeamFactory()
   }
 
   // Needed to get scale before previewing drag&drop. As D&D callback is not async.
@@ -77,20 +66,8 @@ class Root extends React.Component {
       dragDirection: 'vertical',
       draggableItemSelector: '.draggable-team',
       getDraggableItemPreview: (targetElement: HTMLElement) => {
-        const teamElement = getTeamElementFromClassList(targetElement.classList)
-        const teamCat = getTeamCat(teamElement)
-        let teamSize: {width: number; height: number}
-        let url: string
-        if (teamCat == TEAM_CAT.Type) {
-          teamSize = getTeamTypeShapeSize(teamElement)
-          url = getTeamTypeDnDPreview(teamElement)
-        } else if (teamCat == TEAM_CAT.Interaction) {
-          teamSize = getTeamInteractionShapeSize(teamElement)
-          url = getTeamInteractionDnDPreview(teamElement)
-        } else {
-          teamSize = getTeamOtherShapeSize(teamElement)
-          url = getTeamOtherDnDPreview(teamElement)
-        }
+        const teamSize = this.teamFactory.getTeamElementFromClassList(targetElement.classList).getShapeSize()
+        const url = this.teamFactory.getTeamElementFromClassList(targetElement.classList).getPreview()
 
         return {
           width: 1.3 * this.viewportScale * teamSize.width,
@@ -99,22 +76,15 @@ class Root extends React.Component {
         }
       },
       onDrop: (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
-        const teamElement = getTeamElementFromClassList(targetHtml.classList)
-        const teamCat = getTeamCat(teamElement)
+        const teamElement = this.teamFactory.getTeamElementFromClassList(targetHtml.classList)
         this.createTeamWidget(teamElement, {x: canvasX, y: canvasY})
       },
     }
     miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
   }
 
-  private createTeamWidget = async (teamElement: TEAM_ELEMENTS, pos?: {x: number; y: number}) => {
-    const teamCat = getTeamCat(teamElement)
-    const teamShapeSize =
-      teamCat == TEAM_CAT.Type
-        ? getTeamTypeShapeSize(teamElement)
-        : teamCat == TEAM_CAT.Interaction
-        ? getTeamInteractionShapeSize(teamElement)
-        : getTeamOtherShapeSize(teamElement)
+  private createTeamWidget = async (teamElement: TeamElement, pos?: {x: number; y: number}) => {
+    const teamShapeSize = teamElement.getShapeSize()
     if (!pos) {
       const viewport = await miro.board.viewport.getViewport()
       pos = {
@@ -126,135 +96,70 @@ class Root extends React.Component {
       metadata: {
         [CLIENT_ID]: {
           teamtopology: true,
-          teamCategory: teamCat,
-          teamName: TEAM_ELEMENTS[teamElement],
+          teamCategory: typeof teamElement,
+          teamName: teamElement.getClassName(),
         },
       },
       type: 'SHAPE',
       x: pos.x,
       y: pos.y,
-      style:
-        teamCat == TEAM_CAT.Type
-          ? getTeamTypeStyle(teamElement)
-          : teamCat == TEAM_CAT.Interaction
-          ? getTeamInteractionStyle(teamElement)
-          : getTeamOtherStyle(teamElement),
+      style: teamElement.getStyle(),
       createdUserId: '',
       lastModifiedUserId: '',
       width: teamShapeSize.width,
       height: teamShapeSize.height,
       rotation: 0,
-      text:
-        teamCat == TEAM_CAT.Type
-          ? getTeamTypeName(teamElement)
-          : teamCat == TEAM_CAT.Interaction
-          ? getTeamInteractionName(teamElement)
-          : getTeamOtherName(teamElement),
+      text: teamElement.getName(),
     })
+  }
+
+  renderTeamElement(teamElement: TeamElement) {
+    return (
+      <div
+        key={teamElement.getTeamEnum()}
+        className={'draggable-team ' + teamElement.getClassName()}
+        title={teamElement.getName()}
+        onClick={() => this.createTeamWidget(teamElement)}
+        onMouseEnter={() => {
+          if (this.setDetailText != undefined) this.setDetailText(teamElement.getTeamEnum())
+        }}
+      >
+        <SVG className="icon" src={teamElement.getIcon()} />
+      </div>
+    )
   }
 
   render() {
     const teamContent = (
-      <div className="tt_main_container">
+      <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
         <h2>{PLUGIN_TITLE}</h2>
         <h3 className="sub-title">Team types:</h3>
-        <div className="team-types" onMouseEnter={this.updateCurrentScale}>
-          <div
-            className="draggable-team stream-aligned-btn"
-            title={getTeamTypeName(TEAM_ELEMENTS.StreamAligned)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.StreamAligned)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.StreamAligned)
-            }}
-          >
-            <SVG className="icon" src={TeamTypeIcons.StreamAlignedIcon} />
-          </div>
-          <div
-            className="draggable-team platform-btn"
-            title={getTeamTypeName(TEAM_ELEMENTS.Platform)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Platform)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Platform)
-            }}
-          >
-            <SVG className="icon" src={TeamTypeIcons.PlatformIcon} />
-          </div>
-          <div
-            className="draggable-team enabling-btn"
-            title={getTeamTypeName(TEAM_ELEMENTS.Enabling)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Enabling)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Enabling)
-            }}
-          >
-            <SVG className="icon" src={TeamTypeIcons.EnablingIcon} />
-          </div>
-          <div
-            className="draggable-team complicated-subsystem-btn"
-            title={getTeamTypeName(TEAM_ELEMENTS.ComplicatedSubsystem)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.ComplicatedSubsystem)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.ComplicatedSubsystem)
-            }}
-          >
-            <SVG className="icon" src={TeamTypeIcons.ComplicatedSubsystemIcon} />
-          </div>
+        <div className="team-types">
+          {TeamType.TeamEnums.map((teamEnum) => {
+            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
+          })}
         </div>
         <h3 className="sub-title">Team interactions:</h3>
-        <div className="team-interactions" onMouseEnter={this.updateCurrentScale}>
-          <div
-            className="draggable-team collaboration-btn"
-            title={getTeamInteractionName(TEAM_ELEMENTS.Collaboration)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Collaboration)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Collaboration)
-            }}
-          >
-            <SVG className="icon" src={TeamInteractionPreview.CollaborationIcon} />
-          </div>
-          <div
-            className="draggable-team facilitating-btn"
-            title={getTeamInteractionName(TEAM_ELEMENTS.Facilitating)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Facilitating)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Facilitating)
-            }}
-          >
-            <SVG className="icon" src={TeamInteractionPreview.FacilitatingIcon} />
-          </div>
-          <div
-            className="draggable-team xaas-btn"
-            title={getTeamInteractionName(TEAM_ELEMENTS.Xaas)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.Xaas)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.Xaas)
-            }}
-          >
-            <SVG className="icon" src={TeamInteractionPreview.XaasIcon} />
-          </div>
+        <div className="team-interactions">
+          {TeamInteraction.TeamEnums.map((teamEnum) => {
+            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
+          })}
         </div>
-        <div className="team-other" onMouseEnter={this.updateCurrentScale}>
+        <div className="team-other">
           <h3 className="sub-title">Flow of change:</h3>
-          <div
-            className="draggable-team flowofchange-btn"
-            title={getTeamOtherName(TEAM_ELEMENTS.FlowOfChange)}
-            onClick={() => this.createTeamWidget(TEAM_ELEMENTS.FlowOfChange)}
-            onMouseEnter={() => {
-              if (this.setDetailText != undefined) this.setDetailText(TEAM_ELEMENTS.FlowOfChange)
-            }}
-          >
-            <SVG className="icon" src={FlowOfChangePreview} />
-          </div>
+          {TeamOther.TeamEnums.map((teamEnum) => {
+            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
+          })}
         </div>
         <DetailsPanel setOnHover={this.setOnHover} />
       </div>
     )
     return <div ref={this.containerRef}>{teamContent}</div>
   }
-  private setOnHover = (callBack: (teamEnum: TEAM_ELEMENTS) => void) => {
+  private setOnHover = (callBack: (teamEnum: TEAM_ENUM) => void) => {
     this.setDetailText = callBack
   }
-  private setDetailText: ((teamEnum: TEAM_ELEMENTS) => void) | undefined = undefined
+  private setDetailText: ((teamEnum: TEAM_ENUM) => void) | undefined = undefined
 }
 
 miro.onReady(() => {
