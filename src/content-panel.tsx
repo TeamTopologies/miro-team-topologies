@@ -15,24 +15,10 @@ import DetailsPanel from 'details-panel'
 
 require('./styles.css')
 
-type IState = {
-  viewMode: string
-  selectStartScreenMode: boolean
-  screens: SDK.IWidget[]
-  screenIndex: number
-}
-
 class Root extends React.Component {
   private containerRef: any = React.createRef()
   private viewportScale = 1
   private teamFactory: TeamFactory
-
-  state: IState = {
-    viewMode: 'loading', //edit, play, select-start-screen
-    selectStartScreenMode: false,
-    screens: [],
-    screenIndex: 0,
-  }
 
   constructor(props: any) {
     super(props)
@@ -44,20 +30,6 @@ class Root extends React.Component {
     miro.board.viewport.getScale().then((scale) => {
       this.viewportScale = scale
     })
-  }
-
-  // TODO: TO BE UPDATED Set state based on miro-state before comp. mount.
-  // eslint-disable-next-line
-  async componentWillMount() {
-    const savedState = await miro.__getRuntimeState()
-
-    if (savedState.enterPrototypingMode) {
-      miro.__setRuntimeState({enterPrototypingMode: false})
-    } else if (savedState.prototypingMode) {
-      this.setState({viewMode: 'play'})
-    } else {
-      this.setState({viewMode: 'edit'})
-    }
   }
 
   componentDidMount(): void {
@@ -96,8 +68,7 @@ class Root extends React.Component {
       metadata: {
         [CLIENT_ID]: {
           teamtopology: true,
-          teamCategory: typeof teamElement,
-          teamName: teamElement.getClassName(),
+          teamEnum: TEAM_ENUM[teamElement.getTeamEnum()],
         },
       },
       type: 'SHAPE',
