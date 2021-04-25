@@ -1,12 +1,17 @@
 # Team Topologies web plugin for Miro
 
-With this plugin users can build Team Topologies ([teamtopologies.com](https://teamtopologies.com)).
+This plugin provide you ready-to-use shapes to build ([Team Topologies](https://teamtopologies.com)).
 
-_This plugin was created by curiosity, it is not ready for production [yet]._
+Based on some of the ideas in the book Team Topologies by Matthew Skelton [@matthewskelton](https://github.com/matthewskelton) and Manuel Pais [@manupaisable](https://github.com/manupaisable).
+Trying to align with the templates available in [this repo](https://github.com/TeamTopologies/Team-Shape-Templates#available-team-shapes)
+
+> See [teamtopologies.com](https://teamtopologies.com) for more details about Team Topologies.
+
+> Copyright © 2018-2021 [Team Topologies](https://teamtopologies.com) - Licenced under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ![CC BY-SA 4.0](https://camo.githubusercontent.com/15caa29e1c1eee97bbc907cf2c3bc05d89bdd029af302d0baceea292a68aa56c/68747470733a2f2f6c6963656e7365627574746f6e732e6e65742f6c2f62792d73612f332e302f38387833312e706e67)
 
 # How it works
 
-You can try the plugin durectly using this URL: https://miro.com/oauth/authorize/?response_type=code&client_id=3074457356139930746&redirect_uri=%2Fconfirm-app-install%2F 
+You can try the plugin durectly using this URL: https://miro.com/oauth/authorize/?response_type=code&client_id=3074457356139930746&redirect_uri=%2Fconfirm-app-install%2F
 
 Setup the Team Topologies icon from your library
 ![Find the Team Topologies icon from your library](https://malparty.github.io/miro-team-topologies/readme-img/001.import_from_library.gif)
@@ -22,10 +27,11 @@ Once the needed shapes are in your whiteboard, you can edit them as much as you 
 You will need Webpack-cli install globally with npm ENV VAR set.
 
 - Run `npm install`
-- Replace `CLIENT_ID` in [`src/config.ts`](src/config.ts) file *(You can get your own _CLIENT_ID_ in Miro app settings)*.
+- Replace `CLIENT_ID` in [`src/config.ts`](src/config.ts) file _(You can get your own *CLIENT_ID* in Miro app settings)_.
 - Run `npm run build` or `npm run watch` to compile the plugin
 
 _development_
+
 - Run serve the app `npx serve -p 8081`
 - Run `ngrok` using `npx ngrok http 8081`
 - Get https url from _ngrok_ and paste it in `iframe url` in your app settings.
