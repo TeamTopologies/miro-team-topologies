@@ -147,7 +147,7 @@ export class TeamType implements TeamElement {
 
   getPreview(): string {
     const imgPrefix = 'data:image/svg+xml,'
-    return imgPrefix + this.getPreview()
+    return imgPrefix + this.getPreviewSvg()
   }
 
   getIcon(): string {
