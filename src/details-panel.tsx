@@ -33,9 +33,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
   // TODO: Get widget meta-data to init state.
   // eslint-disable-next-line
   async componentWillMount() {
-    // Enable refresh panel data when selection change or current widget being moved
-    miro.addListener('WIDGETS_TRANSFORMATION_UPDATED', this.onWidgetTransformed)
-    miro.addListener('SELECTION_UPDATED', this.onWidgetTransformed)
+    // Enable refresh panel data when hovering change
     this.props.setOnHover(this.setDetailText)
   }
   //  componentDidMount(): void {
@@ -45,23 +43,6 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
     this.setState({
       description: teamInfo[teamEnum],
     })
-  }
-
-  private getTeamEnumFromString(name: string): TEAM_ENUM | undefined {
-    const team_elt: TEAM_ENUM = TEAM_ENUM[name as keyof typeof TEAM_ENUM]
-    return team_elt
-  }
-  private onWidgetTransformed = (e: SDK.Event) => {
-    const eventData = e.data[0]
-
-    // Only handle Team Topologies signed shapes
-    if (eventData == undefined || eventData.metadata[CLIENT_ID] == undefined) return
-
-    const metadata = eventData.metadata[CLIENT_ID]
-    const teamEnum = this.getTeamEnumFromString(metadata.teamEnum)
-    if (teamEnum == undefined) return
-
-    this.setDetailText(teamEnum)
   }
 
   render(): JSX.Element {
