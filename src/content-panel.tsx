@@ -13,6 +13,7 @@ import {TeamOther} from './team-logic/team-other'
 
 import DetailsPanel from 'details-panel'
 
+require('./styles-miro.css')
 require('./styles.css')
 
 class Root extends React.Component {
@@ -103,20 +104,20 @@ class Root extends React.Component {
   render() {
     const teamContent = (
       <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
-        <h3 className="sub-title">Team types:</h3>
+        <h4 className="sub-title">Team types:</h4>
         <div className="team-types">
           {TeamType.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
           })}
         </div>
-        <h3 className="sub-title">Team interactions:</h3>
+        <h4 className="sub-title">Team interactions:</h4>
         <div className="team-interactions">
           {TeamInteraction.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
           })}
         </div>
         <div className="team-other">
-          <h3 className="sub-title">Flow of change:</h3>
+          <h4 className="sub-title">Flow of change:</h4>
           {TeamOther.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
           })}

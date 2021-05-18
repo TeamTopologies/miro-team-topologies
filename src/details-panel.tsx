@@ -73,12 +73,12 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
         </div>
       )
     } else {
-      detailArea = <i className="small-tooltip">{genericText.PleaseSelectWidget}</i>
+      detailArea = <span className="label label-info">{genericText.PleaseSelectWidget}</span>
     }
     if (this.state.attentionPoints !== undefined) {
       attentionArea = (
         <div>
-          <h3>{genericText.PointOfAttentionTitle}</h3>
+          <h4>{genericText.PointOfAttentionTitle}</h4>
           {this.state.attentionPoints.map((ap) => {
             ;<p>ICON and {ap}</p>
           })}
@@ -88,7 +88,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
 
     return (
       <div>
-        <h3 className="sub-title">{genericText.DetailsAreaTitle}</h3>
+        <h4 className="sub-title">{genericText.DetailsAreaTitle}</h4>
         {detailArea}
         {attentionArea}
         <div className="learn-more-link">
