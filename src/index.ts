@@ -14,7 +14,7 @@ miro.onReady(async () => {
             librarySvgIcon: LOGO_TT,
             toolbarSvgIcon: LOGO_TT,
             onClick: () => {
-              miro.board.ui.openLeftSidebar('content-panel.html')
+              miro.board.ui.openLibrary('content-panel.html', {title: PLUGIN_TITLE})
             },
           }
         }

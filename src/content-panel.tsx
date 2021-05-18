@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 
 import SVG from 'react-inlinesvg'
 
-import {CLIENT_ID, PLUGIN_TITLE} from 'config'
+import {CLIENT_ID} from 'config'
 import {TEAM_ENUM, TeamElement} from './team-logic/team-static'
 import {TeamFactory} from './team-logic/team-factory'
 
@@ -103,7 +103,6 @@ class Root extends React.Component {
   render() {
     const teamContent = (
       <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
-        <h2>{PLUGIN_TITLE}</h2>
         <h3 className="sub-title">Team types:</h3>
         <div className="team-types">
           {TeamType.TeamEnums.map((teamEnum) => {
