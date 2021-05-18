@@ -5,8 +5,6 @@ html {
 body {
   height: 100%;
   margin: 0;
-  color: #09043c;
-  font: 14px OpenSans, Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -17,20 +15,21 @@ body {
 }
 
 .team-interactions .icon {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 }
 .team-types .icon {
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 34px;
 }
+
 .small-tooltip {
   color: #8e8e8e;
   margin-top: 20px;
 }
 .learn-more-link {
   text-align: right;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #content-panel-react-app {
