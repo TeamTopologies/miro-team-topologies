@@ -1,19 +1,13 @@
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  margin: 0;
-}
-
-h3 {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
-}
-
 * {
   user-select: none;
+}
+
+p strong {
+  font-weight: bold;
+}
+
+p i {
+  font-style: italic;
 }
 .tt_main_container {
   padding: 20px;
@@ -37,10 +31,6 @@ svg.icon {
   background-color: #f5f5f7;
 }
 
-.small-tooltip {
-  color: #8e8e8e;
-  margin-top: 20px;
-}
 .learn-more-link {
   text-align: right;
   margin-top: 10px;
