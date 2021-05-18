@@ -1,36 +1,39 @@
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  margin: 0;
-  color: #09043c;
-  font: 14px OpenSans, Arial, Helvetica, sans-serif;
-}
-
 * {
   user-select: none;
+}
+
+p strong {
+  font-weight: bold;
+}
+
+p i {
+  font-style: italic;
 }
 .tt_main_container {
   padding: 20px;
 }
 
-.team-interactions .icon {
-  width: 60px;
-  height: 60px;
+.team-interactions svg.icon {
+  width: 40px;
+  height: 40px;
 }
-.team-types .icon {
-  width: 48px;
-  height: 48px;
+.team-types svg.icon {
+  width: 34px;
+  height: 34px;
 }
-.small-tooltip {
-  color: #8e8e8e;
-  margin-top: 20px;
+
+svg.icon {
+  display: block;
+  padding: 5px;
 }
+
+.icon:hover {
+  background-color: #f5f5f7;
+}
+
 .learn-more-link {
   text-align: right;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #content-panel-react-app {
@@ -53,10 +56,4 @@ body {
 
 .draggable-team {
   cursor: pointer;
-  font-size: 18px;
-  font-family: sans-serif;
-}
-.draggable-team icon:hover {
-  width: 55px;
-  height: 55px;
 }
