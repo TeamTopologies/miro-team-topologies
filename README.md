@@ -14,10 +14,12 @@ Trying to align with the templates available in [this repo](https://github.com/T
 You can try the plugin durectly using this URL: https://miro.com/oauth/authorize/?response_type=code&client_id=3074457356139930746&redirect_uri=%2Fconfirm-app-install%2F
 
 Setup the Team Topologies icon from your library
+
 ![Find the Team Topologies icon from your library](https://malparty.github.io/miro-team-topologies/readme-img/001.import_from_library.gif)
 
-Start to drag&drop the shapes you need:
-![Start Drag & Drop the needed shapes](https://malparty.github.io/miro-team-topologies/readme-img/002.Start_drag_and_drop.gif)
+Start to drag&drop the shapes you need
+
+![Start Drag & Drop the needed shapes](https://malparty.github.io/miro-team-topologies/readme-img/002.Start_drag_and_drop_new.gif)
 
 Once the needed shapes are in your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
 ![Standard shapes are fully editable](https://malparty.github.io/miro-team-topologies/readme-img/003.Standard_Miro_shapes_fully_editable.gif)
