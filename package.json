@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prebuild": "del dist",
     "build": ".\\node_modules\\.bin\\webpack --mode production",
     "dev": ".\\node_modules\\.bin\\webpack --mode development",
     "watch": ".\\node_modules\\.bin\\webpack -w --mode development"

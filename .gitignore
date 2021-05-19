@@ -22,4 +22,4 @@ yarn-error.log*
 .env
 
 # builds
-/dist
+/dist/js
