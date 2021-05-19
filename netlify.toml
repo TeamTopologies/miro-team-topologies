@@ -4,3 +4,22 @@
     Content-Security-Policy = "default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com;  script-src 'self' https://miro.com"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
+    Permissions-Policy = '''
+            accelerometer=(none),
+            ambient-light-sensor=(none),
+            autoplay=(none),
+            camera=(none),
+            encrypted-media=(none),
+            fullscreen=(none),
+            geolocation=(none),
+            gyroscope=(none),
+            magnetometer=(none),
+            microphone=(none),
+            midi=(none),
+            payment=(none),
+            picture-in-picture=(none),
+            speaker=(none),
+            usb=(none),
+            vibrate=(none),
+            vr=(none)
+        '''
