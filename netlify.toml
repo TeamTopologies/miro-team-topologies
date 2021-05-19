@@ -2,4 +2,3 @@
   for = "/*"
   [headers.values]
     Content-Security-Policy = "default-src 'self';"
-    X-Frame-Options = ALLOW
