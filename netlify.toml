@@ -1,5 +1,5 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self';"
+    Content-Security-Policy = "default-src 'self'; connect-src 'https://miro.com'"
     X-Content-Type-Options = "nosniff"
