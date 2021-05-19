@@ -2,6 +2,6 @@
   for = "/*"
   [headers.values]
     Content-Security-Policy = "default-src 'self';"
-    X-Frame-Options = "ALLOW"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
