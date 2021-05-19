@@ -1,5 +1,5 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self' 'unsafe-inline' https://fonts.googleapis.con;  script-src 'self' https://miro.com"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' https://fonts.googleapis.com;  script-src 'self' https://miro.com"
     X-Content-Type-Options = "nosniff"
