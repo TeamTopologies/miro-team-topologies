@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4c0bdf80-67bf-46bd-a2e3-f7441138f851/deploy-status)](https://app.netlify.com/sites/team-topologies-miro/deploys)
+
 # Team Topologies web plugin for Miro
 
 This plugin provide you ready-to-use shapes to build ([Team Topologies](https://teamtopologies.com)).
