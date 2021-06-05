@@ -36,7 +36,7 @@ You will need Webpack-cli install globally with npm ENV VAR set.
 
 _development_
 
-- Run serve the app `npx serve -p 8081`
+- Run serve the app `npx serve dist -p 8081`
 - Run `ngrok` using `npx ngrok http 8081`
 - Get https url from _ngrok_ and paste it in `iframe url` in your app settings.
   _run/release_
