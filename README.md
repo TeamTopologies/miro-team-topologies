@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4c0bdf80-67bf-46bd-a2e3-f7441138f851/deploy-status)](https://app.netlify.com/sites/team-topologies-miro/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/aaf957fe-03db-4fa6-a3d5-9235c3ecc95a/deploy-status)](https://app.netlify.com/sites/miro-team-topologies/deploys)
 
 # Team Topologies web plugin for Miro
 
