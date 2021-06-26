@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom'
 
 import SVG from 'react-inlinesvg'
 
-import {CLIENT_ID} from 'config'
 import {TEAM_ENUM, TeamElement} from './team-logic/team-static'
 import {TeamFactory} from './team-logic/team-factory'
 
@@ -67,7 +66,7 @@ class Root extends React.Component {
     }
     await miro.board.widgets.create({
       metadata: {
-        [CLIENT_ID]: {
+        [miro.getClientId()]: {
           teamtopology: true,
           teamEnum: TEAM_ENUM[teamElement.getTeamEnum()],
         },

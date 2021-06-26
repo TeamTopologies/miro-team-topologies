@@ -1,4 +1,3 @@
-export const CLIENT_ID = process.env.NODE_ENV == 'production' ? '3074457356139930746' : '3074457355995945552'
 export const PLUGIN_TITLE = process.env.NODE_ENV == 'production' ? 'Team Topologies' : 'TT_Local Run'
 export const LOGO_TT = `<svg version="1.1" id="team_topologies_logo_btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 103 103" style="enable-background:new 0 0 339 103;" xml:space="preserve">
 <g>

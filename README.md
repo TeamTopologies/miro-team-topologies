@@ -13,7 +13,7 @@ Trying to align with the templates available in [this repo](https://github.com/T
 
 # How it works
 
-You can try the plugin durectly using this URL: https://miro.com/oauth/authorize/?response_type=code&client_id=3074457356139930746&redirect_uri=%2Fconfirm-app-install%2F
+You can try the official plugin durectly from [Miro Marketplace](https://miro.com/marketplace/team-topologies/).
 
 Setup the Team Topologies icon from your library
 
@@ -31,7 +31,6 @@ Once the needed shapes are in your whiteboard, you can edit them as much as you 
 You will need Webpack-cli install globally with npm ENV VAR set.
 
 - Run `npm install`
-- Replace `CLIENT_ID` in [`src/config.ts`](src/config.ts) file _(You can get your own *CLIENT_ID* in Miro app settings)_.
 - Run `npm run build` or `npm run watch` to compile the plugin
 
 _development_

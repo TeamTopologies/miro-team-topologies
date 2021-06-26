@@ -1,6 +1,5 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import {CLIENT_ID} from 'config'
 import ReactMarkdown from 'react-markdown'
 
 import {TEAM_ENUM} from 'team-logic/team-static'
