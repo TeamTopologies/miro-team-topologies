@@ -13,6 +13,7 @@ p i {
   padding: 20px;
 }
 
+.team-supplementary svg.icon,
 .team-interactions svg.icon {
   width: 40px;
   height: 40px;
@@ -48,6 +49,7 @@ svg.icon {
 }
 
 .team-types,
+.team-supplementary,
 .team-interactions {
   display: flex;
   justify-content: space-around;
