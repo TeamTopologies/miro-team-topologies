@@ -2,11 +2,12 @@ export enum TEAM_ENUM {
   StreamAligned = 0,
   Platform = 1,
   Enabling = 2,
-  ComplicatedSubsystem,
-  Collaboration,
-  Facilitating,
-  Xaas,
-  FlowOfChange,
+  UndefinedTeam = 3,
+  ComplicatedSubsystem = 4,
+  Collaboration = 5,
+  Facilitating = 6,
+  Xaas = 7,
+  FlowOfChange = 8,
 }
 export interface TeamElementStyle {
   shapeType: number

@@ -7,6 +7,8 @@ teamText[TEAM_ENUM.Enabling] =
   '**Enabling team:** helps a Stream-aligned team to overcome obstacles. Also detects missing capabilities.'
 teamText[TEAM_ENUM.ComplicatedSubsystem] =
   '**Complicated Subsystem team:** where significant mathematics/calculation/technical expertise is needed.'
+teamText[TEAM_ENUM.UndefinedTeam] =
+  'The **Undefined team type** shape can be used to represent a team that currently has no team type determined.'
 teamText[TEAM_ENUM.Platform] =
   '**Platform team:** a grouping of other team types that provide a compelling internal product to accelerate delivery by Stream-aligned teams'
 teamText[TEAM_ENUM.Collaboration] =
