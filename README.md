@@ -2,7 +2,7 @@
 
 # Team Topologies web plugin for Miro
 
-This plugin provide you ready-to-use shapes to build ([Team Topologies](https://teamtopologies.com)).
+This plugin provides you ready to use shapes to build ([Team Topologies](https://teamtopologies.com)).
 
 Based on some of the ideas in the book Team Topologies by Matthew Skelton [@matthewskelton](https://github.com/matthewskelton) and Manuel Pais [@manupaisable](https://github.com/manupaisable).
 Trying to align with the templates available in [this repo](https://github.com/TeamTopologies/Team-Shape-Templates#available-team-shapes)
@@ -13,7 +13,7 @@ Trying to align with the templates available in [this repo](https://github.com/T
 
 # How it works
 
-You can try the official plugin durectly from [Miro Marketplace](https://miro.com/marketplace/team-topologies/).
+You can try the official plugin directly from [Miro Marketplace](https://miro.com/marketplace/team-topologies/).
 
 Setup the Team Topologies icon from your library
 
@@ -23,12 +23,12 @@ Start to drag & drop the shapes you need
 
 ![Start Drag & Drop the needed shapes](readme-img/002.Start_drag_and_drop_new.gif)
 
-Once the needed shapes are in your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
+Once the needed shapes are into your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
 ![Standard shapes are fully editable](readme-img/003.Standard_Miro_shapes_fully_editable.gif)
 
 # How to build
 
-You will need Webpack-cli install globally with npm ENV VAR set.
+You will need the `Webpack-cli` installed globally with npm ENV VAR set.
 
 - Run `npm install`
 - Run `npm run build` or `npm run watch` to compile the plugin
@@ -37,7 +37,7 @@ _development_
 
 - Run serve the app `npx serve dist -p 8081`
 - Run `ngrok` using `npx ngrok http 8081`
-- Get https url from _ngrok_ and paste it in `iframe url` in your app settings.
+- Get the `https url` from _ngrok_ and paste it in `iframe URL` in your app settings.
   _run/release_
-- upload html files and dist folder under a **https** server
-- copy the index.html URL (https required) and paste it in `iframe url` in your app settings.
+- upload HTML files and dist folder under a **HTTPS** server
+- copy the index.html URL (HTTPS required) and paste it in `iframe URL` in your app settings.
