@@ -7,6 +7,7 @@ import {TEAM_ENUM, TeamElement} from './team-logic/team-static'
 import {TeamFactory} from './team-logic/team-factory'
 
 import {TeamType} from './team-logic/team-type'
+import {TeamSupplementary} from './team-logic/team-supplementary'
 import {TeamInteraction} from './team-logic/team-interaction'
 import {TeamOther} from './team-logic/team-other'
 
@@ -103,9 +104,15 @@ class Root extends React.Component {
   render() {
     const teamContent = (
       <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
-        <h4 className="sub-title">Team types:</h4>
+        <h4 className="sub-title">Fundamental Team types:</h4>
         <div className="team-types">
           {TeamType.TeamEnums.map((teamEnum) => {
+            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
+          })}
+        </div>
+        <h4 className="sub-title">Supplementary Team types:</h4>
+        <div className="team-supplementary">
+          {TeamSupplementary.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
           })}
         </div>
