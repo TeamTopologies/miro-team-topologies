@@ -9,8 +9,15 @@ p strong {
 p i {
   font-style: italic;
 }
+
 .tt_main_container {
   padding: 20px;
+}
+
+h5.sub-title {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .team-supplementary svg.icon,
@@ -49,11 +56,17 @@ svg.icon {
 }
 
 .team-types,
-.team-supplementary,
 .team-interactions {
   display: flex;
   justify-content: space-around;
   align-items: normal;
+}
+
+.team-supplementary {
+  display: flex;
+  justify-content: left;
+  align-items: normal;
+  padding-left: 1rem;
 }
 
 .draggable-team {

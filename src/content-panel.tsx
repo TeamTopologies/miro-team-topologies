@@ -104,13 +104,14 @@ class Root extends React.Component {
   render() {
     const teamContent = (
       <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
-        <h4 className="sub-title">Fundamental Team types:</h4>
+        <h4 className="sub-title">Team types:</h4>
+        <h5 className="sub-title">Fundamental:</h5>
         <div className="team-types">
           {TeamType.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
           })}
         </div>
-        <h4 className="sub-title">Supplementary Team types:</h4>
+        <h5 className="sub-title">Supplementary:</h5>
         <div className="team-supplementary">
           {TeamSupplementary.TeamEnums.map((teamEnum) => {
             return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
