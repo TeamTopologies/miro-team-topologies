@@ -23,7 +23,7 @@ Start to drag & drop the shapes you need
 
 ![Start Drag & Drop the needed shapes](readme-img/002.Start_drag_and_drop_new.gif)
 
-Once the needed shapes are into your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
+Once you have added the required shapes onto your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
 ![Standard shapes are fully editable](readme-img/003.Standard_Miro_shapes_fully_editable.gif)
 
 # How to build
