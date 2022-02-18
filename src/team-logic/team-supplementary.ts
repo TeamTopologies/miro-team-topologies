@@ -45,7 +45,7 @@ export class TeamSupplementary implements TeamElement {
   getName(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        return 'Undefined team';
+        return 'Undefined team type';
       default:
         return 'none';
     }
