@@ -1,6 +1,9 @@
 import {TEAM_ENUM, TeamElement, TeamElementStyle} from './team-static'
 
-export const FlowOfChangePreview = require('images/tt/flowofchange.svg')
+import FlowOfChangePreview from '../assets/images/tt/flowofchange.svg'
+import ShapeType from '../helpers/ShapeTypes'
+
+export {FlowOfChangePreview}
 
 export class TeamOther implements TeamElement {
   static TeamEnums = [TEAM_ENUM.FlowOfChange]
@@ -14,23 +17,11 @@ export class TeamOther implements TeamElement {
   }
   getStyle(): TeamElementStyle {
     return {
-      shapeType: miro.enums.shapeType.ARROW_RIGHT,
-      backgroundColor: '#FFFFFF',
-      backgroundOpacity: 0,
-      borderColor: '#595959',
-      borderWidth: 3,
-      borderOpacity: 1,
-      borderStyle: miro.enums.borderStyle.DASHED,
-      fontFamily: miro.enums.fontFamily.OPEN_SANS,
-      textColor: '#000',
-      textAlign: 'c',
-      textAlignVertical: 'm',
+      shapeType: ShapeType.RightArrow,
+      fillColor: '#FFFFFF',
+      textAlign: 'center',
+      textAlignVertical: 'middle',
       fontSize: 17,
-      bold: 0,
-      italic: 0,
-      underline: 0,
-      strike: 0,
-      highlighting: '',
     }
   }
 
