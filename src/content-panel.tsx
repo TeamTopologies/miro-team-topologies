@@ -1,145 +1,115 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react';
+import { useEffect } from 'react';
+import * as ReactDOM from 'react-dom';
 
-import SVG from 'react-inlinesvg'
+import SVG from 'react-inlinesvg';
 
-import {TEAM_ENUM, TeamElement} from './team-logic/team-static'
-import {TeamFactory} from './team-logic/team-factory'
+import { TEAM_ENUM, TeamElement } from './team-logic/team-static';
+import { TeamFactory } from './team-logic/team-factory';
 
-import {TeamType} from './team-logic/team-type'
-import {TeamSupplementary} from './team-logic/team-supplementary'
-import {TeamInteraction} from './team-logic/team-interaction'
-import {TeamOther} from './team-logic/team-other'
+import { TeamType } from './team-logic/team-type';
+import { TeamSupplementary } from './team-logic/team-supplementary';
+import { TeamInteraction } from './team-logic/team-interaction';
+import { TeamOther } from './team-logic/team-other';
 
-import DetailsPanel from 'details-panel'
+import DetailsPanel from './details-panel';
+import { DropEvent } from '@mirohq/websdk-types';
 
-require('./styles-miro.css')
-require('./styles.css')
+const ContentPanel = () => {
+  const teamFactory = new TeamFactory();
 
-class Root extends React.Component {
-  private containerRef: any = React.createRef()
-  private viewportScale = 1
-  private teamFactory: TeamFactory
+  useEffect(() => {
+    miro.board.ui.on('drop', drop);
+  });
 
-  constructor(props: any) {
-    super(props)
-    this.teamFactory = new TeamFactory()
-  }
+  const drop = async (e: DropEvent) => {
+    const { x, y, target } = e;
+    const teamElement = teamFactory.getTeamElementFromClassList(target.classList);
+    createTeamWidget(teamElement, { x, y });
+  };
 
-  // Needed to get scale before previewing drag&drop. As D&D callback is not async.
-  updateCurrentScale = () => {
-    miro.board.viewport.getScale().then((scale) => {
-      this.viewportScale = scale
-    })
-  }
-
-  componentDidMount(): void {
-    // Add drag-and-drop for hotspot
-    const dndOption = {
-      dragDirection: 'vertical',
-      draggableItemSelector: '.draggable-team',
-      getDraggableItemPreview: (targetElement: HTMLElement) => {
-        const teamSize = this.teamFactory.getTeamElementFromClassList(targetElement.classList).getShapeSize()
-        const url = this.teamFactory.getTeamElementFromClassList(targetElement.classList).getPreview()
-
-        return {
-          width: 1.3 * this.viewportScale * teamSize.width,
-          height: 1.3 * this.viewportScale * teamSize.height,
-          url: url,
-        }
-      },
-      onDrop: (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
-        const teamElement = this.teamFactory.getTeamElementFromClassList(targetHtml.classList)
-        this.createTeamWidget(teamElement, {x: canvasX, y: canvasY})
-      },
-    }
-    miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
-  }
-
-  private createTeamWidget = async (teamElement: TeamElement, pos?: {x: number; y: number}) => {
-    const teamShapeSize = teamElement.getShapeSize()
+  const createTeamWidget = async (teamElement: TeamElement, pos?: { x: number; y: number }) => {
+    const teamShapeSize = teamElement.getShapeSize();
     if (!pos) {
-      const viewport = await miro.board.viewport.getViewport()
+      const viewport = await miro.board.viewport.get();
       pos = {
         x: viewport.x + viewport.width / 2 - teamShapeSize.width / 2,
-        y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2,
-      }
+        y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2
+      };
     }
-    await miro.board.widgets.create({
-      metadata: {
-        [miro.getClientId()]: {
-          teamtopology: true,
-          teamEnum: TEAM_ENUM[teamElement.getTeamEnum()],
-        },
-      },
-      type: 'SHAPE',
+
+    await miro.board.createShape({
       x: pos.x,
       y: pos.y,
       style: teamElement.getStyle(),
-      createdUserId: '',
-      lastModifiedUserId: '',
       width: teamShapeSize.width,
       height: teamShapeSize.height,
       rotation: 0,
-      text: teamElement.getName(),
-    })
-  }
+      content: teamElement.getName()
+    });
+  };
 
-  renderTeamElement(teamElement: TeamElement) {
+  let setDetailText: (teamEnum: TEAM_ENUM) => void = (_te) => {};
+
+  const renderTeamElement = (teamElement: TeamElement) => {
     return (
       <div
+        draggable={false}
         key={teamElement.getTeamEnum()}
-        className={'draggable-team ' + teamElement.getClassName()}
+        className={'miro-draggable draggable-item draggable-team ' + teamElement.getClassName()}
         title={teamElement.getName()}
-        onClick={() => this.createTeamWidget(teamElement)}
+        onClick={() => createTeamWidget(teamElement)}
         onMouseEnter={() => {
-          if (this.setDetailText != undefined) this.setDetailText(teamElement.getTeamEnum())
+          if (setDetailText != undefined) {
+            setDetailText(teamElement.getTeamEnum());
+          }
         }}
       >
-        <SVG className="icon" src={teamElement.getIcon()} />
+        <SVG className='icon' src={teamElement.getIcon()} />
       </div>
-    )
-  }
+    );
+  };
 
-  render() {
-    const teamContent = (
-      <div className="tt_main_container" onMouseEnter={this.updateCurrentScale}>
-        <h4 className="sub-title">Team types:</h4>
-        <h5 className="sub-title">Fundamental:</h5>
-        <div className="team-types">
-          {TeamType.TeamEnums.map((teamEnum) => {
-            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
-          })}
-        </div>
-        <h5 className="sub-title">Supplementary:</h5>
-        <div className="team-supplementary">
-          {TeamSupplementary.TeamEnums.map((teamEnum) => {
-            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
-          })}
-        </div>
-        <h4 className="sub-title">Team interactions:</h4>
-        <div className="team-interactions">
-          {TeamInteraction.TeamEnums.map((teamEnum) => {
-            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
-          })}
-        </div>
-        <div className="team-other">
-          <h4 className="sub-title">Flow of change:</h4>
-          {TeamOther.TeamEnums.map((teamEnum) => {
-            return this.renderTeamElement(this.teamFactory.getTeamElement(teamEnum))
-          })}
-        </div>
-        <DetailsPanel setOnHover={this.setOnHover} />
+  const setOnHover = (callBack: (teamEnum: TEAM_ENUM) => void) => {
+    setDetailText = callBack;
+  };
+
+  return (
+    <div className='tt_main_container'>
+      <h4 className='sub-title'>Team types:</h4>
+      <h5 className='sub-title'>Fundamental:</h5>
+      <div className='team-types'>
+        {TeamType.TeamEnums.map((teamEnum) => {
+          return renderTeamElement(teamFactory.getTeamElement(teamEnum));
+        })}
       </div>
-    )
-    return <div ref={this.containerRef}>{teamContent}</div>
-  }
-  private setOnHover = (callBack: (teamEnum: TEAM_ENUM) => void) => {
-    this.setDetailText = callBack
-  }
-  private setDetailText: ((teamEnum: TEAM_ENUM) => void) | undefined = undefined
-}
+      <h5 className='sub-title'>Supplementary:</h5>
+      <div className='team-supplementary'>
+        {TeamSupplementary.TeamEnums.map((teamEnum) => {
+          return renderTeamElement(teamFactory.getTeamElement(teamEnum));
+        })}
+      </div>
+      <h4 className='sub-title'>Team interactions:</h4>
+      <div className='team-interactions'>
+        {TeamInteraction.TeamEnums.map((teamEnum) => {
+          return renderTeamElement(teamFactory.getTeamElement(teamEnum));
+        })}
+      </div>
+      <div className='team-other'>
+        <h4 className='sub-title'>Flow of change:</h4>
+        {TeamOther.TeamEnums.map((teamEnum) => {
+          return renderTeamElement(teamFactory.getTeamElement(teamEnum));
+        })}
+      </div>
+      <DetailsPanel setOnHover={setOnHover} />
+    </div>
+  );
+};
 
-miro.onReady(() => {
-  ReactDOM.render(<Root />, document.getElementById('content-panel-react-app'))
-})
+// Render ContentPanel
+ReactDOM.render(
+  <React.StrictMode>
+    <ContentPanel />
+  </React.StrictMode>,
+  document.getElementById('root')
+);

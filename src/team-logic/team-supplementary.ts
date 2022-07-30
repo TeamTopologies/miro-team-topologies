@@ -1,8 +1,9 @@
 import { TEAM_ENUM, TeamElement, TeamElementStyle } from './team-static';
 
-const UndefinedPreview = require('images/tt/undefined.svg');
+import UndefinedPreview from '../assets/images/tt/undefined.svg';
 
-const UndefinedIcon = require('images/tt/icon-undefined.svg');
+import UndefinedIcon from '../assets/images/tt/icon-undefined.svg';
+import ShapeType from '../helpers/ShapeTypes';
 
 export class TeamSupplementary implements TeamElement {
   static TeamEnums = [TEAM_ENUM.UndefinedTeam];
@@ -21,23 +22,11 @@ export class TeamSupplementary implements TeamElement {
       case TEAM_ENUM.UndefinedTeam:
       default:
         return {
-          shapeType: miro.enums.shapeType.PILL,
-          backgroundColor: '#EBEBEF',
-          backgroundOpacity: 1,
-          borderColor: '#9B99AF',
-          borderWidth: 3,
-          borderOpacity: 1,
-          borderStyle: miro.enums.borderStyle.DASHED,
-          fontFamily: miro.enums.fontFamily.OPEN_SANS,
-          textColor: '#000',
-          textAlign: 'c',
-          textAlignVertical: 'm',
-          fontSize: 17,
-          bold: 0,
-          italic: 0,
-          underline: 0,
-          strike: 0,
-          highlighting: ''
+          shapeType: ShapeType.Can,
+          fillColor: '#EBEBEF',
+          textAlign: 'center',
+          textAlignVertical: 'middle',
+          fontSize: 17
         };
     }
   }
@@ -71,7 +60,7 @@ export class TeamSupplementary implements TeamElement {
   getIcon(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        default:
+      default:
         return UndefinedIcon;
     }
   }
@@ -79,7 +68,7 @@ export class TeamSupplementary implements TeamElement {
   getClassName(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        default:
+      default:
         return 'undefined-btn';
     }
   }
@@ -87,7 +76,7 @@ export class TeamSupplementary implements TeamElement {
   private getPreviewSvg(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        default:
+      default:
         return UndefinedPreview;
     }
   }

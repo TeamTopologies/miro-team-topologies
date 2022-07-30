@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist/",
-    "strict": true,
-    "allowUnreachableCode": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
+    "lib": ["esnext", "dom"],
+    "jsx": "preserve",
     "moduleResolution": "node",
-    "jsx": "react",
-    "allowJs": true,
-    "lib": ["DOM", "ES6", "ScriptHost"]
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/@mirohq"]
   },
-  "include": ["src/**/*", "../miro.d.ts"]
+  "include": ["global.d.ts", "src"],
+  "exclude": ["node_modules"]
 }

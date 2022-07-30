@@ -1,153 +1,118 @@
-import {TEAM_ENUM, TeamElementStyle, TeamElement} from './team-static'
-const CollaborationIcon = require('images/ti/collaboration.svg')
-const FacilitatingIcon = require('images/ti/facilitating.svg')
-const XaasIcon = require('images/ti/xaas.svg')
+import { TEAM_ENUM, TeamElementStyle, TeamElement } from './team-static';
+import CollaborationIcon from '../assets/images/ti/collaboration.svg';
+import FacilitatingIcon from '../assets/images/ti/facilitating.svg';
+import XaasIcon from '../assets/images/ti/xaas.svg';
+import ShapeType from '../helpers/ShapeTypes';
 
 export const TeamInteractionPreview = {
   CollaborationIcon,
   FacilitatingIcon,
-  XaasIcon,
-}
+  XaasIcon
+};
 
 export class TeamInteraction implements TeamElement {
-  static TeamEnums = [TEAM_ENUM.Collaboration, TEAM_ENUM.Facilitating, TEAM_ENUM.Xaas]
-  private teamEnum: TEAM_ENUM
+  static TeamEnums = [TEAM_ENUM.Collaboration, TEAM_ENUM.Facilitating, TEAM_ENUM.Xaas];
+  private teamEnum: TEAM_ENUM;
 
   constructor(teamEnum: TEAM_ENUM) {
-    this.teamEnum = teamEnum
+    this.teamEnum = teamEnum;
   }
   getTeamEnum(): TEAM_ENUM {
-    return this.teamEnum
+    return this.teamEnum;
   }
   getStyle(): TeamElementStyle {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
         return {
-          shapeType: miro.enums.shapeType.PARALL,
-          backgroundColor: '#E0DBED',
-          backgroundOpacity: 0.5,
-          borderColor: '#967ee2',
-          borderWidth: 3,
-          borderOpacity: 1,
-          borderStyle: miro.enums.borderStyle.DASHED,
-          fontFamily: miro.enums.fontFamily.OPEN_SANS,
-          textColor: '#000',
-          textAlign: 'c',
-          textAlignVertical: 'm',
+          shapeType: ShapeType.Parallelogram,
+          fillColor: '#E0DBED',
+          textAlign: 'center',
+          textAlignVertical: 'middle',
           fontSize: 17,
-          bold: 0,
-          italic: 0,
-          underline: 0,
-          strike: 0,
-          highlighting: '',
-        }
+        };
       case TEAM_ENUM.Facilitating:
         return {
-          shapeType: miro.enums.shapeType.CIRCLE,
-          backgroundColor: '#E3EFDE',
-          backgroundOpacity: 0.5,
-          borderColor: '#78996b',
-          borderWidth: 3,
-          borderOpacity: 1,
-          borderStyle: miro.enums.borderStyle.DASHED,
-          fontFamily: miro.enums.fontFamily.OPEN_SANS,
-          textColor: '#000',
-          textAlign: 'c',
-          textAlignVertical: 'm',
+          shapeType: ShapeType.Circle,
+          fillColor: '#E3EFDE',
+          textAlign: 'center',
+          textAlignVertical: 'middle',
           fontSize: 17,
-          bold: 0,
-          italic: 0,
-          underline: 0,
-          strike: 0,
-          highlighting: '',
-        }
+        };
       case TEAM_ENUM.Xaas:
       default:
         return {
-          shapeType: miro.enums.shapeType.TRIANGLE,
-          backgroundColor: '#DBDBDB',
-          backgroundOpacity: 0.5,
-          borderColor: '#999696',
-          borderWidth: 3,
-          borderOpacity: 1,
-          borderStyle: miro.enums.borderStyle.DASHED,
-          fontFamily: miro.enums.fontFamily.OPEN_SANS,
-          textColor: '#000',
-          textAlign: 'c',
-          textAlignVertical: 'm',
+          shapeType: ShapeType.Triangle,
+          fillColor: '#DBDBDB',
+          textAlign: 'center',
+          textAlignVertical: 'middle',
           fontSize: 17,
-          bold: 0,
-          italic: 0,
-          underline: 0,
-          strike: 0,
-          highlighting: '',
-        }
+        };
     }
   }
 
   getName(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
-        return 'Collaboration'
+        return 'Collaboration';
       case TEAM_ENUM.Facilitating:
-        return 'Facilitating'
+        return 'Facilitating';
       case TEAM_ENUM.Xaas:
-        return 'Xaas'
+        return 'Xaas';
       default:
-        return 'none'
+        return 'none';
     }
   }
 
-  getShapeSize(): {height: number; width: number} {
-    let width = 150
-    let height = 150
+  getShapeSize(): { height: number; width: number } {
+    let width = 150;
+    let height = 150;
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
-        width = 300
-        height = 100
-        break
+        width = 300;
+        height = 100;
+        break;
       case TEAM_ENUM.Facilitating:
-        width = 130
-        height = 130
-        break
+        width = 130;
+        height = 130;
+        break;
       case TEAM_ENUM.Xaas:
-        width = 100
-        height = 100
-        break
+        width = 100;
+        height = 100;
+        break;
     }
-    return {width, height}
+    return { width, height };
   }
 
   getPreview(): string {
-    const imgPrefix = 'data:image/svg+xml,'
-    return imgPrefix + this.getPreviewSvg()
+    const imgPrefix = 'data:image/svg+xml,';
+    return imgPrefix + this.getPreviewSvg();
   }
 
   getIcon(): string {
-    return this.getPreview()
+    return this.getPreview();
   }
 
   getClassName(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
-        return 'collaboration-btn'
+        return 'collaboration-btn';
       case TEAM_ENUM.Facilitating:
-        return 'facilitating-btn'
+        return 'facilitating-btn';
       case TEAM_ENUM.Xaas:
       default:
-        return 'xaas-btn'
+        return 'xaas-btn';
     }
   }
 
   private getPreviewSvg(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
-        return CollaborationIcon
+        return CollaborationIcon;
       case TEAM_ENUM.Facilitating:
-        return FacilitatingIcon
+        return FacilitatingIcon;
       case TEAM_ENUM.Xaas:
       default:
-        return XaasIcon
+        return XaasIcon;
     }
   }
 }
