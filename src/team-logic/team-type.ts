@@ -22,11 +22,24 @@ export class TeamType implements TeamElement {
     return this.teamEnum;
   }
 
+  getShape(): ShapeType {
+    switch (this.teamEnum) {
+      case TEAM_ENUM.StreamAligned:
+        return ShapeType.RoundRectangle;
+      case TEAM_ENUM.Enabling:
+        return ShapeType.RoundRectangle;
+      case TEAM_ENUM.Platform:
+        return ShapeType.Rectangle;
+      case TEAM_ENUM.ComplicatedSubsystem:
+      default:
+        return ShapeType.Octagon;
+    }
+  }
+
   getStyle(): TeamElementStyle {
     switch (this.teamEnum) {
       case TEAM_ENUM.StreamAligned:
         return {
-          shapeType: ShapeType.RoundRectangle,
           fillColor: '#FFEDB8',
           textAlign: 'center',
           textAlignVertical: 'middle',
@@ -34,7 +47,6 @@ export class TeamType implements TeamElement {
         };
       case TEAM_ENUM.Enabling:
         return {
-          shapeType: ShapeType.RoundRectangle,
           fillColor: '#DFBDCF',
           textAlign: 'center',
           textAlignVertical: 'middle',
@@ -43,7 +55,6 @@ export class TeamType implements TeamElement {
 
       case TEAM_ENUM.Platform:
         return {
-          shapeType: ShapeType.Rectangle,
           fillColor: '#B7CDF1',
           textAlign: 'center',
           textAlignVertical: 'middle',
@@ -53,7 +64,6 @@ export class TeamType implements TeamElement {
       case TEAM_ENUM.ComplicatedSubsystem:
       default:
         return {
-          shapeType: ShapeType.Octagon,
           fillColor: '#FFC08B',
           textAlign: 'center',
           textAlignVertical: 'middle',

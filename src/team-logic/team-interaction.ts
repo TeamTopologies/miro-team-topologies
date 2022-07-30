@@ -17,35 +17,46 @@ export class TeamInteraction implements TeamElement {
   constructor(teamEnum: TEAM_ENUM) {
     this.teamEnum = teamEnum;
   }
+
   getTeamEnum(): TEAM_ENUM {
     return this.teamEnum;
   }
+
+  getShape(): ShapeType {
+    switch (this.teamEnum) {
+      case TEAM_ENUM.Collaboration:
+        return ShapeType.Parallelogram;
+      case TEAM_ENUM.Facilitating:
+        return ShapeType.Circle;
+      case TEAM_ENUM.Xaas:
+      default:
+        return ShapeType.Triangle;
+    }
+  }
+
   getStyle(): TeamElementStyle {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
         return {
-          shapeType: ShapeType.Parallelogram,
           fillColor: '#E0DBED',
           textAlign: 'center',
           textAlignVertical: 'middle',
-          fontSize: 17,
+          fontSize: 17
         };
       case TEAM_ENUM.Facilitating:
         return {
-          shapeType: ShapeType.Circle,
           fillColor: '#E3EFDE',
           textAlign: 'center',
           textAlignVertical: 'middle',
-          fontSize: 17,
+          fontSize: 17
         };
       case TEAM_ENUM.Xaas:
       default:
         return {
-          shapeType: ShapeType.Triangle,
           fillColor: '#DBDBDB',
           textAlign: 'center',
           textAlignVertical: 'middle',
-          fontSize: 17,
+          fontSize: 17
         };
     }
   }
