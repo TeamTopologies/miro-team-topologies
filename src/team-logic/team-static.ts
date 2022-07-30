@@ -1,4 +1,5 @@
-import { FontFamily, TextAlign, TextAlignVertical, ShapeType } from '@mirohq/websdk-types';
+import { FontFamily, TextAlign, TextAlignVertical } from '@mirohq/websdk-types';
+import ShapeType from '../helpers/ShapeTypes';
 
 export enum TEAM_ENUM {
   StreamAligned = 0,
@@ -17,11 +18,11 @@ export interface TeamElementStyle {
   fontSize?: number | undefined;
   textAlign?: TextAlign | undefined;
   textAlignVertical?: TextAlignVertical | undefined;
-  shapeType: ShapeType;
 }
 
 export interface TeamElement {
   getTeamEnum(): TEAM_ENUM;
+  getShape(): ShapeType;
   getStyle(): TeamElementStyle;
   getName(): string;
   getShapeSize(): { height: number; width: number };

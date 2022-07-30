@@ -17,12 +17,19 @@ export class TeamSupplementary implements TeamElement {
     return this.teamEnum;
   }
 
+  getShape(): ShapeType {
+    switch (this.teamEnum) {
+      case TEAM_ENUM.UndefinedTeam:
+      default:
+        return ShapeType.RoundRectangle;
+    }
+  }
+
   getStyle(): TeamElementStyle {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
       default:
         return {
-          shapeType: ShapeType.Can,
           fillColor: '#EBEBEF',
           textAlign: 'center',
           textAlignVertical: 'middle',

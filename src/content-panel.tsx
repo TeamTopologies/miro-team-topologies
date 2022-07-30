@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -14,21 +14,28 @@ import { TeamOther } from './team-logic/team-other';
 
 import DetailsPanel from './details-panel';
 import { DropEvent } from '@mirohq/websdk-types';
+import { createRoot } from 'react-dom/client';
 
 const ContentPanel = () => {
   const teamFactory = new TeamFactory();
 
+  const [dropSet, setDropSet] = useState(false);
+
   useEffect(() => {
-    miro.board.ui.on('drop', drop);
-  });
+    if (!dropSet) {
+      miro.board.ui.on('drop', drop);
+      setDropSet(true);
+    }
+  }, [dropSet, setDropSet]);
 
   const drop = async (e: DropEvent) => {
     const { x, y, target } = e;
     const teamElement = teamFactory.getTeamElementFromClassList(target.classList);
-    createTeamWidget(teamElement, { x, y });
+
+    createTeamShape(teamElement, { x, y });
   };
 
-  const createTeamWidget = async (teamElement: TeamElement, pos?: { x: number; y: number }) => {
+  const createTeamShape = async (teamElement: TeamElement, pos?: { x: number; y: number }) => {
     const teamShapeSize = teamElement.getShapeSize();
     if (!pos) {
       const viewport = await miro.board.viewport.get();
@@ -42,6 +49,7 @@ const ContentPanel = () => {
       x: pos.x,
       y: pos.y,
       style: teamElement.getStyle(),
+      shape: teamElement.getShape(),
       width: teamShapeSize.width,
       height: teamShapeSize.height,
       rotation: 0,
@@ -58,7 +66,7 @@ const ContentPanel = () => {
         key={teamElement.getTeamEnum()}
         className={'miro-draggable draggable-item draggable-team ' + teamElement.getClassName()}
         title={teamElement.getName()}
-        onClick={() => createTeamWidget(teamElement)}
+        onClick={() => createTeamShape(teamElement)}
         onMouseEnter={() => {
           if (setDetailText != undefined) {
             setDetailText(teamElement.getTeamEnum());
@@ -106,10 +114,10 @@ const ContentPanel = () => {
   );
 };
 
-// Render ContentPanel
-ReactDOM.render(
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
   <React.StrictMode>
     <ContentPanel />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
