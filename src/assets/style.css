@@ -74,3 +74,8 @@ svg.icon {
 .draggable-team {
   cursor: pointer;
 }
+
+.flowofchange-btn .icon {
+  height: unset;
+  width: unset;
+}

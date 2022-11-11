@@ -1,16 +1,11 @@
-import { TEAM_ENUM, TeamElementStyle, TeamElement } from './team-static';
+import { TEAM_ENUM, TeamElementStyleInterface, TeamElementInterface } from './team-static';
+import ShapeType from '../helpers/ShapeTypes';
+
 import CollaborationIcon from '../assets/images/ti/collaboration.svg';
 import FacilitatingIcon from '../assets/images/ti/facilitating.svg';
 import XaasIcon from '../assets/images/ti/xaas.svg';
-import ShapeType from '../helpers/ShapeTypes';
 
-export const TeamInteractionPreview = {
-  CollaborationIcon,
-  FacilitatingIcon,
-  XaasIcon
-};
-
-export class TeamInteraction implements TeamElement {
+export class TeamInteraction implements TeamElementInterface {
   static TeamEnums = [TEAM_ENUM.Collaboration, TEAM_ENUM.Facilitating, TEAM_ENUM.Xaas];
   private teamEnum: TEAM_ENUM;
 
@@ -34,7 +29,7 @@ export class TeamInteraction implements TeamElement {
     }
   }
 
-  getStyle(): TeamElementStyle {
+  getStyle(): TeamElementStyleInterface {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
         return {
@@ -94,13 +89,16 @@ export class TeamInteraction implements TeamElement {
     return { width, height };
   }
 
-  getPreview(): string {
-    const imgPrefix = 'data:image/svg+xml,';
-    return imgPrefix + this.getPreviewSvg();
-  }
-
   getIcon(): string {
-    return this.getPreview();
+    switch (this.teamEnum) {
+      case TEAM_ENUM.Collaboration:
+        return CollaborationIcon;
+      case TEAM_ENUM.Facilitating:
+        return FacilitatingIcon;
+      case TEAM_ENUM.Xaas:
+      default:
+        return XaasIcon;
+    }
   }
 
   getClassName(): string {
@@ -112,18 +110,6 @@ export class TeamInteraction implements TeamElement {
       case TEAM_ENUM.Xaas:
       default:
         return 'xaas-btn';
-    }
-  }
-
-  private getPreviewSvg(): string {
-    switch (this.teamEnum) {
-      case TEAM_ENUM.Collaboration:
-        return CollaborationIcon;
-      case TEAM_ENUM.Facilitating:
-        return FacilitatingIcon;
-      case TEAM_ENUM.Xaas:
-      default:
-        return XaasIcon;
     }
   }
 }

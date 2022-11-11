@@ -12,7 +12,7 @@ export enum TEAM_ENUM {
   Xaas = 7,
   FlowOfChange = 8
 }
-export interface TeamElementStyle {
+export interface TeamElementStyleInterface {
   fillColor?: string | undefined;
   fontFamily?: FontFamily | undefined;
   fontSize?: number | undefined;
@@ -20,13 +20,12 @@ export interface TeamElementStyle {
   textAlignVertical?: TextAlignVertical | undefined;
 }
 
-export interface TeamElement {
-  getTeamEnum(): TEAM_ENUM;
-  getShape(): ShapeType;
-  getStyle(): TeamElementStyle;
-  getName(): string;
-  getShapeSize(): { height: number; width: number };
-  getPreview(): string;
-  getIcon(): string;
+export interface TeamElementInterface {
   getClassName(): string;
+  getIcon(): string;
+  getName(): string;
+  getShape(): ShapeType;
+  getShapeSize(): { height: number; width: number };
+  getStyle(): TeamElementStyleInterface;
+  getTeamEnum(): TEAM_ENUM;
 }

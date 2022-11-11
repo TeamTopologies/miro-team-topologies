@@ -1,11 +1,9 @@
-import { TEAM_ENUM, TeamElement, TeamElementStyle } from './team-static';
-
-import UndefinedPreview from '../assets/images/tt/undefined.svg';
-
-import UndefinedIcon from '../assets/images/tt/icon-undefined.svg';
+import { TEAM_ENUM, TeamElementInterface, TeamElementStyleInterface } from './team-static';
 import ShapeType from '../helpers/ShapeTypes';
 
-export class TeamSupplementary implements TeamElement {
+import UndefinedIcon from '../assets/images/tt/icon-undefined.svg';
+
+export class TeamSupplementary implements TeamElementInterface {
   static TeamEnums = [TEAM_ENUM.UndefinedTeam];
   private teamEnum: TEAM_ENUM;
 
@@ -25,7 +23,7 @@ export class TeamSupplementary implements TeamElement {
     }
   }
 
-  getStyle(): TeamElementStyle {
+  getStyle(): TeamElementStyleInterface {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
       default:
@@ -59,11 +57,6 @@ export class TeamSupplementary implements TeamElement {
     return { width, height };
   }
 
-  getPreview(): string {
-    const imgPrefix = 'data:image/svg+xml,';
-    return imgPrefix + this.getPreviewSvg();
-  }
-
   getIcon(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
@@ -77,14 +70,6 @@ export class TeamSupplementary implements TeamElement {
       case TEAM_ENUM.UndefinedTeam:
       default:
         return 'undefined-btn';
-    }
-  }
-
-  private getPreviewSvg(): string {
-    switch (this.teamEnum) {
-      case TEAM_ENUM.UndefinedTeam:
-      default:
-        return UndefinedPreview;
     }
   }
 }
