@@ -1,11 +1,10 @@
-import { TEAM_ENUM, TeamElement, TeamElementStyle } from './team-static';
+import { TEAM_ENUM, TeamElementStyleInterface, TeamElementInterface } from './team-static';
 
-import FlowOfChangePreview from '../assets/images/tt/flowofchange.svg';
 import ShapeType from '../helpers/ShapeTypes';
 
-export { FlowOfChangePreview };
+import FlowOfChangeIcon from '../assets/images/tt/flowofchange.svg';
 
-export class TeamOther implements TeamElement {
+export class TeamOther implements TeamElementInterface {
   static TeamEnums = [TEAM_ENUM.FlowOfChange];
   private teamEnum: TEAM_ENUM;
 
@@ -21,7 +20,7 @@ export class TeamOther implements TeamElement {
     return ShapeType.RightArrow;
   }
 
-  getStyle(): TeamElementStyle {
+  getStyle(): TeamElementStyleInterface {
     return {
       fillColor: '#FFFFFF',
       textAlign: 'center',
@@ -40,13 +39,10 @@ export class TeamOther implements TeamElement {
     return { width, height };
   }
 
-  getPreview(): string {
-    const imgPrefix = 'data:image/svg+xml,';
-    return imgPrefix + FlowOfChangePreview;
-  }
   getIcon(): string {
-    return this.getPreview();
+    return FlowOfChangeIcon;
   }
+
   getClassName(): string {
     return 'flowofchange-btn';
   }
