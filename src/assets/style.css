@@ -1,3 +1,5 @@
+@import 'mirotone/dist/styles.css';
+
 * {
   user-select: none;
 }
@@ -71,4 +73,9 @@ svg.icon {
 
 .draggable-team {
   cursor: pointer;
+}
+
+.flowofchange-btn .icon {
+  height: unset;
+  width: unset;
 }

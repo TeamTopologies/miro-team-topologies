@@ -26,18 +26,14 @@ Start to drag & drop the shapes you need
 Once you have added the required shapes onto your whiteboard, you can edit them as much as you want (since these are standard Miro shapes):
 ![Standard shapes are fully editable](readme-img/003.Standard_Miro_shapes_fully_editable.gif)
 
-# How to build
+# Contribute
 
-You will need the `Webpack-cli` installed globally with npm ENV VAR set.
+## Run the app
 
-- Run `npm install`
-- Run `npm run build` or `npm run watch` to compile the plugin
+- Install dependencies with `npm install`
+- Run the app with `npm start`
 
-_development_
+## Configure your Dev Team and local app in Miro
 
-- Run serve the app `npx serve dist -p 8081`
-- Run `ngrok` using `npx ngrok http 8081`
-- Get the `https url` from _ngrok_ and paste it in `iframe URL` in your app settings.
-  _run/release_
-- upload HTML files and dist folder under a **HTTPS** server
-- copy the index.html URL (HTTPS required) and paste it in `iframe URL` in your app settings.
+Follow [these steps](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-a-developer-team-in-miro) to configure a new Miro Dev Team.
+Then use your local app URL (default: `localhost:3000`) to configure the app.

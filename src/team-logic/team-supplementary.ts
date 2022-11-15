@@ -1,10 +1,9 @@
-import { TEAM_ENUM, TeamElement, TeamElementStyle } from './team-static';
+import { TEAM_ENUM, TeamElementInterface, TeamElementStyleInterface } from './team-static';
+import ShapeType from '../helpers/ShapeTypes';
 
-const UndefinedPreview = require('images/tt/undefined.svg');
+import UndefinedIcon from '../assets/images/tt/icon-undefined.svg';
 
-const UndefinedIcon = require('images/tt/icon-undefined.svg');
-
-export class TeamSupplementary implements TeamElement {
+export class TeamSupplementary implements TeamElementInterface {
   static TeamEnums = [TEAM_ENUM.UndefinedTeam];
   private teamEnum: TEAM_ENUM;
 
@@ -16,28 +15,23 @@ export class TeamSupplementary implements TeamElement {
     return this.teamEnum;
   }
 
-  getStyle(): TeamElementStyle {
+  getShape(): ShapeType {
+    switch (this.teamEnum) {
+      case TEAM_ENUM.UndefinedTeam:
+      default:
+        return ShapeType.RoundRectangle;
+    }
+  }
+
+  getStyle(): TeamElementStyleInterface {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
       default:
         return {
-          shapeType: miro.enums.shapeType.PILL,
-          backgroundColor: '#EBEBEF',
-          backgroundOpacity: 1,
-          borderColor: '#9B99AF',
-          borderWidth: 3,
-          borderOpacity: 1,
-          borderStyle: miro.enums.borderStyle.DASHED,
-          fontFamily: miro.enums.fontFamily.OPEN_SANS,
-          textColor: '#000',
-          textAlign: 'c',
-          textAlignVertical: 'm',
-          fontSize: 17,
-          bold: 0,
-          italic: 0,
-          underline: 0,
-          strike: 0,
-          highlighting: ''
+          fillColor: '#EBEBEF',
+          textAlign: 'center',
+          textAlignVertical: 'middle',
+          fontSize: 17
         };
     }
   }
@@ -63,15 +57,10 @@ export class TeamSupplementary implements TeamElement {
     return { width, height };
   }
 
-  getPreview(): string {
-    const imgPrefix = 'data:image/svg+xml,';
-    return imgPrefix + this.getPreviewSvg();
-  }
-
   getIcon(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        default:
+      default:
         return UndefinedIcon;
     }
   }
@@ -79,16 +68,8 @@ export class TeamSupplementary implements TeamElement {
   getClassName(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.UndefinedTeam:
-        default:
+      default:
         return 'undefined-btn';
-    }
-  }
-
-  private getPreviewSvg(): string {
-    switch (this.teamEnum) {
-      case TEAM_ENUM.UndefinedTeam:
-        default:
-        return UndefinedPreview;
     }
   }
 }
