@@ -5,7 +5,8 @@ miro.onReady(async () => {
     extensionPoints: {
       toolbar: async () => {
         const permissions = await miro.currentUser.getCurrentBoardPermissions()
-        const canEdit = permissions.findIndex((p) => p === 'EDIT_CONTENT') !== -1
+        const canEdit = permissions.includes('EDIT_CONTENT')
+
         if (canEdit) {
           return {
             title: PLUGIN_TITLE,
