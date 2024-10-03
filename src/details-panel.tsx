@@ -35,9 +35,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
     // Enable refresh panel data when hovering change
     this.props.setOnHover(this.setDetailText)
   }
-  //  componentDidMount(): void {
 
-  //  }
   private setDetailText = (teamEnum: TEAM_ENUM): void => {
     this.setState({
       description: teamInfo[teamEnum],
