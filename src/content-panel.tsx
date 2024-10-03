@@ -32,7 +32,7 @@ class Root extends React.Component {
         })
     }
 
-    componentDidMount(): void {
+    async componentDidMount(): void {
         // Add drag-and-drop for hotspot
         const dndOption = {
             dragDirection: 'vertical',
