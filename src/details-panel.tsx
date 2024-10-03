@@ -59,7 +59,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
                 <div>
                     <h4>{genericText.PointOfAttentionTitle}</h4>
                     {this.state.attentionPoints.map((ap) => {
-                        ;<p>ICON and {ap}</p>
+                        <p>ICON and {ap}</p>
                     })}
                 </div>
             )
