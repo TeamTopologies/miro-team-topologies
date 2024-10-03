@@ -32,7 +32,7 @@ class Root extends React.Component {
         })
     }
 
-    async componentDidMount(): void {
+    async componentDidMount() {
         // Add drag-and-drop for hotspot
         const dndOption = {
             dragDirection: 'vertical',
@@ -47,9 +47,9 @@ class Root extends React.Component {
                     url: url,
                 }
             },
-            onDrop: (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
+            onDrop: async (canvasX: number, canvasY: number, targetHtml: HTMLElement) => {
                 const teamElement = this.teamFactory.getTeamElementFromClassList(targetHtml.classList)
-                this.createTeamWidget(teamElement, {x: canvasX, y: canvasY})
+                await this.createTeamWidget(teamElement, {x: canvasX, y: canvasY})
             },
         }
         miro.board.ui.initDraggableItemsContainer(this.containerRef.current, dndOption)
