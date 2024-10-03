@@ -31,8 +31,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
     }
 
     // TODO: Get widget meta-data to init state.
-    // eslint-disable-next-line
-    async componentWillMount() {
+    async componentDidMount() {
         // Enable refresh panel data when hovering change
         this.props.setOnHover(this.setDetailText)
     }
