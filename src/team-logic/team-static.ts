@@ -36,4 +36,5 @@ export interface TeamElement {
   getPreview(): string
   getIcon(): string
   getClassName(): string
+  getShapeType(): string
 }
