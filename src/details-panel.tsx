@@ -53,6 +53,7 @@ export default class DetailsPanel extends React.Component<IProps, IState> {
         } else {
             detailArea = <span className="label label-info">{genericText.PleaseSelectWidget}</span>
         }
+
         if (this.state.attentionPoints !== undefined) {
             attentionArea = (
                 <div>
