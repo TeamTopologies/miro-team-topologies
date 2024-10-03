@@ -177,6 +177,10 @@ export class TeamType implements TeamElement {
     }
   }
 
+  getShapeType(): string {
+    return miro.enums.shapeType[this.getStyle().shapeType].toLowerCase()
+  }
+
   private getPreviewSvg(): string {
     switch (this.teamEnum) {
       case TEAM_ENUM.StreamAligned:
