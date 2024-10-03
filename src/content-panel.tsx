@@ -64,23 +64,21 @@ class Root extends React.Component {
                 y: viewport.y + viewport.height / 2 - teamShapeSize.height / 2,
             }
         }
-        await miro.board.widgets.create({
+
+        await miro.board.createShape({
             metadata: {
                 [miro.getClientId()]: {
                     teamtopology: true,
                     teamEnum: TEAM_ENUM[teamElement.getTeamEnum()],
                 },
             },
-            type: 'SHAPE',
             x: pos.x,
             y: pos.y,
             style: teamElement.getStyle(),
-            createdUserId: '',
-            lastModifiedUserId: '',
             width: teamShapeSize.width,
             height: teamShapeSize.height,
-            rotation: 0,
-            text: teamElement.getName(),
+            content: teamElement.getName(),
+            shape: teamElement.getShapeType(),
         })
     }
 
