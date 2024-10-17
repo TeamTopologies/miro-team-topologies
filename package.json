@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "miro-team-topologies": "file:",
     "mirotone": "3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
