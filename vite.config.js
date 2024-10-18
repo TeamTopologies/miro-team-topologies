@@ -22,11 +22,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: allHtmlEntries,
-      external: ["/src/App.tsx"],
     },
   },
   plugins: [reactRefresh()],
-  server: {
-    port: 3000,
-  },
 });
