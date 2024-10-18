@@ -33,6 +33,7 @@ export class TeamInteraction implements TeamElementInterface {
     switch (this.teamEnum) {
       case TEAM_ENUM.Collaboration:
         return {
+          borderColor: '#967EE2',
           fillColor: '#E0DBED',
           textAlign: 'center',
           textAlignVertical: 'middle',
@@ -40,6 +41,7 @@ export class TeamInteraction implements TeamElementInterface {
         };
       case TEAM_ENUM.Facilitating:
         return {
+          borderColor: '#78996B',
           fillColor: '#E3EFDE',
           textAlign: 'center',
           textAlignVertical: 'middle',
@@ -48,6 +50,7 @@ export class TeamInteraction implements TeamElementInterface {
       case TEAM_ENUM.Xaas:
       default:
         return {
+          borderColor: '#999696',
           fillColor: '#DBDBDB',
           textAlign: 'center',
           textAlignVertical: 'middle',
