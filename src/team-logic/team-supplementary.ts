@@ -28,6 +28,7 @@ export class TeamSupplementary implements TeamElementInterface {
       case TEAM_ENUM.UndefinedTeam:
       default:
         return {
+          borderStyle: 'dashed',
           borderColor: '#9B99AF',
           fillColor: '#EBEBEF',
           textAlign: 'center',
