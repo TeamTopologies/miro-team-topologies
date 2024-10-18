@@ -35,6 +35,7 @@ export class TeamType implements TeamElementInterface {
     switch (this.teamEnum) {
       case TEAM_ENUM.StreamAligned:
         return {
+          borderStyle: 'normal',
           borderColor: '#FFD966',
           fillColor: '#FFEDB8',
           textAlign: 'center',
@@ -43,6 +44,7 @@ export class TeamType implements TeamElementInterface {
         };
       case TEAM_ENUM.Enabling:
         return {
+          borderStyle: 'normal',
           borderColor: '#D09CB7',
           fillColor: '#DFBDCF',
           textAlign: 'center',
@@ -52,6 +54,7 @@ export class TeamType implements TeamElementInterface {
 
       case TEAM_ENUM.Platform:
         return {
+          borderStyle: 'normal',
           borderColor: '#6D9EEB',
           fillColor: '#B7CDF1',
           textAlign: 'center',
@@ -62,6 +65,7 @@ export class TeamType implements TeamElementInterface {
       case TEAM_ENUM.ComplicatedSubsystem:
       default:
         return {
+          borderStyle: 'normal',
           borderColor: '#E88814',
           fillColor: '#FFC08B',
           textAlign: 'center',

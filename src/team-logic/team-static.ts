@@ -13,6 +13,7 @@ export enum TEAM_ENUM {
   FlowOfChange = 8
 }
 export interface TeamElementStyleInterface {
+  borderStyle: string | undefined;
   borderColor: string | undefined;
   fillColor?: string | undefined;
   fontFamily?: FontFamily | undefined;
