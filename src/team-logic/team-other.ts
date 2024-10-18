@@ -22,6 +22,8 @@ export class TeamOther implements TeamElementInterface {
 
   getStyle(): TeamElementStyleInterface {
     return {
+      borderStyle: 'dashed',
+      borderColor: '#000000',
       fillColor: '#FFFFFF',
       textAlign: 'center',
       textAlignVertical: 'middle',
