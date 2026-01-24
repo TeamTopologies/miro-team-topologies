@@ -8,7 +8,9 @@ import EnablingIcon from '../assets/images/tt/icon-enabling.svg';
 import ComplicatedSubsystemIcon from '../assets/images/tt/icon-complicated-subsystem.svg';
 
 export class TeamType implements TeamElementInterface {
-  static TeamEnums = [TEAM_ENUM.ValueStreamGroup, TEAM_ENUM.StreamAligned, TEAM_ENUM.Platform, TEAM_ENUM.Enabling, TEAM_ENUM.ComplicatedSubsystem];
+  static GroupingEnums = [TEAM_ENUM.ValueStreamGroup, TEAM_ENUM.Platform];
+  static TeamEnums = [TEAM_ENUM.StreamAligned, TEAM_ENUM.Enabling, TEAM_ENUM.ComplicatedSubsystem];
+  
   private teamEnum: TEAM_ENUM;
 
   constructor(teamEnum: TEAM_ENUM) {
@@ -67,7 +69,7 @@ export class TeamType implements TeamElementInterface {
 
       case TEAM_ENUM.Platform:
         return {
-          borderStyle: 'normal',
+          borderStyle: 'dotted',
           borderColor: '#6D9EEB',
           fillColor: '#B7CDF1',
           textAlign: 'left',
@@ -90,16 +92,16 @@ export class TeamType implements TeamElementInterface {
 
   getName(): string {
     switch (this.teamEnum) {
-      case TEAM_ENUM.ValueStreamGroup:
-        return 'Value Stream Group';
       case TEAM_ENUM.StreamAligned:
         return 'Stream-aligned team';
-      case TEAM_ENUM.Platform:
-        return 'Platform team';
       case TEAM_ENUM.Enabling:
         return 'Enabling team';
       case TEAM_ENUM.ComplicatedSubsystem:
         return 'Complicated Subsystem team';
+      case TEAM_ENUM.ValueStreamGroup:
+        return 'Value Stream Grouping';
+      case TEAM_ENUM.Platform:
+        return 'Platform Grouping';
       default:
         return 'none';
     }

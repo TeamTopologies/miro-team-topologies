@@ -24,7 +24,8 @@ h5.sub-title {
 }
 
 .team-supplementary svg.icon,
-.team-interactions svg.icon {
+.team-interactions svg.icon,
+.groupings svg.icon {
   width: 40px;
   height: 40px;
 }
@@ -58,8 +59,15 @@ svg.icon {
   box-sizing: border-box;
 }
 
+.teams-and-groups {
+  display: flex;
+  justify-content: space-around;
+  align-items: normal;
+}
+
 .team-types,
-.team-interactions {
+.team-interactions,
+.groupings {
   display: flex;
   justify-content: space-around;
   align-items: normal;

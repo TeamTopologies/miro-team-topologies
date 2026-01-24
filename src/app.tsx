@@ -89,24 +89,41 @@ const App = (): JSX.Element => {
 
   return (
     <div className='tt_main_container'>
-      <h4 className='sub-title'>Topologies:</h4>
-      <div className='team-types'>
-        {TeamType.TeamEnums.map((teamEnum) => (
-          <TeamElement
-            teamElement={teamFactory.getTeamElement(teamEnum)}
-            key={teamEnum}
-            createTeamShape={createTeamShape}
-            setDetailText={setDetailText}
-          />
-        ))}
-        {TeamSupplementary.TeamEnums.map((teamEnum) => (
-          <TeamElement
-            teamElement={teamFactory.getTeamElement(teamEnum)}
-            key={teamEnum}
-            createTeamShape={createTeamShape}
-            setDetailText={setDetailText}
-          />
-        ))}
+      <div className='teams-and-groups'>
+        <div>
+          <h4 className='sub-title'>Teams:</h4>
+          <div className='team-types'>
+            {TeamType.TeamEnums.map((teamEnum) => (
+              <TeamElement
+                teamElement={teamFactory.getTeamElement(teamEnum)}
+                key={teamEnum}
+                createTeamShape={createTeamShape}
+                setDetailText={setDetailText}
+              />
+            ))}
+            {TeamSupplementary.TeamEnums.map((teamEnum) => (
+              <TeamElement
+                teamElement={teamFactory.getTeamElement(teamEnum)}
+                key={teamEnum}
+                createTeamShape={createTeamShape}
+                setDetailText={setDetailText}
+              />
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className='sub-title'>Groupings:</h4>
+          <div className='groupings'>
+            {TeamType.GroupingEnums.map((groupEnum) => (
+              <TeamElement
+                teamElement={teamFactory.getTeamElement(groupEnum)}
+                key={groupEnum}
+                createTeamShape={createTeamShape}
+                setDetailText={setDetailText}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <h4 className='sub-title'>Interaction Modes:</h4>
       <div className='team-interactions'>

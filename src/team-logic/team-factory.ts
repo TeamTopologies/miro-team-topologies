@@ -49,6 +49,12 @@ export class TeamFactory {
     });
 
     TeamFactory.TeamElements = TeamFactory.TeamElements.concat(
+      TeamType.GroupingEnums.map((elt) => {
+        return new TeamType(elt);
+      })
+    );
+
+    TeamFactory.TeamElements = TeamFactory.TeamElements.concat(
       TeamSupplementary.TeamEnums.map((elt) => {
         return new TeamSupplementary(elt);
       })
