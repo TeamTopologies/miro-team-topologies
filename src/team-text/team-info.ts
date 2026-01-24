@@ -20,4 +20,5 @@ teamText[TEAM_ENUM.FlowOfChange] =
 teamText[TEAM_ENUM.UndefinedInterction] = '**Undefined Interaction:** Use this to represent an interaction between teams that does not fit the Team Topologies core interaction modes.';
 teamText[TEAM_ENUM.TemporalCoupling] = '**Temporal Coupling:** Use this to indicate when teams are coupled in time. They cannot deliver value without waiting for another team to complete their work first.';
 teamText[TEAM_ENUM.Handover] = '**Handover:** Use this make handovers between teams more visible.';
+teamText[TEAM_ENUM.ValueStreamGroup] = '**Value Stream Group:** a grouping of value stream activities, typically where teams are expected to work more closely together.';
 export default teamText;
