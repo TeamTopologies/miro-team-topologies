@@ -47,6 +47,10 @@ export class TeamSupplementary implements TeamElementInterface {
     }
   }
 
+  getRotation(): number {
+    return 0;
+  }
+
   getShapeSize(): { height: number; width: number } {
     let width = 150;
     let height = 150;

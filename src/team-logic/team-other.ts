@@ -32,7 +32,11 @@ export class TeamOther implements TeamElementInterface {
   }
 
   getName(): string {
-    return 'Flow of change';
+    return 'Flow of value: {Scenario}';
+  }
+
+  getRotation(): number {
+    return 0;
   }
 
   getShapeSize(): { height: number; width: number } {

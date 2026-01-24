@@ -10,7 +10,11 @@ export enum TEAM_ENUM {
   Collaboration = 5,
   Facilitating = 6,
   Xaas = 7,
-  FlowOfChange = 8
+  FlowOfChange = 8,
+  UndefinedInterction = 9,
+  TemporalCoupling = 10,
+  Handover = 11,
+  ValueStreamGroup = 12
 }
 export interface TeamElementStyleInterface {
   borderStyle: string | undefined;
@@ -20,12 +24,14 @@ export interface TeamElementStyleInterface {
   fontSize?: number | undefined;
   textAlign?: TextAlign | undefined;
   textAlignVertical?: TextAlignVertical | undefined;
+  fillOpacity?: number | undefined;
 }
 
 export interface TeamElementInterface {
   getClassName(): string;
   getIcon(): string;
   getName(): string;
+  getRotation(): number;
   getShape(): ShapeType;
   getShapeSize(): { height: number; width: number };
   getStyle(): TeamElementStyleInterface;

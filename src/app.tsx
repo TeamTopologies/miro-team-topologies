@@ -49,16 +49,37 @@ const App = (): JSX.Element => {
       };
     }
 
-    await board.createShape({
+    const rotation = teamElement.getRotation();
+    const hasRotation = rotation !== 0;
+
+    const shape = await board.createShape({
       x: pos.x,
       y: pos.y,
       style: teamElement.getStyle(),
       shape: teamElement.getShape(),
       width: teamShapeSize.width,
       height: teamShapeSize.height,
-      rotation: 0,
-      content: teamElement.getName()
+      rotation: rotation,
+      content: hasRotation ? '' : teamElement.getName()
     });
+
+    // Create separate text element for rotated shapes so text stays upright
+    if (hasRotation) {
+      const text = await board.createText({
+        x: pos.x,
+        y: pos.y,
+        width: teamShapeSize.width,
+        content: teamElement.getName(),
+        style: {
+          textAlign: 'center',
+          fontSize: teamElement.getStyle().fontSize
+        }
+      });
+
+      // Group shape and text together (requires SDK 2.9+)
+      // @ts-ignore - group method exists but may not be in older type definitions
+      await board.group({ items: [shape, text] });
+    }
   };
 
   const setDetailText = (teamEnum: TEAM_ENUM) => {
@@ -68,8 +89,7 @@ const App = (): JSX.Element => {
 
   return (
     <div className='tt_main_container'>
-      <h4 className='sub-title'>Team types:</h4>
-      <h5 className='sub-title'>Fundamental:</h5>
+      <h4 className='sub-title'>Topologies:</h4>
       <div className='team-types'>
         {TeamType.TeamEnums.map((teamEnum) => (
           <TeamElement
@@ -79,9 +99,6 @@ const App = (): JSX.Element => {
             setDetailText={setDetailText}
           />
         ))}
-      </div>
-      <h5 className='sub-title'>Supplementary:</h5>
-      <div className='team-supplementary'>
         {TeamSupplementary.TeamEnums.map((teamEnum) => (
           <TeamElement
             teamElement={teamFactory.getTeamElement(teamEnum)}
@@ -91,7 +108,7 @@ const App = (): JSX.Element => {
           />
         ))}
       </div>
-      <h4 className='sub-title'>Team interactions:</h4>
+      <h4 className='sub-title'>Interaction Modes:</h4>
       <div className='team-interactions'>
         {TeamInteraction.TeamEnums.map((teamEnum) => (
           <TeamElement
