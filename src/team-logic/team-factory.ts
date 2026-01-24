@@ -34,7 +34,7 @@ export class TeamFactory {
     else if (classList.contains('collaboration-btn')) teamElement = TEAM_ENUM.Collaboration;
     else if (classList.contains('facilitating-btn')) teamElement = TEAM_ENUM.Facilitating;
     else if (classList.contains('xaas-btn')) teamElement = TEAM_ENUM.Xaas;
-    else if (classList.contains('flowofchange-btn')) teamElement = TEAM_ENUM.FlowOfChange;
+    else if (classList.contains('flowofvalue-btn')) teamElement = TEAM_ENUM.FlowOfValue;
     else if (classList.contains('handover-btn')) teamElement = TEAM_ENUM.Handover;
     else if (classList.contains('undefined-interaction-btn')) teamElement = TEAM_ENUM.UndefinedInterction;
     else if (classList.contains('temporal-coupling-btn')) teamElement = TEAM_ENUM.TemporalCoupling;

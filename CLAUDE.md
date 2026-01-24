@@ -36,10 +36,10 @@ interface TeamElementInterface {
 ### Team Element Classes
 | File | Teams |
 |------|-------|
-| `team-type.ts` | StreamAligned, Platform, Enabling, ComplicatedSubsystem |
+| `team-type.ts` | ValueStreamGroup, StreamAligned, Platform, Enabling, ComplicatedSubsystem |
 | `team-supplementary.ts` | UndefinedTeam |
 | `team-interaction.ts` | Collaboration, Facilitating, Xaas, UndefinedInteraction, TemporalCoupling, Handover |
-| `team-other.ts` | FlowOfChange |
+| `team-other.ts` | FlowOfValue |
 
 ## Adding a New Team Element
 

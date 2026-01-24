@@ -120,7 +120,7 @@ const App = (): JSX.Element => {
         ))}
       </div>
       <div className='team-other'>
-        <h4 className='sub-title'>Flow of change:</h4>
+        <h4 className='sub-title'>Flow of value:</h4>
         {TeamOther.TeamEnums.map((teamEnum) => (
           <TeamElement
             teamElement={teamFactory.getTeamElement(teamEnum)}

@@ -2,10 +2,10 @@ import { TEAM_ENUM, TeamElementStyleInterface, TeamElementInterface } from './te
 
 import ShapeType from '../helpers/ShapeTypes';
 
-import FlowOfChangeIcon from '../assets/images/tt/flowofchange.svg';
+import FlowOfValueIcon from '../assets/images/tt/flowofvalue.svg';
 
 export class TeamOther implements TeamElementInterface {
-  static TeamEnums = [TEAM_ENUM.FlowOfChange];
+  static TeamEnums = [TEAM_ENUM.FlowOfValue];
   private teamEnum: TEAM_ENUM;
 
   constructor(teamEnum: TEAM_ENUM) {
@@ -46,10 +46,10 @@ export class TeamOther implements TeamElementInterface {
   }
 
   getIcon(): string {
-    return FlowOfChangeIcon;
+    return FlowOfValueIcon;
   }
 
   getClassName(): string {
-    return 'flowofchange-btn';
+    return 'flowofvalue-btn';
   }
 }

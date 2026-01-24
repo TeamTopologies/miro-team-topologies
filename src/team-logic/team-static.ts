@@ -10,7 +10,7 @@ export enum TEAM_ENUM {
   Collaboration = 5,
   Facilitating = 6,
   Xaas = 7,
-  FlowOfChange = 8,
+  FlowOfValue = 8,
   UndefinedInterction = 9,
   TemporalCoupling = 10,
   Handover = 11,
