@@ -21,4 +21,6 @@ teamText[TEAM_ENUM.UndefinedInterction] = '**Undefined Interaction:** Use this t
 teamText[TEAM_ENUM.TemporalCoupling] = '**Temporal Coupling:** Use this to indicate when teams are coupled in time. They cannot deliver value without waiting for another team to complete their work first.';
 teamText[TEAM_ENUM.Handover] = '**Handover:** Use this make handovers between teams more visible.';
 teamText[TEAM_ENUM.ValueStreamGroup] = '**Value Stream Group:** a grouping of value stream activities, typically where teams are expected to work more closely together.';
+teamText[TEAM_ENUM.PlatformGroup] = '**Platform Grouping:** a grouping of other team types that provide a compelling internal product to accelerate delivery by Stream-aligned teams.';
+teamText[TEAM_ENUM.UndefinedGroup] = '**Undefined Group:** a grouping of teams that is neither a well-defined value stream group or a platform group.';
 export default teamText;

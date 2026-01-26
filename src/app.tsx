@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { DropEvent } from '@mirohq/websdk-types';
 import { createRoot } from 'react-dom/client';
-
 import { TeamFactory } from './team-logic/team-factory';
-
 import { TeamType } from './team-logic/team-type';
-import { TeamSupplementary } from './team-logic/team-supplementary';
 import { TEAM_ENUM, TeamElementInterface } from './team-logic/team-static';
 import { TeamInteraction } from './team-logic/team-interaction';
 import { TeamOther } from './team-logic/team-other';
@@ -89,30 +86,18 @@ const App = (): JSX.Element => {
 
   return (
     <div className='tt_main_container'>
-      <div className='teams-and-groups'>
-        <div>
-          <h4 className='sub-title'>Teams:</h4>
-          <div className='team-types'>
-            {TeamType.TeamEnums.map((teamEnum) => (
-              <TeamElement
-                teamElement={teamFactory.getTeamElement(teamEnum)}
-                key={teamEnum}
-                createTeamShape={createTeamShape}
-                setDetailText={setDetailText}
-              />
-            ))}
-            {TeamSupplementary.TeamEnums.map((teamEnum) => (
-              <TeamElement
-                teamElement={teamFactory.getTeamElement(teamEnum)}
-                key={teamEnum}
-                createTeamShape={createTeamShape}
-                setDetailText={setDetailText}
-              />
-            ))}
-          </div>
-        </div>
-        <div>
-          <h4 className='sub-title'>Groupings:</h4>
+      <h4 className='sub-title'>Teams:</h4>
+      <div className='team-types'>
+        {TeamType.TeamEnums.map((teamEnum) => (
+          <TeamElement
+            teamElement={teamFactory.getTeamElement(teamEnum)}
+            key={teamEnum}
+            createTeamShape={createTeamShape}
+            setDetailText={setDetailText}
+          />
+        ))}
+      </div>
+      <h4 className='sub-title'>Groupings:</h4>
           <div className='groupings'>
             {TeamType.GroupingEnums.map((groupEnum) => (
               <TeamElement
@@ -123,8 +108,6 @@ const App = (): JSX.Element => {
               />
             ))}
           </div>
-        </div>
-      </div>
       <h4 className='sub-title'>Interaction Modes:</h4>
       <div className='team-interactions'>
         {TeamInteraction.TeamEnums.map((teamEnum) => (

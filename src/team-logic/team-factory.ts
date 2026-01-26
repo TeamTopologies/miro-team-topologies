@@ -2,7 +2,6 @@ import { TEAM_ENUM, TeamElementInterface } from './team-static';
 import { TeamType } from './team-type';
 import { TeamInteraction } from './team-interaction';
 import { TeamOther } from './team-other';
-import { TeamSupplementary } from './team-supplementary';
 
 export class TeamFactory {
   private static TeamElements: TeamElementInterface[];
@@ -51,12 +50,6 @@ export class TeamFactory {
     TeamFactory.TeamElements = TeamFactory.TeamElements.concat(
       TeamType.GroupingEnums.map((elt) => {
         return new TeamType(elt);
-      })
-    );
-
-    TeamFactory.TeamElements = TeamFactory.TeamElements.concat(
-      TeamSupplementary.TeamEnums.map((elt) => {
-        return new TeamSupplementary(elt);
       })
     );
 

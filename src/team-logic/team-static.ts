@@ -14,7 +14,9 @@ export enum TEAM_ENUM {
   UndefinedInterction = 9,
   TemporalCoupling = 10,
   Handover = 11,
-  ValueStreamGroup = 12
+  ValueStreamGroup = 12,
+  PlatformGroup = 13,
+  UndefinedGroup = 14
 }
 export interface TeamElementStyleInterface {
   borderStyle: string | undefined;
