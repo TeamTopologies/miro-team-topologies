@@ -6,7 +6,7 @@ import PlatformGroupIcon from '../assets/images/tt/icon-platform-group.svg';
 import UndefinedTeamIcon from '../assets/images/tt/icon-undefined.svg';
 import UndefinedGroupIcon from '../assets/images/tt/icon-undefined-group.svg';
 import StreamAlignedIcon from '../assets/images/tt/icon-stream-aligned.svg';
-import PlatformIcon from '../assets/images/tt/icon-platform.svg';
+import PlatformIcon from '../assets/images/tt/icon-platform-group.svg';
 import EnablingIcon from '../assets/images/tt/icon-enabling.svg';
 import ComplicatedSubsystemIcon from '../assets/images/tt/icon-complicated-subsystem.svg';
 
@@ -91,7 +91,7 @@ export class TeamType implements TeamElementInterface {
 
       case TEAM_ENUM.Platform:
         return {
-          borderStyle: 'normal',
+          borderStyle: 'dotted',
           borderColor: '#6D9EEB',
           fillColor: '#B7CDF1',
           textAlign: 'left',
