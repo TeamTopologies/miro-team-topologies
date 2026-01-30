@@ -27,10 +27,15 @@ Once you have added the required shapes onto your whiteboard, you can edit them 
 
 ## Contribute
 
-## Run the app
+### Run the app
 
 - Install dependencies with `npm install`
 - Run the app with `npm start`
+
+### Run tests
+
+- Run tests with `npm test`
+- Tests run automatically on push and pull requests via GitHub Actions
 
 ## Configure your Dev Team and local app in Miro
 

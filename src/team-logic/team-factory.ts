@@ -29,7 +29,7 @@ export class TeamFactory {
     if (classList.contains('stream-aligned-btn')) teamElement = TEAM_ENUM.StreamAligned;
     else if (classList.contains('platform-btn')) teamElement = TEAM_ENUM.Platform;
     else if (classList.contains('enabling-btn')) teamElement = TEAM_ENUM.Enabling;
-    else if (classList.contains('undefined-btn')) teamElement = TEAM_ENUM.UndefinedTeam;
+    else if (classList.contains('undefined-team-btn')) teamElement = TEAM_ENUM.UndefinedTeam;
     else if (classList.contains('collaboration-btn')) teamElement = TEAM_ENUM.Collaboration;
     else if (classList.contains('facilitating-btn')) teamElement = TEAM_ENUM.Facilitating;
     else if (classList.contains('xaas-btn')) teamElement = TEAM_ENUM.Xaas;
@@ -38,6 +38,8 @@ export class TeamFactory {
     else if (classList.contains('undefined-interaction-btn')) teamElement = TEAM_ENUM.UndefinedInterction;
     else if (classList.contains('temporal-coupling-btn')) teamElement = TEAM_ENUM.TemporalCoupling;
     else if (classList.contains('value-stream-group-btn')) teamElement = TEAM_ENUM.ValueStreamGroup;
+    else if (classList.contains('platform-group-btn')) teamElement = TEAM_ENUM.PlatformGroup;
+    else if (classList.contains('undefined-group-btn')) teamElement = TEAM_ENUM.UndefinedGroup;
 
     return this.getTeamElement(teamElement);
   }
